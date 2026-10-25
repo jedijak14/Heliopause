@@ -12,3 +12,8 @@ Saved/
 *.xcworkspace/
 Artifacts/
 __pycache__/
+node_modules/
+BrowserPreview/build/
+
+site/
+.vercel/

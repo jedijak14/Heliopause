@@ -1,6 +1,6 @@
 # Asset provenance and inventory
 
-No third-party models, textures, sound packs, voice recordings, fonts or shader libraries were downloaded.
+The Unreal source preview uses no downloaded third-party model, texture, sound pack, voice recording, font or shader assets. The later HTML preview additionally bundles Three.js and open-license fonts locally; see `BrowserPreview/THIRD_PARTY_NOTICES.txt`. Its 3D assets are original procedural geometry and shaders.
 
 | Asset | Persisted source | Runtime form |
 |---|---|---|

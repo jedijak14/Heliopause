@@ -6,6 +6,12 @@ An offline, procedural spacecraft simulation **source preview** for Unreal Engin
 
 The supplied browser source was truncated inside a post-process shader. This repository implements the requested mechanics as native C++, rather than wrapping incomplete HTML or renaming it to `.uproject`. It retains the SV-7 setting, cyan/amber terminal style, first-person controls, EVA event concept, tablet, and local/offline design. The original planet rendering and post-processing shaders are **not** reproduced.
 
+## Open the HTML preview
+
+A self-contained interactive browser preview is now included: **[`BrowserPreview/heliopause.html`](BrowserPreview/heliopause.html)**. Download/open that file in a WebGL2-capable browser. It bundles the 3D scene, procedural assets, fonts, UI and audio without external requests.
+
+The preview includes cockpit/hull cameras, all four compartments, interactive systems and hazards, drone links, offline audio, and a responsive bridge interface. It is a separate browser implementation, **not an Unreal build or Pixel Streaming session**. See [BrowserPreview/README.md](BrowserPreview/README.md) for controls, source/build commands, tests, licenses, and simulation scope.
+
 ## Open the project
 
 1. Download and extract the **entire source ZIP** from the GitHub release, or clone this branch. The `.uproject` alone is not the game; keep `Source`, `Config`, and `Content` beside it.
