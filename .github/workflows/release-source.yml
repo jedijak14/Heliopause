@@ -1,0 +1,28 @@
+name: Attach verified source archive
+on:
+  release:
+    types: [published]
+permissions:
+  contents: write
+jobs:
+  source-archive:
+    if: github.event.release.tag_name == 'v0.1.0-source-preview'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test portable rules and assets (not Unreal)
+        run: bash Tools/test.sh
+      - name: Package committed source and checksums
+        run: python3 Tools/package_source.py
+      - name: Attach source-only release files
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v0.1.0-source-preview Artifacts/Heliopause-v0.1.0-source-preview.zip Artifacts/Heliopause-v0.1.0-source-preview.zip.sha256 --clobber
