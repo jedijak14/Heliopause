@@ -53,3 +53,5 @@ Use the engine's supported Linux toolchain. The native Windows TTS implementatio
 ## Reproducible source archive
 
 `python3 Tools/package_source.py` archives only files tracked by Git, with a per-file SHA-256 manifest and source revision. Run it only on a clean committed tree. Build outputs, user audio, credentials and DerivedDataCache are excluded. The GitHub source prerelease targets the session branch commit and includes this archive; it does not change `main`.
+
+On GitHub, `.github/workflows/release-source.yml` reacts to publication of this prerelease, reruns portable tests, builds the deterministic source ZIP, and attaches it with its checksum. This avoids relying on the authoring sandbox reaching GitHub's separate upload host. The workflow does **not** build Unreal binaries and is clearly labeled accordingly.
