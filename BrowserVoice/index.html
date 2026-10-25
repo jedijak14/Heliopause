@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; media-src blob:; connect-src 'none'; img-src 'none'">
+<title>HELIOPAUSE / Local voice index</title><link rel="stylesheet" href="style.css">
+</head><body>
+<main>
+<header><span>SV-7 LONGHAUL / OFFLINE UTILITY</span><h1>HELIOPAUSE</h1><p>LOCAL VOICE INDEX</p></header>
+<section id="drop"><h2>Bring your own voice files</h2><p>Drop MP3, WAV or OGG files here. Filenames map to ship events. Nothing is uploaded.</p>
+<label class="button">Choose audio<input id="files" type="file" multiple accept="audio/*,.wav,.mp3,.ogg"></label>
+<label class="button">Choose folder<input id="folder" type="file" multiple webkitdirectory></label>
+<p class="muted">Example: eva_alert.mp3, eva_welcome.wav, eva_intrusion.mp3, ambient_hum.wav. Maximum 16 MB per file, 64 MB total. Local storage varies by browser.</p></section>
+<section><h2>Event monitor</h2><div class="controls"><button data-event="eva_welcome">WELCOME</button><button data-event="eva_alert">ALERT</button><button data-event="eva_intrusion">INTRUSION</button><button id="hum">AMBIENT HUM</button><button id="stop">STOP</button></div>
+<p id="status" role="status">Loading local index…</p><p id="subtitle" aria-live="polite">EVA standing by.</p></section>
+<section><h2>Saved on this device</h2><ul id="index"></ul><button id="clear">FORGET LOCAL FILES</button></section>
+<footer>This is an offline audio companion, not the Unreal game or a complete reconstruction of the truncated WebGL source. Native Unreal overrides go in <code>Saved/Voice</code> as PCM16 WAV. Browser voices are used only when marked local by the browser.</footer>
+</main><script src="voice.js"></script><script src="ui.js"></script>
+</body></html>
