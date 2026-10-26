@@ -623,7 +623,7 @@ const gpuInfo=gl.getExtension('WEBGL_debug_renderer_info');
 const softwareGPU=gpuInfo&&/swiftshader|llvmpipe|software/i.test(gl.getParameter(gpuInfo.UNMASKED_RENDERER_WEBGL));
 let renderScale=softwareGPU?.25:1;
 let VW=2,VH=2,renderDT=0;
-function resize(){const dpr=Math.min(window.devicePixelRatio||1,1.5)*(softwareGPU?Math.min(.4,renderScale):renderScale);VW=Math.max(2,Math.floor(innerWidth*dpr));VH=Math.max(2,Math.floor(innerHeight*dpr));canvas.width=VW;canvas.height=VH;}
+function resize(){const dpr=Math.min(window.devicePixelRatio||1,1.5)*(softwareGPU?Math.min(.25,renderScale):renderScale);VW=Math.max(2,Math.floor(innerWidth*dpr));VH=Math.max(2,Math.floor(innerHeight*dpr));canvas.width=VW;canvas.height=VH;}
 addEventListener("resize",resize);resize();
 const lP=new Float32Array(18),lC=new Float32Array(18),lR=new Float32Array(6);
 function planetCenter(){if(flight.sharedWorld&&!voyage.active)return bodyPosition(KEPLER);if(voyage.active)return bodyPosition(primaryPlanet());const d0=nrm([0,-.6,-1]),a=-flight.pitch*PI/180,c=Math.cos(a),s=Math.sin(a);

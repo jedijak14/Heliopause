@@ -1,8 +1,8 @@
-# v0.7.0 validation — 2026-10-26
+# Validation record — 2026-10-26
 
 Active renderer: supplied-v4 HTML/WebGL2. Unreal 5.8 is **uncompiled source only**.
 
-## Executed locally
+## Recorded v0.7 baseline
 
 - **56 JavaScript rule/asset tests**: flight authority, travel/story/economy, rooms, terrain, saves, voice queue, integrity-checked asset streaming; continuous manual sector movement, swept terrain touchdown, high-speed contact, liftoff clearance, camera continuity across 3 km and across terrain rebuild anchors, ship orientation and pickup pose synchronization.
 - **Portable native checks:** preserved audio hashes, five Python project checks, six voice tests, synchronized catalogs, ASan/UBSan simulation/exploration/habitat/planetary kernels. Quaternion flight matched JS for 8,000 mixed-axis steps within 1e-10. This does not compile any Unreal translation unit.
@@ -14,7 +14,7 @@ Active renderer: supplied-v4 HTML/WebGL2. Unreal 5.8 is **uncompiled source only
 - **Rendering/integration browser:** six planet styles, six flight axes/reverse/coasting, gas-giant guard, Cinder terrain contact, hazard damage and suit save.
 - **Asset browser:** production CSP headers, embedded NASA mesh, routed HTTPS real downloads/hash verification, HD cache/offline switch, all five embedded map decodes, file mode with zero HTTP requests. Uses a hermetic routed origin, not a claim that a particular deployment was tested.
 
-Software-rendered screenshots were inspected. They demonstrate functional, stylized scenes—not photorealism or GPU/FPS certification. Earlier suites are rerun when related code changes; the CI workflow runs all seven browser suites on committed builds.
+Software-rendered screenshots were inspected. They demonstrate functional, stylized scenes—not photorealism or GPU/FPS certification. Earlier suites are rerun when related code changes; the CI workflow now runs those seven suites plus the two premium-model suites on committed builds.
 
 ## Explicit remaining limits
 
@@ -22,17 +22,19 @@ Software-rendered screenshots were inspected. They demonstrate functional, styli
 - Manual browser descent uses one flight state. The optional opening survey autopilot and explicitly requested surface pickup still have authored behaviors. Neither is the removed 3 km landing program.
 - Collision uses swept ship-centre terrain contact, not full rigidbody/hull-footprint collision. Landing alignment uses radial up rather than a fitted ground plane. No gravity/orbital-mechanics solver. Worlds are compressed and bounded in an authored sector.
 - The terrain is deterministic procedural terrain, **not elevation reconstructed from the photographic maps**. Near-patch LOD, map/biome disagreement, prop appearance, visible seams and cloud banding can occur. Decorative vegetation/furniture does not have universal rigidbody collision.
-- Six habitat interiors are modeled and functional but stylized. General PBR glTF materials, production-quality character animation and a complete high-quality model replacement are unfinished.
+- Six habitat interiors are modeled and functional but stylized. v0.8 adds PBR glTF rendering and rigged humans with breathing/facial animation. Walking locomotion, a complete art replacement and production-quality cinematic direction remain unfinished.
 - The fetched NASA Moon GLB is the **color-map-only** variant; it is not the topography variant. Browser keeps its topology but applies Solar System Scope lunar maps/tints. Native import retains the original atlas. These are fictional-world adaptations, not measured exoplanets.
-- HD assets may be 8K on disk but GPU textures are capped at 4K; one HD planet surface is resident. Clouds remain the embedded 2K map. Streaming requires HTTPS; embedded assets remain available offline.
+- HD planet maps may be 8K on disk but planetary GPU textures are capped at 4K; one HD planet surface is resident. Clouds remain the embedded 2K map. Streaming requires HTTPS; embedded assets remain available offline.
 - Saves preserve progress, stable habitats, landed/surface state, samples and ship settings. Motion/scans stop on reload and interrupted pickup is recovered safely, not replayed frame-for-frame. Storage restrictions are reported.
 
 ## Historical results
 
 The v0.6.0 release used scene-based surface entry and a separate lander. Those limitations do **not** describe the current manual-descent implementation. Historical test logs/screenshots in ignored `Artifacts/` are not substituted for current checks.
 
-## v0.8 work (2026-10-26)
+## v0.8 checks (2026-10-26)
 
 See `STREAMING_MODELS.md` for exact scope and unresolved native parity. New checks exercise model manifest integrity, human skeleton/animation/facial-target presence, catalog evidence labeling, warp corridor collision safety, frame-rate independence, controlled cancellation and exclusion-zone guards. The offline premium browser test covers the Earth scene, Space skip, fifteen window controls, scanner and shared WebGL pass. The HTTPS premium test applies the production CSP, downloads/verifies HD crew, Shuttle and the 56.6 MB ISS, draws twelve human station crew, and checks offline continuation plus browser/WebGL errors. Its software GPU deliberately uses 512px decoded model maps; it is not an Ultra GPU benchmark.
 
 During implementation, testing caught and fixed: incorrect skinned bounds/giant characters, an unrelaxed arm pose (replaced with matching Rocketbox animation), CSP restrictions on blob texture fetches, a software-GPU memory failure from the ISS's 2+ GiB decoded textures, and outdated 17-site test assumptions. Native source/portable tests do not validate engine rendering.
+
+Current JS rule/model checks: **61/61 pass**. Portable checks and the 8,000-step sanitized JS/C++ comparison pass. Browser regressions are recorded separately; a software-renderer deployment timeout advanced to 71% without errors in 90 wall-clock seconds. Software raster scaling and test wall-clock budgets were adjusted without changing actuator simulation timing or hardware-GPU quality. Thermal protection now cools/releases after touchdown rather than being stranded behind the grounded-flight early return.
