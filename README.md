@@ -1,116 +1,52 @@
-# HELIOPAUSE
+# HELIOPAUSE — A Long Way Home
 
-An offline, procedural spacecraft simulation **source preview** for Unreal Engine. The entry point is [`Heliopause.uproject`](Heliopause.uproject).
+**v0.5.0 browser game + UE 5.4 source preview.** The active browser build uses the user's supplied **Heliopause-v4.html** as its base, preserving its ship, shaders, interiors, physical interactions and score.
 
-> **Release status:** v0.1.0-source-preview. The descriptor requests **Unreal Engine 5.8**, but this project has **not been compiled, cooked, launched, or profiled in Unreal**. No Unreal installation was available in the authoring environment, and 5.8-specific compatibility was not verified. This is not a packaged game or a certified UE 5.8 build.
+**Offline game:** [`BrowserPreview/heliopause.html`](BrowserPreview/heliopause.html). Download and open the entire file in a WebGL2 browser. It embeds all runtime assets and needs no server, account or API key. The Vercel project publishes the same checksum-verified file.
 
-The supplied browser source was truncated inside a post-process shader. This repository implements the requested mechanics as native C++, rather than wrapping incomplete HTML or renaming it to `.uproject`. It retains the SV-7 setting, cyan/amber terminal style, first-person controls, EVA event concept, tablet, and local/offline design. The original planet rendering and post-processing shaders are **not** reproduced.
+## This update
 
-## Open the HTML preview
+- **Drivable ship:** pilot seat, W/S thrust, A/D yaw, R/F pitch and B brake; real sector-position updates. Manual steering cancels navigation. A visibility-graph route planner guides autopilot around planetary obstacles.
+- **Four new worlds:** Cinder, Pelagos, Borealis and Vesper. The bounded sector now contains 14 destinations, five planets, one moon and three walkable station concourses with crowds.
+- **Longer story:** orbital shakedown → Kestrel recorder → Cinder/Pelagos/Borealis surveys → Pilgrim archive → Anchorage exchange → voiced ending. Free exploration remains open afterward.
+- **Dialogue:** six new AI-generated Commander performances using the user-selected voice; corrected EVA greeting and three recorded tutorial lines. All ten previous EVA recordings and the original v4 cue texts remain available. The opening is queued, so the second cue no longer cancels “Good morning, Commander.”
+- **Retained systems:** handprint scans, doors, lighting, thermal curtains, fixed port/starboard/forward hull sensors (no chase camera), atmosphere/repair controls, drones, station crowds, exchange/upgrades and local saves.
 
-A self-contained interactive browser preview is now included: **[`BrowserPreview/heliopause.html`](BrowserPreview/heliopause.html)**. Download/open that file in a WebGL2-capable browser. It bundles the 3D scene, procedural assets, fonts, UI and audio without external requests.
-
-The preview includes cockpit/hull cameras, all four compartments, interactive systems and hazards, drone links, offline audio, and a responsive bridge interface. It is a separate browser implementation, **not an Unreal build or Pixel Streaming session**. See [BrowserPreview/README.md](BrowserPreview/README.md) for controls, source/build commands, tests, licenses, and simulation scope.
-
-## Open the project
-
-1. Download and extract the **entire source ZIP** from the GitHub release, or clone this branch. The `.uproject` alone is not the game; keep `Source`, `Config`, and `Content` beside it.
-2. Install Unreal Engine and the corresponding C++ toolchain. On Windows use Visual Studio 2022 with **Game development with C++** and the Windows SDK required by your engine. Linux requires the engine's supported Clang toolchain.
-3. If a compatible 5.8 installation is available, generate project files and build **HeliopauseEditor / Development**. If you use another version, explicitly reassociate a local copy and test it; compatibility with older/newer versions is not promised.
-4. Open `Heliopause.uproject`. The default `/Engine/Maps/Entry` map uses `HelioGameMode`, which generates the ship at runtime. No hand-authored `.umap` or fabricated binary `.uasset` is required.
-5. Play in **Standalone Game** for reliable mouse capture and HUD clicking. Choose Story or Free Flight.
-
-Build/package commands, test gates, and known limits: [Docs/BUILD.md](Docs/BUILD.md).
-
-## Implemented source features
-
-| Phase | Implementation |
-|---|---|
-| Foundation | 0.45-second camera blend into a dedicated cockpit pose; fixed left-hull, right-hull and front sensors; no chase camera; tapered array-built hull, layered panels, open engine bells and directional RCS nozzles. |
-| Interior & safety | Bridge, crew quarters, cargo bay and engine room; rotating/pulsing power core; room-level visibility gating plus native primitive frustum culling; pressure and heat states; physical bulkhead collision; cruise airlock interlock and emergency lockdown. |
-| Local autonomy | One security and two maintenance drones; health and idle/patrol/repair/controlled/destroyed states; compartment-graph routing with collision sweeps; remote control and destruction static; bounded random intrusions; 20 instanced, low-poly station pedestrians. |
-| Offline audio | Bundled generated PCM audio; native user-file indexing and precedence; bounded event/subtitle queue; Windows installed-voice SAPI fallback; separate offline browser utility with MP3/WAV/OGG drag-and-drop and local `speechSynthesis`. |
-
-**Scope matters:** flight is a **ship-frame systems simulation**, not a six-degree-of-freedom vehicle or orbital model. Dock/cruise are state changes; commanded thrust is displayed but does not physically move the ship. Station pedestrians are procedural 3D silhouettes rather than textured sprites. The native interface uses Unreal Canvas, not browser canvas. There are no accounts, multiplayer, telemetry, runtime downloads, cloud speech, savegames, or recorded EVA voice performances.
+Breathing is optional quiet **synthetic** foley, not a human recording. Dialogue is AI-generated, not a human acting claim. The universe is authored/bounded, not infinite; planets are orbital destinations, not landing surfaces.
 
 ## Controls
 
 | Input | Action |
 |---|---|
-| WASD / mouse | Walk or drive a selected drone / look |
-| Shift / C | Run / toggle crouch |
-| E | Enter/leave pilot seat, open nearby door, return from remote feed |
-| T | Tablet; clickable FLIGHT, SENSORS, SYSTEMS, DRONES, VOICE, LOG |
-| F / V | Flashlight / cycle three fixed hull cameras |
-| 1 / 2 / 3 | Scanner / compartment repair tool / security pulse |
-| Left click | Use selected tool |
-| W / S in cockpit | Adjust displayed commanded thrust |
-| Escape | Close tablet or open/close menu and release/capture cursor |
+| P / PILOT | Take or leave the pilot seat |
+| WASD / mouse | Walk/look; when piloting, W/S thrust and A/D yaw |
+| R/F / B while piloting | Pitch / brake |
+| E / INTERACT | Door scanner, curtain or nearby station interaction |
+| T / TABLET | Navigation, ship systems, drone links, lighting, flight, audio |
+| V | Fixed hull sensors / first person |
+| Space | Skip a cinematic |
 
-Start near the bridge center, walk toward the forward consoles, and press **E** when the pilot-seat prompt appears. Engage cruise from **TABLET → FLIGHT**. In Story mode an engine thermal fault is scheduled after 12 seconds of cruise. Maintenance drones may fix it autonomously. Use **SYSTEMS** to inject hazards for testing, or **DRONES** to take over a bot. Return to dock and leave via the cargo bay's starboard airlock to see the station crowd.
+**Free flight:** P → T → NAVIGATION → UNDOCK, then close the tablet and use flight controls. Dock to enter a station. Walk forward to its exchange before selling discoveries or buying upgrades; return to the rear airlock to reboard.
 
-## Local audio
-
-### Unreal
-
-Put uncompressed **16-bit PCM mono/stereo WAV** files (8–96 kHz, at most 16 MiB each) in `Saved/Voice/`, then select **VOICE → RESCAN**. Match these basenames:
-
-```text
-eva_welcome.wav
-eva_alert.wav
-eva_status.wav
-eva_repair.wav
-eva_intrusion.wav
-ambient_hum.wav
-```
-
-User files override the bundled `Content/Audio` index. Invalid/unsupported recordings fall back to installed Windows speech, or subtitles if that is unavailable. Native MP3 decoding is deliberately **not** claimed. Convert recordings before copying them, for example with your locally installed FFmpeg:
-
-```sh
-ffmpeg -i eva_alert.mp3 -ac 1 -ar 22050 -c:a pcm_s16le eva_alert.wav
-```
-
-On Linux, native fallback is **subtitles**, not TTS. Windows speech requires an installed SAPI voice. Ambient audio is a separately replayed short loop, not guaranteed sample-gapless.
-
-### Browser utility
-
-Open [`BrowserVoice/index.html`](BrowserVoice/index.html) directly in a modern browser, or serve the repository locally with `python3 -m http.server`. Drop files or choose a folder. Audio is stored in local IndexedDB where permitted; private/file modes may be session-only. The queue accepts only browser voices marked `localService`; it never selects cloud voices. If none are available, subtitles remain. Browser MP3 support depends on the browser's codecs.
-
-This utility is **standalone**, not embedded in or automatically synchronized with the Unreal executable. It preserves the requested browser upload/fallback workflow without incorrectly treating `window.speechSynthesis` as an Unreal API.
-
-## All source assets are included
-
-- Procedural hull, interior, drone, lifeform, and crowd definitions: `Source/Heliopause/Private/HelioWorld.cpp`.
-- Three original generated WAV files: `Content/Audio/`; regeneration: `python3 Tools/generate_audio.py`.
-- SHA-256 inventory: `Content/asset-manifest.json`; check: `python3 Tools/asset_manifest.py --check`.
-- Native HUD: `HelioHUD.cpp`; browser utility visuals: `BrowserVoice/style.css`.
-- Engine dependencies: bundled BasicShapes cube/material, engine default font, Entry map, ProceduralMeshComponent plugin. These are supplied by your licensed Unreal installation, not redistributed here. Hard CDO asset references and packaging configuration preserve the required cook/staging dependencies.
-
-No remote asset URLs, npm runtime dependencies, external model packs or missing custom binaries are required. See [Docs/ASSETS.md](Docs/ASSETS.md).
-
-## Tests and optimization
+## Build and verify
 
 ```sh
 bash Tools/test.sh
+cd BrowserPreview
+npm ci
+npm test
+npm run build
+npm run test:browser
+npm run test:campaign-browser
+npm run dev -- --port 5173
 ```
 
-The portable suite checks project structure, bundled WAVs, asset hashes, audio precedence/cancellation/fallback, pressure/temperature bounds, interlocks, all 128 compartment-route configurations, drone destruction and malformed WAV handling under ASan/UBSan.
+22 portable JavaScript tests include continuous travel through every expanded story objective, manual piloting, obstacle routing and non-interrupting dialogue. Offline Chromium tests exercise real keyboard flight, recorded audio, physical handprint scans/doorway walks, station exchange and ending. The endgame UI test uses a saved fixture; the rule test covers continuous mid-campaign travel. See [validation](Docs/VALIDATION.md).
 
-These are **not** Unreal compile or runtime tests. Additional Unreal automation tests are included under `Source/Heliopause/Private/Tests`, but were not run here.
+## Unreal source status
 
-Performance-oriented implementation choices include shared material instances, batched repeated geometry, simple collision instead of runtime triangle-mesh cooking, 10 Hz agent/crowd updates, a single crowd instance component, bounded event/AI counts, exterior-view interior hiding, and disabled Lumen/virtual-shadow-map defaults. **No FPS, GPU memory, UE 5.8 optimization or platform-performance claim has been measured.** See [Docs/VALIDATION.md](Docs/VALIDATION.md) before promoting this prerelease.
+[`Heliopause.uproject`](Heliopause.uproject) targets **UE 5.4** and uses the replacement `HeliopauseCore` architecture rather than the old competing actors. It includes the shared 14-destination catalog, the earlier bounded campaign and runtime-generated world/UI.
 
-## Layout
+**No Unreal Editor/UHT/UBT/UAT is available here. Native source is uncompiled, uncooked and unverified; there is no packaged native executable.** The latest v4 browser's extra planetary story chapters/Commander dialogue are not claimed to be fully mirrored in native gameplay. See [build gates](Docs/BUILD.md).
 
-```text
-Heliopause.uproject    Unreal entry point
-Source/               Native game/editor targets and runtime module
-Config/               Default map, rendering, input and audio staging
-Content/Audio/        Saved, reproducible PCM assets
-BrowserVoice/         Offline browser audio companion
-Tests/                Portable tests (no Unreal license required)
-Tools/                Tests, asset generation and source-release packaging
-Docs/                 Build, asset, architecture and validation notes
-```
-
-Repository license: [LICENSE](LICENSE). Unreal Engine and its built-in resources remain subject to Epic's license.
+[Supplied-v4 source notes](BrowserPreview/v4/README.md) · [browser guide](BrowserPreview/README.md) · [asset provenance](Docs/ASSETS.md) · [architecture](Docs/ARCHITECTURE.md).

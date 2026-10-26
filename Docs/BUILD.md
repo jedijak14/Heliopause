@@ -2,7 +2,7 @@
 
 ## Version contract
 
-`EngineAssociation: "5.8"` requests that engine installation; it is not a compatibility certificate. This environment contains no Unreal Editor, UnrealBuildTool or Unreal Automation Tool. A private Epic GitHub release lookup returned HTTP 404 and could not establish the engine version. No engine-specific benchmark or binary validation was performed.
+`EngineAssociation: "5.4"` requests that engine installation; it is not a compatibility certificate. This environment contains no Unreal Editor, UnrealBuildTool or Unreal Automation Tool. No engine-specific benchmark or binary validation was performed.
 
 A source preview is appropriate until a licensed engine installation can run all checks below. Do not mark an untested source ZIP as a Windows/Linux game executable.
 
@@ -11,7 +11,7 @@ A source preview is appropriate until a licensed engine installation can run all
 Set `$UE` to the actual installed engine directory; these example paths are not provisioned by the repository.
 
 ```powershell
-$UE = 'C:\Program Files\Epic Games\UE_5.8'
+$UE = 'C:\Program Files\Epic Games\UE_5.4'
 $Project = Join-Path $PWD 'Heliopause.uproject'
 & "$UE\Engine\Build\BatchFiles\GenerateProjectFiles.bat" -project="$Project" -game -engine
 & "$UE\Engine\Build\BatchFiles\Build.bat" HeliopauseEditor Win64 Development -Project="$Project" -WaitMutex
@@ -44,10 +44,10 @@ Use the engine's supported Linux toolchain. The native Windows TTS implementatio
 
 ## Packaged-asset checks
 
-1. Confirm `/Engine/Maps/Entry` cooks and applies `/Script/Heliopause.HelioGameMode`.
+1. Confirm `/Engine/Maps/Entry` cooks and applies `/Script/Heliopause.HeliopauseGameMode`.
 2. Confirm BasicShapeMaterial and Cube resolve; they are hard references on the world actor CDO.
 3. Verify `Content/Audio/*.wav` is staged as NonUFS loose content and usable with no network.
-4. Create `Saved/Voice/eva_alert.wav` in the executable's actual project saved directory, rescan and test precedence.
+4. Create `Saved/Voice/eva_intro.wav` in the executable's actual project saved directory, rescan and test precedence.
 5. Test packaged shipping behavior separately from PIE. No `.uasset`, `.umap`, or engine binaries are fabricated or included in the source preview.
 
 ## Reproducible source archive

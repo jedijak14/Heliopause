@@ -1,3 +1,4 @@
+import { sites, distance as siteDistance } from './exploration.js';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
@@ -76,7 +77,7 @@ export function createScene(canvas, state) {
     for(let i=0;i<5;i++)box(g,[-w*.4+i*.1,-h*.5-.043,.07],[.04,.015,.008],i===0?color.amber:color.cyan,true);
     return g;
   }
-  scene.add(new THREE.HemisphereLight(0x91b3c6,0x293638,1.6));
+  const cabinAmbient=new THREE.HemisphereLight(0xddd7c7,0x1b2932,1.25);scene.add(cabinAmbient);
   const sun=new THREE.DirectionalLight(0xffd6a2,3.5);sun.position.set(-25,45,-45);scene.add(sun);
   const fill=new THREE.DirectionalLight(0x77bfd6,1.5);fill.position.set(5,10,25);scene.add(fill);
   const space=new THREE.Group();scene.add(space);
@@ -93,7 +94,7 @@ export function createScene(canvas, state) {
   // Tiny distant warm star; analytic glow, not a stock image.
   const glowCV=document.createElement('canvas');glowCV.width=glowCV.height=128;const gc=glowCV.getContext('2d'),gr=gc.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,236,195,1)');gr.addColorStop(.08,'rgba(255,213,145,.95)');gr.addColorStop(.25,'rgba(255,183,106,.18)');gr.addColorStop(1,'rgba(255,153,70,0)');gc.fillStyle=gr;gc.fillRect(0,0,128,128);
   const solar=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(glowCV),blending:THREE.AdditiveBlending,depthWrite:false}));solar.position.set(-280,105,-800);solar.scale.set(180,180,1);space.add(solar);
-  const rooms=[],doorPanels=[],coreRings=[],droneModels=[],aliens=[],roomLights=[];
+  let cinemaShot=null;const rooms=[],doorPanels=[],coreRings=[],droneModels=[],aliens=[],roomLights=[];
   function point(parent,p,c,intensity=30,range=15) {const l=new THREE.PointLight(c,intensity,range,2);l.position.set(...p);parent.add(l);return l;}
   function floor(parent,length=18) {
     box(parent,[0,-.17,0],[14,.3,length],0x1e2b32);
@@ -112,12 +113,13 @@ export function createScene(canvas, state) {
     box(parent,[0,5,z],[9.1,.2,.3],0x52616a);
   }
   function hatch(parent,z,i,labelText='BULKHEAD') {
+    const boundary=new THREE.Group();boundary.position.copy(parent.position);boundary.position.z+=z;scene.add(boundary);parent=boundary;z=0;
     for(const s of [-1,1])box(parent,[s*4.4,2.5,z],[5.2,5,.16],0x283941);
     box(parent,[0,4.4,z],[3.8,1.2,.2],0x344750);
     for(const s of [-1,1])box(parent,[s*1.95,1.9,z+.12],[.18,3.8,.28],color.edge);
     const panels=[];
     for(const s of [-1,1]){const g=new THREE.Group();g.position.set(s*.92,1.85,z);parent.add(g);box(g,[0,0,0],[1.82,3.7,.15],0x243c46);box(g,[s*.65,0,.09],[.05,3.3,.02],color.amber,true);box(g,[0,0,.11],[1.2,.045,.02],0x91a4a5);panels.push({g,s});}
-    doorPanels.push({panels,index:i});label(parent,labelText,'PRESS E / AUTHORIZED CREW ONLY',[0,4.35,z+.13],[2.8,.55]);
+    doorPanels.push({panels,index:i,boundary});label(parent,labelText,'PRESS E / AUTHORIZED CREW ONLY',[0,4.35,z+.13],[2.8,.55]);
     box(parent,[2.3,1.5,z+.13],[.3,.45,.09],0x101d24);box(parent,[2.3,1.5,z+.19],[.18,.28,.01],color.cyan,true);
   }
   function chair(parent,x,z){
@@ -132,7 +134,7 @@ export function createScene(canvas, state) {
     box(g,[0,5.2,1.2],[14,.2,15.6],0x17242d);
     for(const s of [-1,1]){
       box(g,[s*7,2.5,1.2],[.2,5,15.7],0x23343c);
-      for(let z=-6;z<8;z+=2.6){box(g,[s*6.86,2.5,z],[.12,3,2.4],0x34454b);box(g,[s*6.78,3.2,z],[.03,.06,1.8],0x71848b);box(g,[s*6.78,1.2,z],[.03,.08,1.8],0x8c7758);}
+      for(let z=-6;z<8;z+=2.6){box(g,[s*6.86,2.5,z],[.12,3,2.4],0x657574);box(g,[s*6.78,3.2,z],[.03,.06,1.8],0x71848b);box(g,[s*6.78,1.2,z],[.03,.08,1.8],0x8c7758);}
       for(let z=-3;z<6;z+=3)display(g,[s*6.72,2.4,z],2.1,1.2,1,[0,-s*Math.PI/2,0]);
       // Angled flight consoles, with embedded screens and individually machined controls.
       const c=new THREE.Group();c.position.set(s*3.7,1,-4.6);c.rotation.y=-s*.25;g.add(c);
@@ -150,32 +152,35 @@ export function createScene(canvas, state) {
       box(g,[s*3.1,1.4,-8],[5.7,.08,.06],color.cyan,true);
     }
     box(g,[0,1.02,-5.8],[2.1,1.8,1],0x273942);display(g,[0,1.95,-5.3],1.9,.8,0,[-.22,0,0]);
-    chair(g,0,1.6);hatch(g,8.8,0,'01 / FLIGHT DECK');
+    chair(g,0,1.6);hatch(g,9,0,'02 / HABITAT');
     label(g,'SV–7  LONGHAUL','INDEPENDENT DEEP SPACE TRANSPORT',[0,4.65,-8],[4.1,.33]);
     return g;
   }
   bridge();
   function compartment(index){
-    const g=new THREE.Group();g.position.z=index*22;scene.add(g);rooms.push(g);floor(g);
-    for(let z=-7;z<9;z+=4)rib(g,z);
+    const g=new THREE.Group();g.position.z=index*18;scene.add(g);rooms.push(g);floor(g);
+    for(let z=-6;z<9;z+=6)rib(g,z);
     box(g,[0,5.2,0],[14,.2,18],0x1b2b34);
     for(const s of [-1,1]){
-      box(g,[s*7,2.5,0],[.2,5,18],0x2b3c43);box(g,[s*4.6,4.95,0],[.07,.06,17],color.white,true);
+      if(index===1&&s===1){box(g,[7,.65,0],[.2,1.3,18],0x858b82);box(g,[7,4.7,0],[.2,.6,18],0x858b82);for(const z of [-6,6])box(g,[7,2.85,z],[.2,3.1,6],0x858b82);}else box(g,[s*7,2.5,0],[.2,5,18],0x858b82);box(g,[s*4.6,4.95,0],[.07,.06,17],color.white,true);
       tube(g,[[s*6.6,.4,-8],[s*6.6,4.2,-7],[s*6.6,4.2,8]],.08,0x9d8f70);
     }
-    hatch(g,-8.8,index-1,['','02 / HABITAT','03 / LOGISTICS','04 / ENGINEERING'][index]);hatch(g,8.8,index<3?index:3,'PRESSURE BULKHEAD');
+    hatch(g,9,index<3?index:3,['','03 / LOGISTICS','04 / ENGINEERING','ENGINE ACCESS'][index]);label(g,['','02 / HABITAT','03 / LOGISTICS','04 / ENGINEERING'][index],'SV–7 LONGHAUL',[0,4.35,-8.9],[3.5,.5]);
     roomLights.push({light:point(g,[0,4.2,0],index===3?0x80bfff:0xa4ddd3,60,18),room:index,base:index===3?0x80bfff:0xa4ddd3});
     return g;
   }
   const crew=compartment(1);
-  for(const s of [-1,1])for(let z=-4;z<=4;z+=4){
-    box(crew,[s*4.8,.45,z],[3.3,.5,2.4],0x20343d);box(crew,[s*4.8,.8,z],[3.15,.25,2.2],0x54615e);
-    box(crew,[s*5.85,1,z],[.75,.18,1.7],0x9a9e91);box(crew,[s*4.1,.96,z],[1.6,.05,2.15],0x3d6e72);
-    box(crew,[s*6.7,1.8,z],[.2,2.6,2.5],0x263b46);box(crew,[s*5.1,2.6,z],[3.5,.16,2.6],0x253a44);
-    box(crew,[s*5,2.48,z],[2.8,.03,.04],color.amber,true);
-    label(crew,`BERTH ${s<0?'A':'B'}${(z+4)/4+1}`,'CREW QUARTERS',[s*3.14,1.85,z],[1.1,.24],[0,-s*Math.PI/2,0]);
+  // Two berths, a dedicated work desk and a panoramic shutter: a deliberate cabin, not a prop pile.
+  for(const s of [-1,1]){const z=4.5;
+    box(crew,[s*4.6,.45,z],[3.8,.7,2.6],0x303e45);box(crew,[s*4.6,.9,z],[3.65,.25,2.5],0xb6b4a1);
+    box(crew,[s*5.8,1.1,z],[.8,.25,2.1],0xd0ccbb);box(crew,[s*4.1,1.05,z],[1.9,.12,2.45],0x526e6a);
+    box(crew,[s*6.75,1.7,z],[.18,2.4,2.8],0x3e5359);box(crew,[s*4.8,3,z],[4,.18,2.8],0x748079);
+    box(crew,[s*5,2.85,z],[3,.05,.05],0xf0d8a7,true);label(crew,s<0?'COMMANDER':'GUEST','REST / RECOVER',[s*2.67,1.8,z],[1.5,.3],[0,-s*Math.PI/2,0]);
   }
-  display(crew,[0,2.8,-8.65],2.6,1.1,1);label(crew,'REST IS A SYSTEM','KEEP IT RUNNING',[0,4.3,-8.64],[3.4,.6]);
+  box(crew,[-4.8,1.5,-3.8],[3.5,.18,2],0x8f8a72);for(const x of [-6,-3.5])box(crew,[x,.75,-3.8],[.12,1.5,1.7],0x394c51);display(crew,[-4.7,2.35,-4.45],2.2,1.2,1);chair(crew,-4.5,-2);
+  for(const z of [-3,3])box(crew,[6.8,2.85,z],[.3,3.2,.15],0x4d686e);for(const y of [1.3,4.4])box(crew,[6.8,y,0],[.3,.12,6],0x4d686e);
+  const curtain=new THREE.Group();curtain.position.set(6.85,2.85,0);crew.add(curtain);box(curtain,[0,0,0],[.15,3,5.9],0x9b9783);for(let z=-2.8;z<3;z+=.3)box(curtain,[-.09,0,z],[.03,3,.035],0x7d8072);
+  label(crew,'A PLACE TO CALL HOME','KEPLER-442b / ORBITAL OBSERVATION',[-6.85,3.8,0],[4,.5],[0,Math.PI/2,0]);
   const cargo=compartment(2);
   function crate(parent,p,size,seed){const g=new THREE.Group();g.position.set(...p);parent.add(g);box(g,[0,size[1]/2,0],size,seed%2?0x685844:0x43606a);for(const x of [-1,1])for(const z of [-1,1])box(g,[x*(size[0]/2-.08),size[1]/2,z*(size[2]/2-.08)],[.16,size[1]+.04,.16],0x202e33);for(const y of [.2,size[1]-.2])box(g,[0,y,size[2]/2+.02],[size[0],.09,.04],0x9b8d6a);label(g,`SV7 / ${String(804+seed).padStart(4,'0')}`,'SEALED · FLIGHT RATED',[0,size[1]*.6,size[2]/2+.045],[size[0]*.8,.3]);return g;}
   for(const s of [-1,1])for(let i=0;i<3;i++){crate(cargo,[s*4.2,0,-4+i*4],[3.2,1.7,2.7],i+4);if(i!==1)crate(cargo,[s*4.2,1.72,-4+i*4],[2.8,1.4,2.4],i+8);}
@@ -233,7 +238,46 @@ export function createScene(canvas, state) {
   // Repeated habitation modules, illumination, and photovoltaic radiator wings finish the station silhouette.
   for(let i=0;i<12;i++){const a=i*Math.PI/6,x=Math.cos(a)*18,y=Math.sin(a)*18;box(station,[x,y,0],[4,2.2,2.6],0x526773,false,[0,0,a+Math.PI/2]);for(const o of [-1,1])box(station,[x,y,o*1.32],[2.8,.15,.03],color.amber,true,[0,0,a+Math.PI/2]);}
   for(const s of [-1,1])for(let i=0;i<3;i++){box(station,[s*(25+i*7),0,-4],[6.5,11,.12],0x203a50);for(let k=-4;k<=4;k++)box(station,[s*(25+i*7),k,-3.92],[6.3,.035,.02],0x738997);tube(station,[[s*18,0,0],[s*20,0,-4],[s*42,0,-4]],.16,0x788d94);}
-  const poses={bridge:{p:[0,3.05,.5],t:[0,2.8,-22],room:0},pilot:{p:[0,2.4,-2.8],t:[0,2.8,-30],room:0},port:{p:[-12,7,76],t:[-4,3,-20],room:-1},starboard:{p:[12,7,76],t:[4,3,-20],room:-1},front:{p:[0,3,-11],t:[20,17,-390],room:-1},crew:{p:[0,2.5,27.8],t:[0,2.1,15],room:1},cargo:{p:[0,3.3,49.8],t:[0,1.8,38],room:2},engine:{p:[3.7,2.9,72.3],t:[0,2.1,65],room:3}};
+  // A connected sector rendered relative to the ship: distant geometry is projected
+  // proportionally past 4,800 scene units to retain angular size without depth loss.
+  const galaxy=new THREE.Group();scene.add(galaxy);
+  const siteObjects=[];
+  sites.forEach((site,index)=>{
+    let object;
+    if(index===6){object=new THREE.Group();object.add(planet,atmosphere);planet.position.set(0,0,0);atmosphere.position.set(0,0,0);object.userData.baseRadius=145;}
+    else if(site.kind==='station'){object=index===0?station:station.clone(true);object.rotation.set(0,0,0);object.userData.baseRadius=1;}
+    else if(site.kind==='moon'){object=new THREE.Group();const rock=new THREE.IcosahedronGeometry(1,4);const pos=rock.attributes.position;for(let v=0;v<pos.count;v++){const x=pos.getX(v),y=pos.getY(v),z=pos.getZ(v),r=1+.025*Math.sin(x*30)*Math.cos(z*24);pos.setXYZ(v,x*r,y*r,z*r);}rock.computeVertexNormals();mesh(rock,mat(0x9b9c92),object);object.userData.baseRadius=1;}
+    else {object=new THREE.Group();const random=rng(900+index);
+      if(site.kind==='field'){
+        const geo=new THREE.IcosahedronGeometry(1,1),instances=new THREE.InstancedMesh(geo,mat(0x69665d),56),dummy=new THREE.Object3D();
+        for(let k=0;k<56;k++){dummy.position.set((random()-.5)*170,(random()-.5)*90,(random()-.5)*170);dummy.rotation.set(random()*3,random()*3,random()*3);const r=1+random()*7;dummy.scale.set(r,r*.7,r*.9);dummy.updateMatrix();instances.setMatrixAt(k,dummy.matrix);}object.add(instances);
+      }else if(site.kind==='derelict'){
+        for(let k=0;k<6;k++){box(object,[(random()-.5)*5,(random()-.5)*3,k*5-15],[8-k*.6,3.5,4.7],0x505b5a,false,[0,0,(random()-.5)*.3]);for(const x of [-1,1])box(object,[x*3,1,k*5-15],[.12,5,.12],color.amber);}
+        label(object,'KESTREL / S–09','SURVEY VESSEL · SIGNAL LOST',[0,2.9,-6],[8,1.3]);
+      }else{
+        for(let k=0;k<6;k++){const a=k*Math.PI/3;box(object,[Math.cos(a)*8,Math.sin(a)*8,0],[1.6,5,1.6],site.kind==='ruin'?0x737665:0x526f80,false,[0,0,a]);tube(object,[[0,0,0],[Math.cos(a)*6,Math.sin(a)*6,0],[Math.cos(a)*8,Math.sin(a)*8,0]],.15,0x7f948f);}
+        mesh(new THREE.IcosahedronGeometry(2,1),mat(site.kind==='beacon'?color.amber:color.cyan,true),object);mesh(new THREE.TorusGeometry(5,.12,8,64),mat(0x8d9e95),object,[0,0,0],[Math.PI/3,0,0]);
+      }
+      object.userData.baseRadius=1;
+    }
+    galaxy.add(object);siteObjects.push(object);
+  });
+  const concourse=new THREE.Group();concourse.position.z=-150;scene.add(concourse);
+  box(concourse,[0,-.15,0],[24,.3,34],0x2e4249);box(concourse,[0,6,0],[24,.2,34],0x1c3039);
+  for(const side of [-1,1]){
+    box(concourse,[side*12,3,0],[.3,6,34],0x354d55);
+    for(let z=-14;z<=14;z+=7){box(concourse,[side*11.7,2.5,z],[.2,4.5,5.5],0x163742);box(concourse,[side*11.5,5,z],[.1,.08,5.8],color.cyan,true);display(concourse,[side*8.8,2,z],2.5,1.3,1,[0,-side*Math.PI/2,0]);box(concourse,[side*9.7,.75,z],[3,1.5,4],0x435b63);}
+    box(concourse,[side*2,.035,0],[.035,.03,32],color.amber,true);box(concourse,[side*6,5.8,0],[.08,.05,30],color.white,true);
+  }
+  box(concourse,[0,3,-17],[24,6,.2],0x253e49);box(concourse,[0,3,17],[24,6,.2],0x253e49);
+  label(concourse,'EXPLORATION EXCHANGE','SURVEYS · ARTIFACTS · SHIP UPGRADES',[0,4.5,-16.8],[10,1.3]);
+  box(concourse,[0,1,-13],[7,2,1.7],0x566763);display(concourse,[0,2.4,-12.1],3.8,1.2,0);box(concourse,[0,1.9,16.7],[3.6,3.8,.2],0x3f606b);label(concourse,'SV–7 / DOCK AIRLOCK','RETURN TO VESSEL',[0,4.5,16.5],[5,.9],[0,Math.PI,0]);
+  const stationName=label(concourse,'ASTERION ANCHORAGE','INDEPENDENT CARTOGRAPHERS GUILD',[0,5,-8],[9,1]);
+  point(concourse,[0,5,0],0xb6d1c9,240,35);point(concourse,[0,4,-13],0xe2bb85,100,16);
+  const citizens=[];
+  for(let i=0;i<12;i++){const person=new THREE.Group();concourse.add(person);box(person,[0,1.05,0],[.42,.65,.28],i%2?0x697466:0x567684);mesh(new THREE.SphereGeometry(.16,10,8),mat(0xb29a7a),person,[0,1.55,0]);const legs=[];for(const side of [-1,1]){legs.push(box(person,[side*.13,.42,0],[.15,.8,.19],0x283e4c));box(person,[side*.3,1.03,0],[.14,.68,.18],0x546d71);}citizens.push({person,legs});}
+  concourse.visible=false;let stationID=-1;
+  const poses={bridge:{p:[0,3.05,.5],t:[0,2.8,-22],room:0},pilot:{p:[0,2.4,-2.8],t:[0,2.8,-30],room:0},port:{p:[-12,7,76],t:[-4,3,-20],room:-1},starboard:{p:[12,7,76],t:[4,3,-20],room:-1},station:{p:[0,2.1,-136],t:[0,2,-166],room:4},front:{p:[0,3,-11],t:[20,17,-390],room:-1},crew:{p:[0,2.15,24],t:[2.5,2.2,15],room:1},cargo:{p:[0,2.15,42],t:[0,2,30],room:2},engine:{p:[2.5,2.15,60],t:[0,2.1,53],room:3}};
   let active='bridge',targetPosition=new THREE.Vector3(),targetQuat=new THREE.Quaternion(),transition=0,lookYaw=0,lookPitch=0;
   const helper=new THREE.Object3D(),keys=new Set();let drag=null;
   let renderRoom=0,first=true;
@@ -241,14 +285,14 @@ export function createScene(canvas, state) {
   function setView(view){
     const smooth=(active==='bridge'&&view==='pilot')||(active==='pilot'&&view==='bridge');
     active=view;lookYaw=lookPitch=0;
-    if(view==='drone'){const d=state.drones[state.controlled];if(!d)return;renderRoom=d.room;targetPosition.set(0,1.6,d.room*22+4);helper.position.copy(targetPosition);helper.lookAt(0,1.4,d.room*22-5);bodyPositions[state.controlled].copy(targetPosition);}
+    if(view==='drone'){const d=state.drones[state.controlled];if(!d)return;renderRoom=d.room;targetPosition.set(0,1.6,d.room*18+4);helper.position.copy(targetPosition);helper.lookAt(0,1.4,d.room*18-5);bodyPositions[state.controlled].copy(targetPosition);}
     else {const pose=poses[view]||poses.bridge;renderRoom=pose.room;targetPosition.set(...pose.p);helper.position.copy(targetPosition);helper.lookAt(...pose.t);}
     // Object3D looks along +Z; camera looks along -Z.
     helper.rotateY(Math.PI);targetQuat.copy(helper.quaternion);transition=smooth?1:0;
-    for(let i=0;i<rooms.length;i++)rooms[i].visible=i===renderRoom;hull.visible=renderRoom<0;
+    for(let i=0;i<rooms.length;i++)rooms[i].visible=i===renderRoom||(Math.abs(i-renderRoom)===1&&state.doors[Math.min(i,renderRoom)]&&renderRoom>=0&&renderRoom<4);doorPanels.forEach(d=>d.boundary.visible=renderRoom===d.index||renderRoom===d.index+1);hull.visible=renderRoom<0;concourse.visible=renderRoom===4;
     if(first||!smooth){camera.position.copy(targetPosition);camera.quaternion.copy(targetQuat);first=false;}
   }
-  canvas.addEventListener('pointerdown',e=>{if(!['port','starboard','front'].includes(active)){drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);canvas.classList.add('dragging');}});
+  canvas.addEventListener('pointerdown',e=>{if(!state.inMenu&&!state.inCutscene&&!['port','starboard','front'].includes(active)){drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);canvas.classList.add('dragging');}});
   canvas.addEventListener('pointermove',e=>{if(!drag)return;lookYaw-=(e.clientX-drag.x)*.003;lookPitch=Math.max(-.75,Math.min(.75,lookPitch-(e.clientY-drag.y)*.003));drag={x:e.clientX,y:e.clientY};});
   canvas.addEventListener('pointerup',()=>{drag=null;canvas.classList.remove('dragging');});
   canvas.addEventListener('pointercancel',()=>{drag=null;canvas.classList.remove('dragging');});
@@ -258,27 +302,41 @@ export function createScene(canvas, state) {
   const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(canvas);resize();setView('bridge');
   let fps=60,frameCount=0,frameTime=0,lastScreenRefresh=-1;
   function update(dt,time){
-    roomLights.forEach(({light,room,base})=>{const r=state.rooms[room];const alert=r.breach||r.vent||r.pressure<65||r.temp>65||(room===0&&state.intruders>0);light.color.setHex(alert?0xff7450:base);});
-    if(time-lastScreenRefresh>1){lastScreenRefresh=time;screens.forEach(t=>{const ctx=t.image.getContext('2d'),r=state.rooms[Math.max(0,renderRoom)];ctx.fillStyle='#07181e';ctx.fillRect(20,362,720,35);ctx.font='13px IBM Plex Mono';ctx.fillStyle=r.breach||r.vent?'#eea477':'#8acfc0';ctx.fillText(`SV-7 / P ${r.pressure.toFixed(0)}% / T ${r.temp.toFixed(0)}C / ${state.intruders?'LIFE SIGN ALERT':'SYSTEM LINK ACTIVE'}`,24,385);t.needsUpdate=true;});}
+    if(!state.inCutscene)for(let i=0;i<rooms.length;i++)rooms[i].visible=i===renderRoom||(Math.abs(i-renderRoom)===1&&state.doors[Math.min(i,renderRoom)]&&renderRoom>=0&&renderRoom<4);
+    roomLights.forEach(({light,room,base})=>{const r=state.rooms[room];light.intensity=(room===0?35:60)*(state.expedition?.campaign?.lights[room]===false?.06:1);const alert=r.breach||r.vent||r.pressure<65||r.temp>65||(room===0&&state.intruders>0);light.color.setHex(alert?0xff7450:base);});
+    if(time-lastScreenRefresh>1){lastScreenRefresh=time;screens.forEach(t=>{const ctx=t.image.getContext('2d'),r=state.rooms[Math.min(3,Math.max(0,renderRoom))];ctx.fillStyle='#07181e';ctx.fillRect(20,362,720,35);ctx.font='13px IBM Plex Mono';ctx.fillStyle=r.breach||r.vent?'#eea477':'#8acfc0';ctx.fillText(`SV-7 / P ${r.pressure.toFixed(0)}% / T ${r.temp.toFixed(0)}C / ${state.intruders?'LIFE SIGN ALERT':'SYSTEM LINK ACTIVE'}`,24,385);t.needsUpdate=true;});}
+    const campaign=state.expedition?.campaign;curtain.position.y+=( (campaign?.shadeOpen?6:2.85)-curtain.position.y)*Math.min(1,dt*3);cabinAmbient.intensity=renderRoom===1&&campaign?.lights[1]===false?.25:1.25;
     planetMat.uniforms.time.value=time;planet.rotation.y=time*.0015;
     coreRings.forEach((ring,i)=>{ring.rotation.x=Math.PI/2+Math.sin(time*.5+i)*.12;ring.rotation.z=time*(i%2?.15:-.15);});coreGlow.scale.x=coreGlow.scale.z=1+Math.sin(time*2)*.035;
     doorPanels.forEach(({panels,index})=>panels.forEach(({g,s})=>g.position.x+=(s*(state.doors[index]?2.75:.92)-g.position.x)*Math.min(dt*5,1)));
-    if((state.walking||active==='drone')&&transition<.01){
+    if(!state.inMenu&&!state.inCutscene&&(state.walking||active==='drone')&&transition<.01&&!document.querySelector('dialog[open]')){
       let dx=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'));
       let dz=Number(keys.has('KeyS')||keys.has('ArrowDown'))-Number(keys.has('KeyW')||keys.has('ArrowUp'));
       const dir=new THREE.Vector3(dx,0,dz).normalize().applyQuaternion(camera.quaternion);dir.y=0;dir.normalize().multiplyScalar(dt*(keys.has('ShiftLeft')?5:2.8));
-      const next=targetPosition.clone().add(dir);next.x=Math.max(-2.5,Math.min(2.5,next.x));next.z=Math.max(renderRoom*22-6.8,Math.min(renderRoom*22+7,next.z));
-      if(renderRoom===3&&Math.hypot(next.x,next.z-66)<2.3){next.copy(targetPosition);}targetPosition.copy(next);
+      const next=targetPosition.clone().add(dir);if(renderRoom===4){next.x=Math.max(-7.5,Math.min(7.5,next.x));next.z=Math.max(-161.8,Math.min(-134.5,next.z));}else{next.x=Math.max(-2.5,Math.min(2.5,next.x));next.z=Math.max(-7.8,Math.min(62,next.z));const room=Math.max(0,Math.min(3,Math.floor((next.z+9)/18)));if(room!==renderRoom){const door=Math.min(room,renderRoom),boundary=9+18*door;if(!state.doors[door]||Math.abs(next.x)>1.5)next.z=boundary+(room>renderRoom?-.4:.4);else{renderRoom=room;state.room=room;if(active==='drone'){state.drones[state.controlled].room=room;}else{active=['bridge','crew','cargo','engine'][room];state.view=active;state.walkThrough=true;}doorPanels.forEach(d=>d.boundary.visible=renderRoom===d.index||renderRoom===d.index+1);}}}
+      if(renderRoom===3&&Math.hypot(next.x,next.z-54)<2.3){next.copy(targetPosition);}targetPosition.copy(next);
       if(active==='drone'&&state.controlled>=0)bodyPositions[state.controlled].copy(targetPosition);
     }
     const q=targetQuat.clone().multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(lookPitch,lookYaw,0,'YXZ')));
     camera.position.lerp(targetPosition,1-Math.exp(-dt*5));camera.quaternion.slerp(q,1-Math.exp(-dt*6));transition*=Math.exp(-dt*5);
-    for(let i=0;i<3;i++){const d=state.drones[i],g=droneModels[i];g.visible=d.room===renderRoom&&d.health>0&&state.controlled!==i;if(state.controlled!==i)g.position.set(Math.sin(time*.25+i)*1.6,1.3+Math.sin(time*2+i)*.08,d.room*22+Math.cos(time*.18+i)*3);g.rotation.y=time*.12+i;}
+    for(let i=0;i<3;i++){const d=state.drones[i],g=droneModels[i];g.visible=d.room===renderRoom&&d.health>0&&state.controlled!==i;if(state.controlled!==i)g.position.set(Math.sin(time*.25+i)*1.6,1.3+Math.sin(time*2+i)*.08,d.room*18+Math.cos(time*.18+i)*3);g.rotation.y=time*.12+i;}
     aliens.forEach((a,i)=>{a.visible=i<state.intruders;a.rotation.y=Math.sin(time*.2+i)*.4;});
-    station.visible=state.mode==='dock';
+    const exp=state.expedition;
+    if(exp){
+      const q=new THREE.Quaternion().setFromEuler(new THREE.Euler(exp.pitch,exp.yaw,0,'YXZ')).invert();galaxy.quaternion.copy(q);space.quaternion.copy(q);
+      siteObjects.forEach((o,i)=>{const site=sites[i],delta=new THREE.Vector3(...site.position).sub(new THREE.Vector3(...exp.position)).multiplyScalar(120);const factor=Math.min(1,4800/Math.max(1,delta.length()));o.position.copy(delta.multiplyScalar(factor));const celestial=site.kind==='planet'||site.kind==='moon';o.scale.setScalar(celestial?site.radius*120*factor/o.userData.baseRadius:factor);o.visible=celestial||siteDistance(exp,i)<60;});
+      state.flightInput={turn:state.seat&&!state.inMenu&&!state.inCutscene&&!document.querySelector('dialog[open]')?Number(keys.has('KeyA'))-Number(keys.has('KeyD')):0,pitch:state.seat&&!state.inMenu&&!state.inCutscene&&!document.querySelector('dialog[open]')?Number(keys.has('KeyR'))-Number(keys.has('KeyF')):0};
+      if(concourse.visible){
+        if(stationID!==exp.docked){stationID=exp.docked;const old=stationName.material.map;stationName.material.map=textTexture(sites[exp.docked]?.name.toUpperCase()||'STATION','INDEPENDENT CARTOGRAPHERS GUILD');old.dispose();}
+        state.atExchange=camera.position.z< -158&&Math.abs(camera.position.x)<4;
+        citizens.forEach(({person,legs},i)=>{person.position.set((i%2?1:-1)*(4.5+(i%3)*.6),0,Math.sin(time*.13+i)*11);person.rotation.y=Math.cos(time*.13+i)>0?0:Math.PI;legs[0].rotation.x=Math.sin(time*4+i)*.22;legs[1].rotation.x=-legs[0].rotation.x;});
+      }else state.atExchange=false;
+    }else station.visible=state.mode==='dock';
+    if(exp?.campaign?.mode==='story'&&exp.campaign.step<8){siteObjects.forEach((o,i)=>o.visible=i===6);siteObjects[6].position.set(120,30,-380);siteObjects[6].scale.setScalar(1.3+(400-exp.campaign.altitude)/500);}
+    if(cinemaShot&&state.cinema){const p=poses[cinemaShot]||poses.bridge;const t=Math.min(1,state.cinema.elapsed/state.cinema.duration);camera.position.set(p.p[0]+(cinemaShot==='crew'?-.8:0),p.p[1]+.25,p.p[2]-t*1.2);camera.lookAt(...p.t);if(cinemaShot==='crew')camera.lookAt(6.8,2.6,18);}
     frameCount++;frameTime+=dt;if(frameTime>.7){fps=Math.round(frameCount/frameTime);frameCount=0;frameTime=0;}
     renderer.info.autoReset=false;renderer.info.reset();composer.render();
     return {fps,draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,room:renderRoom};
   }
-  return {setView,update,quality,resize,renderer,scene,camera,rooms,hull,setMove(code,down){down?keys.add(code):keys.delete(code);},dispose(){resizeObserver.disconnect();composer.dispose();renderer.dispose();}};
+  return {setView,update,quality,resize,renderer,scene,camera,rooms,hull,startCinema(shot){cinemaShot=shot;keys.clear();setView(shot);},endCinema(){cinemaShot=null;keys.clear();},setMove(code,down){down?keys.add(code):keys.delete(code);},dispose(){resizeObserver.disconnect();composer.dispose();renderer.dispose();}};
 }

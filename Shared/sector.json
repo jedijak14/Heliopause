@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "name": "Asterion Reach",
+  "sites": [
+    {
+      "id": "anchorage",
+      "name": "Asterion Anchorage",
+      "kind": "station",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "radius": 0.12,
+      "reward": 0,
+      "artifact": false,
+      "lore": "Home port of the Longhaul. Independent cartographers trade verified surveys here."
+    },
+    {
+      "id": "meridian",
+      "name": "Meridian Exchange",
+      "kind": "station",
+      "position": [
+        65,
+        8,
+        -90
+      ],
+      "radius": 0.16,
+      "reward": 0,
+      "artifact": false,
+      "lore": "A bright ring of habitable modules built around an abandoned fusion foundry."
+    },
+    {
+      "id": "farwatch",
+      "name": "Farwatch Observatory",
+      "kind": "station",
+      "position": [
+        -105,
+        -10,
+        -150
+      ],
+      "radius": 0.14,
+      "reward": 0,
+      "artifact": false,
+      "lore": "The last inhabited outpost before the deep array. Its archivists buy discoveries, not rumors."
+    },
+    {
+      "id": "glasswake",
+      "name": "Glasswake Belt",
+      "kind": "field",
+      "position": [
+        -20,
+        2,
+        -35
+      ],
+      "radius": 1.2,
+      "reward": 180,
+      "artifact": false,
+      "lore": "Silicate fragments carry parallel fracture lines. This field was once a single engineered body."
+    },
+    {
+      "id": "kestrel",
+      "name": "Kestrel Wreck",
+      "kind": "derelict",
+      "position": [
+        24,
+        -3,
+        -55
+      ],
+      "radius": 0.18,
+      "reward": 280,
+      "artifact": true,
+      "lore": "The missing surveyor's black box contains a star map older than any inhabited colony."
+    },
+    {
+      "id": "singing",
+      "name": "Singing Array",
+      "kind": "signal",
+      "position": [
+        -48,
+        14,
+        -82
+      ],
+      "radius": 0.2,
+      "reward": 320,
+      "artifact": true,
+      "lore": "Six suspended resonators repeat the same interval. The signal is a coordinate, not a distress call."
+    },
+    {
+      "id": "asterion",
+      "name": "Asterion IV",
+      "kind": "planet",
+      "position": [
+        45,
+        -12,
+        -145
+      ],
+      "radius": 14,
+      "reward": 400,
+      "artifact": false,
+      "lore": "Copper-green oceans and silver cloud bands. Orbital spectroscopy reveals a thriving microbial biosphere."
+    },
+    {
+      "id": "nacre",
+      "name": "Nacre Moon",
+      "kind": "moon",
+      "position": [
+        85,
+        20,
+        -190
+      ],
+      "radius": 6,
+      "reward": 350,
+      "artifact": false,
+      "lore": "A pale fractured moon. Buried superconducting seams resonate with the Singing Array."
+    },
+    {
+      "id": "pilgrim",
+      "name": "Pilgrim Vault",
+      "kind": "ruin",
+      "position": [
+        -120,
+        10,
+        -215
+      ],
+      "radius": 0.3,
+      "reward": 500,
+      "artifact": true,
+      "lore": "The vault protects a crystalline archive. Its final entry charts a route beyond the heliopause."
+    },
+    {
+      "id": "helios",
+      "name": "Helios Beacon",
+      "kind": "beacon",
+      "position": [
+        140,
+        5,
+        -100
+      ],
+      "radius": 0.25,
+      "reward": 600,
+      "artifact": true,
+      "lore": "An ancient navigation seed awakens in the Longhaul's hold. The Reach is only the beginning."
+    },
+    {
+      "id": "cinder",
+      "name": "Cinder",
+      "kind": "planet",
+      "position": [
+        -160,
+        50,
+        -300
+      ],
+      "radius": 10,
+      "reward": 540,
+      "artifact": false,
+      "lore": "Volcanic plains preserve the first harmonic of the Kestrel star map. The archive was a network, not a monument."
+    },
+    {
+      "id": "pelagos",
+      "name": "Pelagos",
+      "kind": "planet",
+      "position": [
+        80,
+        -25,
+        -270
+      ],
+      "radius": 18,
+      "reward": 620,
+      "artifact": false,
+      "lore": "A global ocean echoes the same carrier wave. Beneath the clouds, ancient buoys once carried voices between worlds."
+    },
+    {
+      "id": "borealis",
+      "name": "Borealis",
+      "kind": "planet",
+      "position": [
+        180,
+        10,
+        -350
+      ],
+      "radius": 9,
+      "reward": 680,
+      "artifact": false,
+      "lore": "An icebound relay contains the final coordinate key. Its last transmission names Pilgrim as a refuge for memory."
+    },
+    {
+      "id": "vesper",
+      "name": "Vesper",
+      "kind": "planet",
+      "position": [
+        0,
+        40,
+        -430
+      ],
+      "radius": 20,
+      "reward": 730,
+      "artifact": false,
+      "lore": "Amber storm bands wrap a gas giant at the edge of the Reach. A quiet beacon repeats a farewell in a thousand languages."
+    }
+  ]
+}

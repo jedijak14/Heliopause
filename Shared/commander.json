@@ -1,0 +1,75 @@
+{
+  "provenance": "AI-generated speech; user-selected EVA and Commander voices. Existing EVA masters retained.",
+  "lines": [
+    {
+      "id": "eva_intro_1",
+      "speaker": "EVA",
+      "text": "Good morning, Commander. We are holding in high orbit above Kepler four forty-two b. All systems are stable. Welcome back.",
+      "duration": 10.658,
+      "recording": true
+    },
+    {
+      "id": "eva_intro_2",
+      "speaker": "EVA",
+      "text": "All systems nominal. Your tablet is on your belt. Press T whenever you need me.",
+      "duration": 6.78,
+      "recording": true
+    },
+    {
+      "id": "eva_obj_room",
+      "speaker": "EVA",
+      "text": "Lights on. Private rooms need your handprint. Scan in at each door.",
+      "duration": 5.886,
+      "recording": true
+    },
+    {
+      "id": "eva_obj_entry",
+      "speaker": "EVA",
+      "text": "When you are ready, return to the cockpit and start the Entry Survey from the Flight page.",
+      "duration": 7.291,
+      "recording": true
+    },
+    {
+      "id": "hale_1",
+      "speaker": "CMDR. ROWAN HALE",
+      "text": "Two hundred and eleven days out. Still the most beautiful thing I've ever seen.",
+      "duration": 4.435,
+      "recording": true
+    },
+    {
+      "id": "hale_signal",
+      "speaker": "CMDR. ROWAN HALE",
+      "text": "EVA, bring the navigation array online. If that signal really came from the Kestrel, someone out there has been waiting a very long time. We're going to find them.",
+      "duration": 9.3,
+      "recording": true
+    },
+    {
+      "id": "hale_cinder",
+      "speaker": "CMDR. ROWAN HALE",
+      "text": "The recorder survived, but the star map is damaged. These coordinates point to Cinder. Let's compare its volcanic spectrum with the archive. Maybe the missing pieces are still out there.",
+      "duration": 10.495,
+      "recording": true
+    },
+    {
+      "id": "hale_pelagos",
+      "speaker": "CMDR. ROWAN HALE",
+      "text": "There. The same pattern, beneath all that ocean. This wasn't one civilization on one world. They were talking to each other across the dark. Keep recording, EVA. Every voice matters.",
+      "duration": 11.68,
+      "recording": true
+    },
+    {
+      "id": "hale_borealis",
+      "speaker": "CMDR. ROWAN HALE",
+      "text": "Borealis has their final relay. It's quiet now, but the archive still remembers the route to Pilgrim. We can bring their stories home. Not as salvage. As people who were here.",
+      "duration": 9.683,
+      "recording": true
+    },
+    {
+      "id": "hale_home",
+      "speaker": "CMDR. ROWAN HALE",
+      "text": "Anchorage, this is Commander Rowan Hale of the Longhaul. We have two archives aboard, and a promise to keep. Requesting docking clearance. EVA, let's bring them home.",
+      "duration": 9.892,
+      "recording": true
+    }
+  ]
+}

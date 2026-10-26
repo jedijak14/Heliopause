@@ -1,3 +1,5 @@
+import {tickCampaign} from './campaign.js';
+import {stepExpedition, action as expeditionAction, speed} from './exploration.js';
 export const roomNames = ['Bridge', 'Crew quarters', 'Cargo bay', 'Engine room'];
 export const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 export function createState() {
@@ -17,6 +19,7 @@ export function doorLocked(s, i) { return i === 3 ? s.mode !== 'dock' : s.mode =
 export function log(s, text, type='info') { s.logs.unshift({time:s.elapsed, text, type}); s.logs.length = Math.min(s.logs.length, 40); }
 export function setFlight(s, mode) {
   if(!s.seat || !['dock','cruise','emergency'].includes(mode)) return false;
+  if(s.expedition){if(s.expedition.onStation)return false;if(mode==='cruise'&&s.expedition.docked>=0)expeditionAction(s.expedition,'undock');if(mode!=='cruise')expeditionAction(s.expedition,'brake');}
   s.mode=mode; log(s, mode==='cruise'?'Cruise vector confirmed. External airlock sealed.':mode==='dock'?'Station keeping engaged. Docking route available.':'Emergency lockdown. All bulkheads sealed.', mode==='emergency'?'warn':'info');
   if(mode==='cruise') s.mission=Math.max(1,s.mission);
   return true;
@@ -39,18 +42,19 @@ export function route(start, end, locks) {
   return result;
 }
 export function tick(s, dt) {
-  dt=clamp(dt,0,.1); s.elapsed+=dt;
+  if(s.inMenu||s.inCutscene)return;
+  dt=clamp(dt,0,.1); s.elapsed+=dt;tickCampaign(s,dt);
   for(const r of s.rooms) {
     r.pressure=clamp(r.pressure+(r.breach?-6.5:3.5)*dt,0,100);
     r.temp=clamp(r.temp+(r.vent?8:(21-r.temp)*.08)*dt,-80,220);
   }
   s.doors=s.doors.map((v,i)=>v&&!doorLocked(s,i));
-  s.speed+=( (s.mode==='cruise'?s.throttle*.042:0)-s.speed)*Math.min(dt*.7,1);
-  s.distance+=s.speed*dt;
+  if(s.expedition&&!(s.expedition.campaign?.mode==='story'&&s.expedition.campaign.step<8)){stepExpedition(s.expedition,dt,{...s.flightInput,throttle:s.mode==='cruise'?s.throttle/100:0});s.speed=speed(s.expedition);s.distance=s.expedition.totalTravel;}else s.speed+=( (s.mode==='cruise'?s.throttle*.042:0)-s.speed)*Math.min(dt*.7,1);
+  if(!s.expedition)s.distance+=s.speed*dt;
   if(s.mode==='cruise') {
     s.cruiseTime+=dt;
-    if(s.mission===1&&s.cruiseTime>22) { fault(s,3,true); s.mission=2; }
-    if(s.cruiseTime>s.nextBoarding) { s.intruders=Math.min(4,s.intruders+1); s.nextBoarding+=110; log(s,'Unknown life sign detected in cargo bay.','warn'); }
+    if(!s.expedition&&s.mission===1&&s.cruiseTime>22) { fault(s,3,true); s.mission=2; }
+    if(!s.expedition&&s.cruiseTime>s.nextBoarding) { s.intruders=Math.min(4,s.intruders+1); s.nextBoarding+=110; log(s,'Unknown life sign detected in cargo bay.','warn'); }
   }
   s.aiTime+=dt;
   for(let i=0;i<3;i++) {
@@ -62,7 +66,7 @@ export function tick(s, dt) {
     s.aiTime=0;
     for(let i=0;i<3;i++) {
       const d=s.drones[i]; if(d.health<=0||s.controlled===i) continue;
-      if(i===1&&(s.rooms[d.room].breach||s.rooms[d.room].vent)) repair(s,d.room);
+      if(i===1&&!(s.expedition?.campaign?.mode==='story'&&s.expedition.campaign.step===6)&&(s.rooms[d.room].breach||s.rooms[d.room].vent)) repair(s,d.room);
       if(i===0&&d.room===2&&s.intruders>0) { s.intruders--; log(s,'KESTREL: intrusion contained.','good'); }
       const goal=(d.room+1)%4, path=route(d.room,goal,[0,1,2].map(j=>doorLocked(s,j)));
       if(path.length>1) d.room=path[1];

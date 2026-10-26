@@ -1,47 +1,46 @@
-# Validation ledger
+# v0.5.0 / supplied-v4 validation
 
-## Executed in the authoring sandbox
+Active renderer: the user's uploaded HTML, not the older Three.js implementation.
 
-- Python project/descriptor/input-packaging structure tests: **4 passed**.
-- Bundled asset SHA-256 verification: **3 WAVs matched**.
-- Node audio queue tests: **6 passed** (local precedence, offline-only fallback, cancellation, bounded queue/cache, invalid media fallback, clear).
-- Portable C++17 tests with `-Wall -Wextra -Werror -pedantic` and **ASan/UBSan**: passed.
-- C++ assertions cover pressure/heat recovery and bounds, dock/cruise/emergency interlocks, all **128** routing configurations, health/destruction, truncated/invalid WAVs, and **10,000** randomized malformed byte buffers.
+- 22 JS tests pass, including the expanded continuous Kestrel → Cinder → Pelagos → Borealis → Pilgrim → Anchorage campaign and subsequent Vesper exploration, real manual translation/turning/braking, every discovery destination, save validation, and the EVA interruption regression.
+- Offline v4 Chromium systems test passes: keyboard piloting changes actual coordinates; fixed hull sensors ignore look input; 14 navigation targets; embedded EVA/Commander audio with serialization; repair controls; drone takeover/destruction; mobile tablet. No runtime errors or HTTP requests observed.
+- Offline v4 story test passes: opening/skip, lights, BOTH physical handprint scans and doorway walks, curtain, pilot/entry controls. A documented saved endgame fixture then walks through a station, archives discoveries and triggers the retained EVA ending. This is not a claim of UI-playing every mid-campaign travel leg.
+- Five Python source/asset checks, six companion voice tests, WAV hash checks, catalog synchronization and ASan/UBSan portable C++ suites.
+- Software Chromium selects reduced render resolution; screenshots are not a hardware quality/FPS benchmark. Native rendering remains unverified.
 
-A signedness warning in WAV block-alignment validation was found by the strict compiler and fixed before the successful run. These tests intentionally do not pretend to compile Unreal headers or exercise the renderer.
+## Remaining boundaries
 
-## Not executed / required before a game release
+- No Unreal build/cook/runtime validation. Native gameplay retains the earlier campaign; expanded browser chapters are not full native feature parity.
+- Bounded authored sector, simplified flight and orbital survey. No planetary landing, infinite generation, multiplayer or scientific orbital dynamics.
+- AI-generated dialogue, optional synthetic breath foley. Existing EVA recordings are retained; no human actor/breath recording claim. Captions are whole-line in the supplied-v4 renderer, not forced-aligned word timing.
+- Browser routing uses an inflated-body visibility graph; emergency proximity braking remains a fallback. Native navigation has braking but not the new graph planner.
+- Stylized procedural crowds/stations, not motion-captured/textured humans. The attached ship geometry is retained; remote systems pages are not a claim of additional physical cabin decks.
+- User voice overrides are session-local in v4. Versioned localStorage saves can fail when blocked/full; errors are surfaced.
 
-- [ ] Unreal 5.8 availability and exact toolchain verified.
-- [ ] UHT and Development Editor compilation with no errors.
-- [ ] `Heliopause.Core.*` Unreal automation tests pass.
-- [ ] Startup map applies game mode; menu/Canvas hitboxes work in Standalone.
-- [ ] Walking floor, walls, crouch, door collisions and station access work.
-- [ ] Pilot enter/exit blends correctly with no body/camera snap or penetration.
-- [ ] All three sensors retain fixed transforms while mouse input is ignored.
-- [ ] Hull panels, engine bells, RCS direction and material colors render correctly.
-- [ ] Interior render components disappear in external feeds without losing collision.
-- [ ] Decompression, heat, recovery, cruise airlock lock and emergency lock work.
-- [ ] Drone room routing and door opening tested across all compartment boundaries.
-- [ ] Controlled-drone destruction cuts to static and returns safely.
-- [ ] Maintenance repair and security response are observable in play.
-- [ ] Boarding alert changes bridge lights and life-sign HUD count.
-- [ ] Station pedestrians animate without collider or render-state regressions.
-- [ ] Native WAV override, malformed WAV fallback, Windows SAPI and Linux captions tested.
-- [ ] Browser file upload, IndexedDB persistence and local speech tested in real browsers offline.
-- [ ] Cook/package and run without editor or network; bundled audio is present.
-- [ ] Profile CPU/GPU at 1080p/1440p on named hardware using `stat unit`, `stat gpu`, Unreal Insights.
-- [ ] Record sensor vs interior frame timing, peak memory and draw calls before asserting FPS/optimization targets.
+## Historical validation (earlier renderer, not current website)
 
-## Known preview limitations
 
-- Not a complete port of the incomplete WebGL game; its procedural planetary scattering/PBR/post stack is not included.
-- Ship-frame simulation only: no orbital navigation, movable flight rigidbody, landing, terrain or destination travel.
-- Native HUD is designed for desktop approximately 1280×720 or larger; small viewport layouts may overlap.
-- Simplified art and lighting; no authored textures, weapon animations, skeletal rigs or complex behavior trees.
-- Compartment graph routing plus sweeps, not general obstacle-solving pathfinding.
-- Automatic bulkhead closure has no occupant-safety sensor yet.
-- Browser upload/TTS companion and native game are separate workflows.
-- Native runtime recordings must be PCM16 WAV; browser codecs may accept MP3/OGG.
-- Installed system voices differ by OS/browser; no promise of voice availability. Subtitles always remain.
-- No engine-version-specific optimization or performance measurement has been performed.
+## Executed checks
+
+- 17 browser rule tests: atmosphere, interlocks, routing, drone health/control, save rejection, sector collision, trading/upgrades and campaign progression.
+- The full campaign **simulation** test travels continuously from the orbital prologue to Kestrel, Pilgrim and Anchorage, archives both artifacts, triggers the ending and resumes exploration. It does not teleport between those destinations.
+- Offline standalone Chromium systems smoke: pilot/cruise, fixed sensor input/culling, all four compartments, breach/interlock/repair, drone takeover/destruction/static, intrusion/security, local voice import/clear, quality, dialogs and 390px layout. Zero external HTTP requests or JS/shader errors in the run.
+- Offline campaign UI test: begin/skip, tablet, lights, handprint, curtain, entry authorization; then a documented saved endgame fixture tests real station walking, exchange and ending. **This UI test does not play every mid-campaign travel leg**; the separate rule test covers that continuous route.
+- Five Python source/asset checks, six local voice-queue tests, asset hash verification, shared-catalog synchronization, portable C++ simulation and exploration tests under ASan/UBSan.
+- Browser scene screenshots inspected for opening, quarters, entry, engine, station, hull and mobile layout. Headless software rendering is not a GPU performance benchmark.
+
+## Not verified
+
+No Unreal Editor, UHT, UBT or UAT is installed here. Native source has **not been compiled, cooked, launched or profiled**. The included Unreal automation test is a future engine-side gate, not an executed test. Engine materials, input capture, packaged audio staging, runtime meshes and Canvas/UMG behavior all need native validation.
+
+## Deliberate scope / limitations
+
+- A bounded authored sector with three station interiors, not an infinite procedural universe, planetary surface game, multiplayer game or production-scale campaign.
+- Flight uses simplified steering and braking. The atmospheric prologue uses a separate altitude/pitch/heat model; it is not a scientific orbital or six-degree-of-freedom rigidbody simulation.
+- Navigation brakes for obstacles but has no general obstacle-avoidance planner. If a route is blocked, steer around the body manually before re-engaging navigation.
+- Interior art and crowds are original stylized procedural geometry, not photogrammetry or motion-captured humans. Native and browser art differ.
+- The deck selector is an inspection shortcut; ordinary walking respects doors/interlocks. Remote repair commands are intentionally available to avoid forcing entry into an unsafe compartment.
+- Ten EVA recordings are AI-generated. Sentence subtitle timing is estimated from word counts and measured duration, **not forced alignment**. Custom voice overrides may not exactly match authored scene timing.
+- Breathing is quiet optional synthesized foley, not a human breath recording. User audio may override EVA scenes; default sound can be muted.
+- Save storage can be blocked/full/private; failure is surfaced. Ship motion/scans stop on reload. Prologue recovery reconstructs safe objective state rather than every animation/temperature frame.
+- No universal frame-rate, pixel-perfect rendering or native feature-parity claim.

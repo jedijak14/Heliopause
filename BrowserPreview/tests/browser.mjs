@@ -22,9 +22,10 @@ try{
  await page.goto(pathToFileURL(path.join(root,'heliopause.html')).href);
  await page.waitForFunction(()=>window.heliopause&&document.querySelector('.load-screen').classList.contains('hidden'),null,{timeout:30000});
  await page.screenshot({path:path.join(artifacts,'final-bridge.png')});
- assert.equal(await page.locator('h1').innerText(),'A LONG\nWAY OUT.');
+ await page.click('[data-story="free"]');
+ await page.click('[data-tab="flight"]');
  await page.click('[data-action="seat"]');
- assert.equal(await page.evaluate(()=>heliopause.state.seat),true);
+ assert.equal(await page.evaluate(()=>heliopause.state.seat),true);await page.click('[data-tab="flight"]');
  await page.click('[data-mode="cruise"]');assert.equal(await page.evaluate(()=>heliopause.state.mode),'cruise');
  await page.click('[data-mode="dock"]');
  await page.click('[data-view="port"]');
