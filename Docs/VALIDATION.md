@@ -12,7 +12,7 @@ Active renderer: supplied-v4 HTML/WebGL2. Unreal 5.8 is **uncompiled source only
 - **Habitat browser:** six room deployment, moving-ship refusal, transition locks, room entry, occupancy refusal, flight lock, orbit/zoom camera, room screenshots, GPU unload, persistence, hatch/disembark/reboard and manual liftoff.
 - **Planetary browser:** production motion crosses the former 3 km boundary without a transit scene or autopilot; a separate near-ground fixture exercises soft contact and manual liftoff. Loaded NASA mesh verified at 23,232 triangles. No JS/GL errors. This is not a single uninterrupted descent from 400 km.
 - **Rendering/integration browser:** six planet styles, six flight axes/reverse/coasting, gas-giant guard, Cinder terrain contact, hazard damage and suit save.
-- **Asset browser:** routed HTTPS real downloads/hash verification, HD cache/offline switch, all five embedded map decodes, file mode with zero HTTP requests. Uses a hermetic routed origin, not a claim that a particular deployment was tested.
+- **Asset browser:** production CSP headers, embedded NASA mesh, routed HTTPS real downloads/hash verification, HD cache/offline switch, all five embedded map decodes, file mode with zero HTTP requests. Uses a hermetic routed origin, not a claim that a particular deployment was tested.
 
 Software-rendered screenshots were inspected. They demonstrate functional, stylized scenes—not photorealism or GPU/FPS certification. Earlier suites are rerun when related code changes; the CI workflow runs all seven browser suites on committed builds.
 
