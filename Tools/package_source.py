@@ -14,7 +14,7 @@ if git('status', '--porcelain').strip():
     raise SystemExit('Commit project files first; source release requires a clean tree.')
 revision = git('rev-parse', 'HEAD').decode().strip()
 files = git('ls-files', '-z').decode().strip('\0').split('\0')
-parser=argparse.ArgumentParser();parser.add_argument('--tag',default='v0.5.0-source-preview');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--tag',default='v0.6.0-source-preview');args=parser.parse_args()
 if not re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+-source-preview',args.tag):raise SystemExit('Invalid source release tag')
 folder = 'Heliopause-'+args.tag
 output = ROOT / 'Artifacts' / (folder + '.zip')

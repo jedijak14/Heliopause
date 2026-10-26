@@ -197,6 +197,48 @@
       "reward": 730,
       "artifact": false,
       "lore": "Amber storm bands wrap a gas giant at the edge of the Reach. A quiet beacon repeats a farewell in a thousand languages."
+    },
+    {
+      "id": "kepler442b",
+      "name": "Kepler-442b",
+      "position": [
+        5,
+        -18,
+        -32
+      ],
+      "radius": 9,
+      "reward": 550,
+      "lore": "The opening survey world. Forest uplands, basalt ridges and warm shallows surround the Longhaul's first landing site.",
+      "kind": "planet",
+      "artifact": false
+    },
+    {
+      "id": "eidolon",
+      "name": "Eidolon",
+      "position": [
+        220,
+        55,
+        -430
+      ],
+      "radius": 12,
+      "reward": 780,
+      "lore": "A fractured violet world with crystalline ridges and ancient survey markers.",
+      "kind": "planet",
+      "artifact": false
+    },
+    {
+      "id": "solis",
+      "name": "Solis Dune",
+      "position": [
+        -220,
+        -20,
+        -390
+      ],
+      "radius": 16,
+      "reward": 820,
+      "lore": "Amber mesas and wind-carved dunes trace the long migration of an extinct inland sea.",
+      "kind": "planet",
+      "artifact": false
     }
   ]
 }

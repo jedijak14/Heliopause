@@ -1,21 +1,26 @@
-# v0.5.0 / supplied-v4 validation
+# v0.6.0 / ship refit and planetary surfaces
 
-Active renderer: the user's uploaded HTML, not the older Three.js implementation.
+Active renderer: the user's supplied v4 HTML/WebGL2 base. UE 5.4 is source-only.
 
-- 22 JS tests pass, including the expanded continuous Kestrel → Cinder → Pelagos → Borealis → Pilgrim → Anchorage campaign and subsequent Vesper exploration, real manual translation/turning/braking, every discovery destination, save validation, and the EVA interruption regression.
-- Offline v4 Chromium systems test passes: keyboard piloting changes actual coordinates; fixed hull sensors ignore look input; 14 navigation targets; embedded EVA/Commander audio with serialization; repair controls; drone takeover/destruction; mobile tablet. No runtime errors or HTTP requests observed.
-- Offline v4 story test passes: opening/skip, lights, BOTH physical handprint scans and doorway walks, curtain, pilot/entry controls. A documented saved endgame fixture then walks through a station, archives discoveries and triggers the retained EVA ending. This is not a claim of UI-playing every mid-campaign travel leg.
-- Five Python source/asset checks, six companion voice tests, WAV hash checks, catalog synchronization and ASan/UBSan portable C++ suites.
-- Software Chromium selects reduced render resolution; screenshots are not a hardware quality/FPS benchmark. Native rendering remains unverified.
+## Executed checks
 
-## Remaining boundaries
+- 27 portable JS tests: continuous expanded story travel, all 17 discovery destinations, pilot authority/undock guards, tablet controls surviving simulation updates, deterministic terrain on all eight solid bodies, globe seams/poles/circumnavigation, skimmer/recall, surface save validation, recorded-voice serialization.
+- Offline systems browser test: real keyboard flight/brake, fixed sensors, 17 targets, recorded EVA/Commander playback, maintenance, invisible microbot takeover/loss and 390px tablet layout.
+- Offline story browser test: original prologue lights, both original physical handprint scans and doorway walks, curtain, entry. Saved endgame fixture then tests station walking, exchange and preserved ending. Mid-campaign travel is covered continuously by rules, not an uninterrupted browser playthrough.
+- Offline refit browser test: land on Kepler using the real UI, walk and use the skimmer far enough to stream terrain, collect samples, save/reload on the surface, recall/reboard; scan and physically walk through the three new aft doorways; P with tablet open; actual thrust/pitch/yaw tablet controls; Eidolon and Solis land/return from explicit arrival fixtures; mobile flight panel. No external HTTP requests or runtime errors in successful runs.
+- Five Python checks, six companion voice tests, 24 preserved asset hashes, generated catalog synchronization, portable C++ ASan/UBSan suites.
+- Inspected cockpit displays at full screenshot resolution and planetary terrain. Software Chromium uses reduced resolution by default; selected screenshots explicitly switch to high quality. This is not GPU/FPS certification.
 
-- No Unreal build/cook/runtime validation. Native gameplay retains the earlier campaign; expanded browser chapters are not full native feature parity.
-- Bounded authored sector, simplified flight and orbital survey. No planetary landing, infinite generation, multiplayer or scientific orbital dynamics.
-- AI-generated dialogue, optional synthetic breath foley. Existing EVA recordings are retained; no human actor/breath recording claim. Captions are whole-line in the supplied-v4 renderer, not forced-aligned word timing.
-- Browser routing uses an inflated-body visibility graph; emergency proximity braking remains a fallback. Native navigation has braking but not the new graph planner.
-- Stylized procedural crowds/stations, not motion-captured/textured humans. The attached ship geometry is retained; remote systems pages are not a claim of additional physical cabin decks.
-- User voice overrides are session-local in v4. Versioned localStorage saves can fail when blocked/full; errors are surfaced.
+## Boundaries and remaining validation
+
+- No Unreal build/cook/runtime validation. Native uses HeliopauseCore and the shared 17-site catalog but does not mirror the new surface renderer, ship refit or latest browser campaign. No native executable is supplied.
+- Bounded sector and compressed, deterministic procedural globes. Not an astronomical-scale simulation, infinite universe, photorealistic reconstruction, or seamless ship-to-ground flight: landing is a scene transition to a separate lander.
+- Every solid body's terrain is mathematically available worldwide; globe sampling/seams/poles are tested. Browser traversal has sampled local regions, not walked every coordinate. Near terrain streams in discrete patches; distant tessellation and prop appearance can be visible. Decorative vegetation/rocks have no general rigid-body collision. Lander proximity is blocked.
+- The surface skimmer changes travel speed/camera height; it is not a separately steerable animated vehicle model. Water traversal is simplified. Vesper has no solid landing surface.
+- Surfaces use original stylized procedural terrain/props, not photographic assets. Specimens are a persistent research collection, not a new exchange currency. Cargo archives retain their existing trading flow.
+- Six visible rooms map to four atmosphere/service zones; the refit does not claim six independent pressure simulations. Microbot props are removed; optics/repair autonomy remain.
+- AI-generated dialogue and optional synthetic breathing; all 20 recordings are preserved. User voice overrides remain session-local. Storage failures are surfaced.
+- The starfield does not rotate with sector heading; modeled bodies and destinations do. No universal frame-rate, pixel-perfect or native parity claim.
 
 ## Historical validation (earlier renderer, not current website)
 

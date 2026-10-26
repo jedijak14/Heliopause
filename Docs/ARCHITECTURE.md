@@ -1,3 +1,7 @@
+## v0.6 refit / surface extension
+
+The active v4 browser now uses `flight-controls.js` for authoritative pilot commands, `ship-refit.js` for the aft deck/exterior, `terrain.js` for deterministic unit-sphere terrain/movement and `surface-renderer.js` for streamed terrain and orbital globe meshes. Geometry and shaders are original procedural source, embedded offline; no downloaded placeholder images or visible drone models are used. All existing audio masters remain unchanged. The shared catalog has 17 sites. This is browser functionality, not verified native parity.
+
 # Architecture — replacement framework
 
 ## Native UE 5.4

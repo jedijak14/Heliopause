@@ -1,3 +1,7 @@
+## v0.6 refit / surface extension
+
+The active v4 browser now uses `flight-controls.js` for authoritative pilot commands, `ship-refit.js` for the aft deck/exterior, `terrain.js` for deterministic unit-sphere terrain/movement and `surface-renderer.js` for streamed terrain and orbital globe meshes. Geometry and shaders are original procedural source, embedded offline; no downloaded placeholder images or visible drone models are used. All existing audio masters remain unchanged. The shared catalog has 17 sites. This is browser functionality, not verified native parity.
+
 # Supplied v4 base
 
 `Heliopause-v4.original.html` is the user's uploaded file, preserved unchanged. The active build starts from its document in `../index.html` and its extracted/extended script in `main.js`. It retains the bespoke WebGL2 ship, PBR/planet shaders, handprint doors, curtains, tablet and procedural score. This is not a reskin of the older Three.js renderer.

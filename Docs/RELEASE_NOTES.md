@@ -1,3 +1,14 @@
+# v0.6.0 — pilot repairs, ship refit and planetary expeditions
+
+- Fix stale tablet flight writes, P while tablet open, thrust while docked, and clipped/wrong-aspect cockpit screens. Add visible pilot controls and live readouts.
+- Add connected storage, engineering and science rooms with physical scanned doors, room lighting, maintenance access and cargo/specimen manifest. Expand the faceted exterior with radiator wings and engine pods.
+- Remove visible drone props; retain invisible microbot autonomy and remote optics.
+- Add Kepler-442b, Eidolon and Solis Dune (17 destinations total). Model solid-body globes and stream their terrain for walking, swimming and skimmer exploration. Add lander recall, reboarding, geological specimens and surface saves. Vesper remains non-landable.
+- Preserve all 20 voice recordings, original prologue/campaign, station crowds, fixed hull sensors and offline standalone distribution.
+- Add five portable regressions and an offline browser refit/surface suite. Correct the tutorial to require its original two doors, not every new aft door.
+
+Browser feature update only. Surfaces are stylized, compressed procedural worlds; landing is a transition, not seamless atmospheric piloting. Native UE 5.4 is uncompiled source without this renderer/refit parity. See VALIDATION.md.
+
 # v0.5.0 — supplied-v4 browser expansion
 
 - Adopt the user's uploaded HTML as the active base; preserve its original file.

@@ -4,7 +4,7 @@
 namespace HelioExplore {
 enum class Kind { Station, Field, Derelict, Signal, Planet, Moon, Ruin, Beacon };
 struct Site { const char* id; const char* name; Kind kind; std::array<double,3> position; double radius; int reward; bool artifact; const char* lore; };
-inline constexpr std::array<Site,14> Sites{{
+inline constexpr std::array<Site,17> Sites{{
     {"anchorage","Asterion Anchorage",Kind::Station,{{0.0,0.0,0.0}},0.12,0,false,"Home port of the Longhaul. Independent cartographers trade verified surveys here."},
     {"meridian","Meridian Exchange",Kind::Station,{{65.0,8.0,-90.0}},0.16,0,false,"A bright ring of habitable modules built around an abandoned fusion foundry."},
     {"farwatch","Farwatch Observatory",Kind::Station,{{-105.0,-10.0,-150.0}},0.14,0,false,"The last inhabited outpost before the deep array. Its archivists buy discoveries, not rumors."},
@@ -19,5 +19,8 @@ inline constexpr std::array<Site,14> Sites{{
     {"pelagos","Pelagos",Kind::Planet,{{80.0,-25.0,-270.0}},18,620,false,"A global ocean echoes the same carrier wave. Beneath the clouds, ancient buoys once carried voices between worlds."},
     {"borealis","Borealis",Kind::Planet,{{180.0,10.0,-350.0}},9,680,false,"An icebound relay contains the final coordinate key. Its last transmission names Pilgrim as a refuge for memory."},
     {"vesper","Vesper",Kind::Planet,{{0.0,40.0,-430.0}},20,730,false,"Amber storm bands wrap a gas giant at the edge of the Reach. A quiet beacon repeats a farewell in a thousand languages."},
+    {"kepler442b","Kepler-442b",Kind::Planet,{{5.0,-18.0,-32.0}},9,550,false,"The opening survey world. Forest uplands, basalt ridges and warm shallows surround the Longhaul's first landing site."},
+    {"eidolon","Eidolon",Kind::Planet,{{220.0,55.0,-430.0}},12,780,false,"A fractured violet world with crystalline ridges and ancient survey markers."},
+    {"solis","Solis Dune",Kind::Planet,{{-220.0,-20.0,-390.0}},16,820,false,"Amber mesas and wind-carved dunes trace the long migration of an extinct inland sea."},
 }};
 }
