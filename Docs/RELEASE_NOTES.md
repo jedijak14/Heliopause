@@ -1,30 +1,45 @@
-# HELIOPAUSE v0.1.0 — Unreal source preview
+# v0.7.0-source-preview
 
-A new native C++ project built from the supplied incomplete WebGL design and four-phase feature brief.
+Playable HTML: manual terrain-contact descent/liftoff, six expandable rooms, exterior airlocks/orbit camera, licensed models and verified optional HD map streaming. Original recordings/saves retained. Fetched NASA Moon GLB and browser geometry derivative included.
 
-## Included
+Unreal target: **5.8**, extending the supplied Core. Habitat/model loading and expedition planetary contact/terrain/airlock source is present, with portable tests. **No UHT/UBT/editor/import/cook/runtime validation; no native executable and no claim of full native parity.** The art remains partly stylized and the requested all-model quality pass is not complete. See VALIDATION.md.
 
-- `Heliopause.uproject`, game/editor targets, input/render/packaging config.
-- Procedural SV-7 hull, engine bells, RCS nozzles, four compartments and station.
-- Pilot-seat camera blend, three hard-mounted hull feeds and Canvas bridge tablet.
-- Room atmosphere faults and bulkhead interlocks.
-- Three local drones, compartment routing, static-cut destruction, intrusions and lightweight crowds.
-- Original bundled WAV assets, native offline WAV index and Windows local speech fallback.
-- Offline browser MP3/WAV/OGG upload and local-only `speechSynthesis` utility.
-- Portable tests, asset manifest, Unreal automation test source and validation checklist.
+# Unreleased — Unreal target correction
 
-## Download
+The current project targets Unreal Engine **5.8**, as requested. Earlier release entries below retain their historical engine versions. Retargeting is not an engine build certificate; UHT/UBT/editor/cook validation remains required.
 
-Extract **Heliopause-v0.1.0-source-preview.zip** and keep all folders beside `Heliopause.uproject`. The archive contains source and project assets, not a playable executable. `SOURCE-MANIFEST.json` identifies the revision and every file hash; the adjacent SHA256 file verifies the archive.
+# v0.6.0 — pilot repairs, ship refit and planetary expeditions
 
-## Important limitations
+- Fix stale tablet flight writes, P while tablet open, thrust while docked, and clipped/wrong-aspect cockpit screens. Add visible pilot controls and live readouts.
+- Add connected storage, engineering and science rooms with physical scanned doors, room lighting, maintenance access and cargo/specimen manifest. Expand the faceted exterior with radiator wings and engine pods.
+- Remove visible drone props; retain invisible microbot autonomy and remote optics.
+- Add Kepler-442b, Eidolon and Solis Dune (17 destinations total). Model solid-body globes and stream their terrain for walking, swimming and skimmer exploration. Add lander recall, reboarding, geological specimens and surface saves. Vesper remains non-landable.
+- Preserve all 20 voice recordings, original prologue/campaign, station crowds, fixed hull sensors and offline standalone distribution.
+- Add five portable regressions and an offline browser refit/surface suite. Correct the tutorial to require its original two doors, not every new aft door.
 
-**Source prerelease — no Unreal build included.** The descriptor targets UE 5.8, but engine compatibility, compilation, cooking, gameplay rendering and performance have not been verified. There was no Unreal installation in the authoring environment. Flight is a stationary ship-frame systems simulation rather than physical/orbital flight. The incomplete browser shader stack was not ported.
+Browser feature update only. Surfaces are stylized, compressed procedural worlds; landing is a transition, not seamless atmospheric piloting. Native UE 5.4 is uncompiled source without this renderer/refit parity. See VALIDATION.md.
 
-Native audio overrides accept PCM16 WAV; native MP3 is not implemented. Browser uploading/system voices are a separate companion utility. Native Linux fallback is subtitles. Engine built-ins are provided by your own licensed installation.
+# v0.5.0 — supplied-v4 browser expansion
 
-## Tests run
+- Adopt the user's uploaded HTML as the active base; preserve its original file.
+- Fix the greeting interruption and record the corrected delivery without deleting the prior EVA clip.
+- Add six AI-generated Commander performances, using the selected voice; preserve existing EVA recordings and original v4 text cues.
+- Add manual sector piloting/braking and obstacle-aware course planning.
+- Add Cinder, Pelagos, Borealis, Vesper; extend story through three planetary surveys, Pilgrim, return and ending.
+- Retain fixed hull sensors, physical door scans/walking, curtains, lighting, repair systems, drones, crowds, stations, exchange and saves.
+- Add focused offline UI, expanded continuous-campaign, and speech regression tests.
 
-Four Python structure/asset tests, six Node voice tests, three asset hash checks, and portable C++ assertions with ASan/UBSan passed, including 128 routing configurations and 10,000 malformed WAV buffers. These checks do **not** replace an Unreal build or runtime QA.
+Browser build is executable; UE 5.4 remains uncompiled source with the earlier native campaign. No native parity or hardware performance certification is claimed.
 
-See `Docs/BUILD.md` and `Docs/VALIDATION.md` for the remaining release gates.
+# v0.4.0 — A Long Way Home (browser + UE 5.4 source preview)
+
+- Replace the old native gameplay actors/module with the supplied HeliopauseCore architecture and EnhancedInput.
+- Add concrete runtime world, menus, tablet, HUD, station travel and exploration saves around that framework.
+- Add a bounded 12-state campaign, ten skippable voiced scenes, subtitles and ending; retain free exploration after completion.
+- Add ten saved synthetic EVA recordings and quieter optional respiratory foley.
+- Rework browser quarters into two berths, a desk and an opening thermal curtain; align compartment spacing, share boundary doors and support continuous walking through open bulkheads.
+- Add ten-site exploration, three station concourses with crowds, surveys/artifacts, exchange trade and upgrades.
+- Fix data-first artifact-sale softlocks, storage exception handling, drone/station guards, navigation input override and story resume cases.
+- Expand portable and offline browser tests, source-only release packaging and checksum-verified static hosting.
+
+**Release boundary:** runnable browser build plus native source. No Unreal build or packaged native executable is certified. See VALIDATION.md for exact test coverage and limitations. The earlier v0.1.0 source prerelease is historical and does not contain this campaign/framework replacement.

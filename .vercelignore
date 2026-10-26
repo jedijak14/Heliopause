@@ -1,0 +1,28 @@
+# The published browser file embeds its runtime assets. Keep native source,
+# development dependencies, user data and test artifacts out of deployment uploads.
+.git/
+.github/
+Artifacts/
+Binaries/
+Config/
+Content/
+Docs/
+Source/
+Tests/
+Tools/
+Saved/
+BrowserVoice/
+BrowserPreview/node_modules/
+BrowserPreview/build/
+BrowserPreview/src/
+BrowserPreview/tests/
+BrowserPreview/package.json
+BrowserPreview/package-lock.json
+BrowserPreview/vite.config.js
+BrowserPreview/index.html
+BrowserPreview/scripts/finalize.mjs
+Heliopause.uproject
+site/
+
+Shared/
+BrowserPreview/assets/

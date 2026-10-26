@@ -13,6 +13,19 @@ class ProjectTests(unittest.TestCase):
         for path in ['Source/Heliopause.Target.cs', 'Source/HeliopauseEditor.Target.cs', 'Source/Heliopause/Heliopause.Build.cs']:
             self.assertTrue((ROOT / path).is_file())
 
+    def test_replacement_framework(self):
+        core=(ROOT/'Source/Heliopause/Public/HeliopauseCore.h').read_text()
+        for name in ['IHPInteractable','UEVASubsystem','ARoomLight','AHandprintDoor','ACurtainWindow','AShipManager','AHeliopauseCharacter','AHeliopauseGameMode']:
+            self.assertIn(name,core)
+        sources=list((ROOT/'Source/Heliopause/Private').rglob('*.cpp'))
+        self.assertEqual(sum(p.read_text().count('IMPLEMENT_PRIMARY_GAME_MODULE') for p in sources),1)
+        self.assertFalse((ROOT/'Source/Heliopause/Public/HelioWorld.h').exists())
+        story=json.loads((ROOT/'Shared/story.json').read_text())
+        for line in story['lines']:
+            if line['recording']:
+                self.assertTrue((ROOT/f"Content/Audio/Voice/{line['id']}.wav").is_file())
+                self.assertTrue((ROOT/f"BrowserPreview/assets/story/{line['id']}.mp3").is_file())
+
     def test_audio_staged_and_valid(self):
         config = (ROOT / 'Config/DefaultGame.ini').read_text()
         self.assertIn('DirectoriesToAlwaysStageAsNonUFS=(Path="Audio")', config)
@@ -20,7 +33,7 @@ class ProjectTests(unittest.TestCase):
             with wave.open(str(path)) as f:
                 self.assertEqual(f.getsampwidth(), 2)
                 self.assertEqual(f.getnchannels(), 1)
-                self.assertEqual(f.getframerate(), 22050)
+                self.assertIn(f.getframerate(), (22050,44100))
                 self.assertGreater(f.getnframes(), 0)
 
     def test_no_network_in_companion(self):

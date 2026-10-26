@@ -1,0 +1,21 @@
+{
+  "name": "NASA SVS Moon \u2014 color-map-only model",
+  "credit": "NASA's Goddard Space Flight Center",
+  "source": "https://svs.gsfc.nasa.gov/14959/",
+  "originalURL": "https://svs.gsfc.nasa.gov/vis/a010000/a014900/a014959/moon_small.glb",
+  "license": "Public domain, NASA SVS usage policy; no endorsement",
+  "policy": "https://svs.gsfc.nasa.gov/help/",
+  "mirror": "https://github.com/antaripdebgupta/c3-archive/blob/aef184bb52619e2f1f20ab7e48463cd1e5efe66a/public/models/moon_small.glb",
+  "sourceSHA256": "12d3b0bb7fe214903f51447d1bc61710f442e92a11c703fcaca6d4e7ff8e67d4",
+  "sourceBytes": 13799876,
+  "vertices": 46464,
+  "triangles": 23232,
+  "browserBytes": 836360,
+  "browserSHA256": "d12135c5c3918e156f24f89d51bc9474078638ffa324480f42bf478948498f10",
+  "modifications": [
+    "Geometry uniformly normalized to unit bounding radius; original topology retained.",
+    "Browser uses Solar System Scope lunar imagery and fictional tints on the NASA geometry.",
+    "Original GLB retained for Unreal import, with its original embedded 4096-square atlas."
+  ],
+  "caveat": "NASA labels this variant COLOR MAP ONLY, without topography. It is not a scanned terrain mesh. Fictional Nacre/Borealis are not scientific reconstructions."
+}

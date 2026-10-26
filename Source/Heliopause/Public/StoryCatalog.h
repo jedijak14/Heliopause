@@ -1,0 +1,25 @@
+#pragma once
+// Generated from Shared/story.json and Shared/commander.json.
+struct FHPStoryCue { const char* Id; const char* Text; float Duration; const char* Speaker; };
+inline constexpr FHPStoryCue HPStoryCues[]={
+    {"eva_intro","Good morning, Commander. We have arrived in high orbit over Kepler four forty-two b. I am EVA, your ship intelligence. The Longhaul is holding steady. Open your tablet when you are ready. There is no hurry. After all that darkness, you deserve a moment to wake up.",21.671f,"EVA"},
+    {"eva_quarters","Tablet linked. Your quarters are still in sleep mode. Switch on the lights, then approach the private-room door and scan your handprint. This ship has carried you a long way. Let us make it feel like home again.",16.126f,"EVA"},
+    {"eva_view","Handprint verified. Welcome home, Commander. Open the thermal curtain. Those silver bands are clouds, not ice. Somewhere beneath them, an entire world is waking up. When you have had your moment, return to the pilot seat. We have a survey to finish.",22.24f,"EVA"},
+    {"eva_entry","Entry survey authorized. Keep your hands clear of the flight controls. I will manage the descent and deploy the thermal shades when the hull temperature rises. The noise is expected. If you can hear me, we are still together. Beginning our approach.",20.139f,"EVA"},
+    {"eva_hold","Holding at sixty kilometres. Survey sensors are recording. Wait. There is a second signal beneath the atmospheric noise. It matches the missing survey vessel Kestrel. Commander, that ship was declared lost thirty-seven years ago. I have saved its coordinates. First, we need to get back into orbit.",23.564f,"EVA"},
+    {"eva_repair","Reactor containment is oscillating. I have isolated the engine room. Do not force the bulkhead. Link to the maintenance drone and seal the thermal vent, or use the remote repair controls. I can hold our altitude, but I cannot make this repair for you. Take it one step at a time.",22.02f,"EVA"},
+    {"eva_departure","Containment stable. We are back in orbit. I have added the Kestrel to your navigation chart. We can leave this mystery behind, or find out why it called to us. Take the pilot seat, select the wreck, and set a course. The decision to go is yours.",19.28f,"EVA"},
+    {"eva_discovery","The Kestrel's recorder is intact. Its crew found something at the Pilgrim Vault. Not a weapon. Not a warning. A memory archive, built to survive its makers. The coordinates are in your chart. Survey the vault and recover its navigation seed. We should not let their last message disappear.",21.683f,"EVA"},
+    {"eva_return","Archive secured. I can read it now. They knew their star was dying. They sent their stories outward, hoping someone would listen. We did. Return to Asterion Anchorage, dock, and carry the discoveries to the exploration exchange. Let us make sure someone else can hear them too.",21.59f,"EVA"},
+    {"eva_final","The archive has been accepted. Their names will not be lost. Neither will the Kestrel's. When we left home, I thought our mission was to measure the distance between the stars. I was wrong. It was to find what makes that distance worth crossing. Thank you, Commander. The story is complete. The ship, and the open sky, are yours.",25.688f,"EVA"},
+    {"eva_intro_1","Good morning, Commander. We are holding in high orbit above Kepler four forty-two b. All systems are stable. Welcome back.",10.658f,"EVA"},
+    {"eva_intro_2","All systems nominal. Your tablet is on your belt. Press T whenever you need me.",6.78f,"EVA"},
+    {"eva_obj_room","Lights on. Private rooms need your handprint. Scan in at each door.",5.886f,"EVA"},
+    {"eva_obj_entry","When you are ready, return to the cockpit and start the Entry Survey from the Flight page.",7.291f,"EVA"},
+    {"hale_1","Two hundred and eleven days out. Still the most beautiful thing I've ever seen.",4.435f,"CMDR. ROWAN HALE"},
+    {"hale_signal","EVA, bring the navigation array online. If that signal really came from the Kestrel, someone out there has been waiting a very long time. We're going to find them.",9.3f,"CMDR. ROWAN HALE"},
+    {"hale_cinder","The recorder survived, but the star map is damaged. These coordinates point to Cinder. Let's compare its volcanic spectrum with the archive. Maybe the missing pieces are still out there.",10.495f,"CMDR. ROWAN HALE"},
+    {"hale_pelagos","There. The same pattern, beneath all that ocean. This wasn't one civilization on one world. They were talking to each other across the dark. Keep recording, EVA. Every voice matters.",11.68f,"CMDR. ROWAN HALE"},
+    {"hale_borealis","Borealis has their final relay. It's quiet now, but the archive still remembers the route to Pilgrim. We can bring their stories home. Not as salvage. As people who were here.",9.683f,"CMDR. ROWAN HALE"},
+    {"hale_home","Anchorage, this is Commander Rowan Hale of the Longhaul. We have two archives aboard, and a promise to keep. Requesting docking clearance. EVA, let's bring them home.",9.892f,"CMDR. ROWAN HALE"},
+};

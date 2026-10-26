@@ -1,0 +1,37 @@
+{
+  "earth": {
+    "url": "/hd/planets/earth.webp",
+    "width": 8192,
+    "height": 4096,
+    "bytes": 2673080,
+    "sha256": "49401b69410b66b0a17eaa578d19231fba3867f64d29cc95a3d5b81a210f7f01"
+  },
+  "moon": {
+    "url": "/hd/planets/moon.webp",
+    "width": 8192,
+    "height": 4096,
+    "bytes": 14454166,
+    "sha256": "686e2de60deb6afc92633c526627ca9194cd4abe3127b72f0289025e01a1586c"
+  },
+  "mars": {
+    "url": "/hd/planets/mars.webp",
+    "width": 8192,
+    "height": 4096,
+    "bytes": 6239892,
+    "sha256": "1cd442f7db5b3fc5e286d4ebe5aa047541cdd0109ef6f44287a121878df8c512"
+  },
+  "jupiter": {
+    "url": "/hd/planets/jupiter.webp",
+    "width": 4096,
+    "height": 2048,
+    "bytes": 803904,
+    "sha256": "f7eb22c134dc167d1b4515e2dd68ac8c2d6f461868addfd5f744fcbb7decb02e"
+  },
+  "clouds": {
+    "url": "/hd/planets/clouds.webp",
+    "width": 8192,
+    "height": 4096,
+    "bytes": 10878602,
+    "sha256": "979aabc58365e5288faa397020bfd505e3b5517b9160afb629cbfd117feca246"
+  }
+}

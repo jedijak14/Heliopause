@@ -1,0 +1,66 @@
+import { chromium } from 'playwright';
+import packed from '@sparticuz/chromium';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { brotliDecompressSync } from 'node:zlib';
+import { execFileSync } from 'node:child_process';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const artifacts=path.resolve(root,'../Artifacts/browser');fs.mkdirSync(artifacts,{recursive:true});
+// Lambda Chromium carries its NSS dependencies; unpack for minimal Linux workspaces.
+const libs=path.join(artifacts,'libs');fs.mkdirSync(libs,{recursive:true});
+const tar=path.join(artifacts,'al2023.tar');
+fs.writeFileSync(tar,brotliDecompressSync(fs.readFileSync(path.join(root,'node_modules/@sparticuz/chromium/bin/al2023.tar.br'))));
+execFileSync('tar',['-xf',tar,'-C',libs]);
+const browser=await chromium.launch({executablePath:await packed.executablePath(),args:packed.args,headless:true,env:{...process.env,LD_LIBRARY_PATH:path.join(libs,'lib')+':'+(process.env.LD_LIBRARY_PATH||'')}});
+const errors=[],external=[];
+try{
+ const context=await browser.newContext({viewport:{width:1440,height:900}});
+ await context.setOffline(true);
+ const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});page.on('request',r=>{if(/^https?:/.test(r.url()))external.push(r.url());});
+ await page.goto(pathToFileURL(path.join(root,'heliopause.html')).href);
+ await page.waitForFunction(()=>window.heliopause&&document.querySelector('.load-screen').classList.contains('hidden'),null,{timeout:30000});
+ await page.screenshot({path:path.join(artifacts,'final-bridge.png')});
+ await page.click('[data-story="free"]');
+ await page.click('[data-tab="flight"]');
+ await page.click('[data-action="seat"]');
+ assert.equal(await page.evaluate(()=>heliopause.state.seat),true);await page.click('[data-tab="flight"]');
+ await page.click('[data-mode="cruise"]');assert.equal(await page.evaluate(()=>heliopause.state.mode),'cruise');
+ await page.click('[data-mode="dock"]');
+ await page.click('[data-view="port"]');
+ await page.waitForFunction(()=>heliopause.scene.camera.position.distanceTo(new heliopause.scene.camera.position.constructor(-12,7,76))<.15,null,{timeout:30000});
+ assert.equal(await page.evaluate(()=>heliopause.scene.rooms.every(r=>!r.visible)&&heliopause.scene.hull.visible),true);
+ const before=await page.evaluate(()=>heliopause.scene.camera.quaternion.toArray());
+ await page.mouse.move(680,450);await page.mouse.down();await page.mouse.move(760,490);await page.mouse.up();
+ const after=await page.evaluate(()=>heliopause.scene.camera.quaternion.toArray());
+ assert.ok(before.every((v,i)=>Math.abs(v-after[i])<.01),'fixed sensor ignores drag');
+ await page.screenshot({path:path.join(artifacts,'final-hull.png')});
+ for(const [view,room] of [['crew',1],['cargo',2],['engine',3]]){
+   await page.click(`[data-room="${view}"]`);
+   assert.equal(await page.evaluate(()=>heliopause.state.room),room);
+   assert.equal(await page.evaluate(()=>heliopause.scene.hull.visible),false);
+ }
+ await page.click('[data-tab="systems"]');await page.click('[data-select-room="1"]');await page.click('[data-fault="breach"]');
+ assert.equal(await page.evaluate(()=>heliopause.state.rooms[1].breach),true);
+ await page.click('[data-action="door"]');assert.equal(await page.evaluate(()=>heliopause.state.doors[1]),false);
+ await page.click('[data-action="repair"]');assert.equal(await page.evaluate(()=>heliopause.state.rooms[1].breach),false);
+ await page.screenshot({path:path.join(artifacts,'final-engine.png')});
+ await page.click('[data-tab="drones"]');await page.click('[data-drone="0"]');assert.equal(await page.evaluate(()=>heliopause.state.controlled),0);
+ await page.click('[data-damage="0"]');await page.click('[data-damage="0"]');assert.equal(await page.evaluate(()=>heliopause.state.drones[0].health),0);
+ await page.waitForFunction(()=>document.querySelector('.static-cut').classList.contains('visible'));assert.equal(await page.evaluate(()=>heliopause.state.controlled),-1);
+ await page.screenshot({path:path.join(artifacts,'final-static.png')});
+ await page.click('[data-action="intrusion"]');assert.ok(await page.evaluate(()=>heliopause.state.intruders>0));
+ await page.click('[data-room="cargo"]');await page.keyboard.press('Digit3');assert.equal(await page.evaluate(()=>heliopause.state.intruders),0);
+ await page.click('[data-tab="log"]');assert.ok(await page.locator('.log-entry').count()>2);
+ await page.click('[data-dialog="settings"]');await page.selectOption('#quality','low');assert.equal(await page.evaluate(()=>heliopause.state.quality),'low');
+ await page.setInputFiles('#voice-files',path.join(root,'../Content/Audio/alarm_tone.wav'));await page.waitForFunction(()=>document.querySelector('#voice-index').textContent.includes('alarm_tone'));
+ await page.click('[data-action="clear-voice"]');await page.waitForFunction(()=>document.querySelector('#voice-index').textContent.includes('No recordings'));
+ await page.click('#settings-dialog [data-close]');
+ await page.setViewportSize({width:390,height:844});await page.click('[data-room="bridge"]');await page.click('[data-tab="flight"]');
+ assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+ await page.screenshot({path:path.join(artifacts,'final-mobile.png')});
+ await page.keyboard.press('KeyH');await page.click('#help-dialog [data-dialog="settings"]');assert.equal(await page.locator('#settings-dialog').evaluate(el=>el.open),true);
+ assert.deepEqual(external,[],'standalone HTML must make zero HTTP requests');assert.deepEqual(errors,[],'no JS/WebGL shader errors');
+ console.log('PASS: single-file offline boot; pilot/cruise; fixed sensors and interior culling; 4 compartments; breach/interlock/repair; drone control/destruction/static; intrusion/security; mission log; local file index; quality settings; mobile fit and dialogs. Zero external requests or browser errors.');
+}finally{await browser.close();}

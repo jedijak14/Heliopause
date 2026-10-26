@@ -2,7 +2,7 @@
 
 ## Version contract
 
-`EngineAssociation: "5.8"` requests that engine installation; it is not a compatibility certificate. This environment contains no Unreal Editor, UnrealBuildTool or Unreal Automation Tool. A private Epic GitHub release lookup returned HTTP 404 and could not establish the engine version. No engine-specific benchmark or binary validation was performed.
+`EngineAssociation: "5.8"` requests that engine installation; it is not a compatibility certificate. This environment contains no Unreal Editor, UnrealBuildTool or Unreal Automation Tool. No engine-specific benchmark or binary validation was performed.
 
 A source preview is appropriate until a licensed engine installation can run all checks below. Do not mark an untested source ZIP as a Windows/Linux game executable.
 
@@ -18,6 +18,13 @@ $Project = Join-Path $PWD 'Heliopause.uproject'
 # Only continue after a successful editor build.
 & "$UE\Engine\Binaries\Win64\UnrealEditor.exe" "$Project"
 ```
+
+Asset import (after compilation, before runtime/cook validation):
+
+1. Run `python Tools/prepare_unreal_maps.py` with Pillow installed to create PNG import derivatives.
+2. Enable **Python Editor Script Plugin** and **Editor Scripting Utilities** in the editor.
+3. Run `UnrealEditor-Cmd.exe Heliopause.uproject -ExecutePythonScript=Tools/import_unreal_assets.py` from the repository root. Confirm imported GLBs, NASA `moon_small`, and `M_earth/moon/mars/jupiter/clouds` material assets exist under `/Game/Imported`.
+4. Inspect actual asset names/materials in Editor. Import naming and normalization are **not verified** here. Test rooms, airlocks, planetary collision/terrain, camera, atmosphere, save/restore and packaged texture availability before claiming parity.
 
 Automation (after compilation):
 
@@ -44,10 +51,10 @@ Use the engine's supported Linux toolchain. The native Windows TTS implementatio
 
 ## Packaged-asset checks
 
-1. Confirm `/Engine/Maps/Entry` cooks and applies `/Script/Heliopause.HelioGameMode`.
+1. Confirm `/Engine/Maps/Entry` cooks and applies `/Script/Heliopause.HeliopauseGameMode`.
 2. Confirm BasicShapeMaterial and Cube resolve; they are hard references on the world actor CDO.
 3. Verify `Content/Audio/*.wav` is staged as NonUFS loose content and usable with no network.
-4. Create `Saved/Voice/eva_alert.wav` in the executable's actual project saved directory, rescan and test precedence.
+4. Create `Saved/Voice/eva_intro.wav` in the executable's actual project saved directory, rescan and test precedence.
 5. Test packaged shipping behavior separately from PIE. No `.uasset`, `.umap`, or engine binaries are fabricated or included in the source preview.
 
 ## Reproducible source archive

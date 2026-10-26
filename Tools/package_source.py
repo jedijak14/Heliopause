@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Build a deterministic source archive from a clean committed tree, never Saved/ or credentials."""
+import argparse
+import re
 import hashlib
 import json
 import subprocess
@@ -12,10 +14,12 @@ if git('status', '--porcelain').strip():
     raise SystemExit('Commit project files first; source release requires a clean tree.')
 revision = git('rev-parse', 'HEAD').decode().strip()
 files = git('ls-files', '-z').decode().strip('\0').split('\0')
-folder = 'Heliopause-v0.1.0-source-preview'
+parser=argparse.ArgumentParser();parser.add_argument('--tag',default='v0.7.0-source-preview');args=parser.parse_args()
+if not re.fullmatch(r'v[0-9]+\.[0-9]+\.[0-9]+-source-preview',args.tag):raise SystemExit('Invalid source release tag')
+folder = 'Heliopause-'+args.tag
 output = ROOT / 'Artifacts' / (folder + '.zip')
 output.parent.mkdir(exist_ok=True)
-manifest = {'revision': revision, 'engineAssociation': '5.8', 'unrealBuildVerified': False, 'files': {}}
+manifest = {'revision': revision, 'engineAssociation': json.loads((ROOT/'Heliopause.uproject').read_text())['EngineAssociation'], 'unrealBuildVerified': False, 'files': {}}
 with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
     def add(name, data):
         info = zipfile.ZipInfo(folder + '/' + name, date_time=(2026, 10, 25, 0, 0, 0))

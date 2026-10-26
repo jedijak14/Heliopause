@@ -1,0 +1,463 @@
+{
+  "version": 1,
+  "title": "A Long Way Home",
+  "voiceProvenance": "Original AI-generated EVA dialogue; not a human actor recording.",
+  "subtitleTiming": "Sentence boundaries are word-weighted estimates over measured clip duration.",
+  "lines": [
+    {
+      "id": "eva_intro",
+      "speaker": "EVA",
+      "title": "Awakening",
+      "shot": "bridge",
+      "text": "Good morning, Commander. We have arrived in high orbit over Kepler four forty-two b. I am EVA, your ship intelligence. The Longhaul is holding steady. Open your tablet when you are ready. There is no hurry. After all that darkness, you deserve a moment to wake up.",
+      "duration": 21.671,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.56,
+          "text": "Good morning, Commander."
+        },
+        {
+          "start": 1.56,
+          "end": 6.54,
+          "text": "We have arrived in high orbit over Kepler four forty-two b."
+        },
+        {
+          "start": 6.54,
+          "end": 9.25,
+          "text": "I am EVA, your ship intelligence."
+        },
+        {
+          "start": 9.25,
+          "end": 11.51,
+          "text": "The Longhaul is holding steady."
+        },
+        {
+          "start": 11.51,
+          "end": 14.68,
+          "text": "Open your tablet when you are ready."
+        },
+        {
+          "start": 14.68,
+          "end": 16.49,
+          "text": "There is no hurry."
+        },
+        {
+          "start": 16.49,
+          "end": 21.47,
+          "text": "After all that darkness, you deserve a moment to wake up."
+        }
+      ]
+    },
+    {
+      "id": "eva_quarters",
+      "speaker": "EVA",
+      "title": "A place to call home",
+      "shot": "crew",
+      "text": "Tablet linked. Your quarters are still in sleep mode. Switch on the lights, then approach the private-room door and scan your handprint. This ship has carried you a long way. Let us make it feel like home again.",
+      "duration": 16.126,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.03,
+          "text": "Tablet linked."
+        },
+        {
+          "start": 1.03,
+          "end": 3.92,
+          "text": "Your quarters are still in sleep mode."
+        },
+        {
+          "start": 3.92,
+          "end": 9.3,
+          "text": "Switch on the lights, then approach the private-room door and scan your handprint."
+        },
+        {
+          "start": 9.3,
+          "end": 12.62,
+          "text": "This ship has carried you a long way."
+        },
+        {
+          "start": 12.62,
+          "end": 15.93,
+          "text": "Let us make it feel like home again."
+        }
+      ]
+    },
+    {
+      "id": "eva_view",
+      "speaker": "EVA",
+      "title": "The view",
+      "shot": "crew",
+      "text": "Handprint verified. Welcome home, Commander. Open the thermal curtain. Those silver bands are clouds, not ice. Somewhere beneath them, an entire world is waking up. When you have had your moment, return to the pilot seat. We have a survey to finish.",
+      "duration": 22.24,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.24,
+          "text": "Handprint verified."
+        },
+        {
+          "start": 1.24,
+          "end": 2.8,
+          "text": "Welcome home, Commander."
+        },
+        {
+          "start": 2.8,
+          "end": 4.88,
+          "text": "Open the thermal curtain."
+        },
+        {
+          "start": 4.88,
+          "end": 8.52,
+          "text": "Those silver bands are clouds, not ice."
+        },
+        {
+          "start": 8.52,
+          "end": 13.2,
+          "text": "Somewhere beneath them, an entire world is waking up."
+        },
+        {
+          "start": 13.2,
+          "end": 18.92,
+          "text": "When you have had your moment, return to the pilot seat."
+        },
+        {
+          "start": 18.92,
+          "end": 22.04,
+          "text": "We have a survey to finish."
+        }
+      ]
+    },
+    {
+      "id": "eva_entry",
+      "speaker": "EVA",
+      "title": "Through the fire",
+      "shot": "front",
+      "text": "Entry survey authorized. Keep your hands clear of the flight controls. I will manage the descent and deploy the thermal shades when the hull temperature rises. The noise is expected. If you can hear me, we are still together. Beginning our approach.",
+      "duration": 20.139,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.61,
+          "text": "Entry survey authorized."
+        },
+        {
+          "start": 1.61,
+          "end": 5.37,
+          "text": "Keep your hands clear of the flight controls."
+        },
+        {
+          "start": 5.37,
+          "end": 12.42,
+          "text": "I will manage the descent and deploy the thermal shades when the hull temperature rises."
+        },
+        {
+          "start": 12.42,
+          "end": 14.3,
+          "text": "The noise is expected."
+        },
+        {
+          "start": 14.3,
+          "end": 18.53,
+          "text": "If you can hear me, we are still together."
+        },
+        {
+          "start": 18.53,
+          "end": 19.94,
+          "text": "Beginning our approach."
+        }
+      ]
+    },
+    {
+      "id": "eva_hold",
+      "speaker": "EVA",
+      "title": "A voice beneath the clouds",
+      "shot": "front",
+      "text": "Holding at sixty kilometres. Survey sensors are recording. Wait. There is a second signal beneath the atmospheric noise. It matches the missing survey vessel Kestrel. Commander, that ship was declared lost thirty-seven years ago. I have saved its coordinates. First, we need to get back into orbit.",
+      "duration": 23.564,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 2.17,
+          "text": "Holding at sixty kilometres."
+        },
+        {
+          "start": 2.17,
+          "end": 4.14,
+          "text": "Survey sensors are recording."
+        },
+        {
+          "start": 4.14,
+          "end": 4.64,
+          "text": "Wait."
+        },
+        {
+          "start": 4.64,
+          "end": 9.07,
+          "text": "There is a second signal beneath the atmospheric noise."
+        },
+        {
+          "start": 9.07,
+          "end": 12.52,
+          "text": "It matches the missing survey vessel Kestrel."
+        },
+        {
+          "start": 12.52,
+          "end": 16.96,
+          "text": "Commander, that ship was declared lost thirty-seven years ago."
+        },
+        {
+          "start": 16.96,
+          "end": 19.42,
+          "text": "I have saved its coordinates."
+        },
+        {
+          "start": 19.42,
+          "end": 23.36,
+          "text": "First, we need to get back into orbit."
+        }
+      ]
+    },
+    {
+      "id": "eva_repair",
+      "speaker": "EVA",
+      "title": "Containment",
+      "shot": "engine",
+      "text": "Reactor containment is oscillating. I have isolated the engine room. Do not force the bulkhead. Link to the maintenance drone and seal the thermal vent, or use the remote repair controls. I can hold our altitude, but I cannot make this repair for you. Take it one step at a time.",
+      "duration": 22.02,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.9,
+          "text": "Reactor containment is oscillating."
+        },
+        {
+          "start": 1.9,
+          "end": 4.44,
+          "text": "I have isolated the engine room."
+        },
+        {
+          "start": 4.44,
+          "end": 6.56,
+          "text": "Do not force the bulkhead."
+        },
+        {
+          "start": 6.56,
+          "end": 13.34,
+          "text": "Link to the maintenance drone and seal the thermal vent, or use the remote repair controls."
+        },
+        {
+          "start": 13.34,
+          "end": 18.85,
+          "text": "I can hold our altitude, but I cannot make this repair for you."
+        },
+        {
+          "start": 18.85,
+          "end": 21.82,
+          "text": "Take it one step at a time."
+        }
+      ]
+    },
+    {
+      "id": "eva_departure",
+      "speaker": "EVA",
+      "title": "The missing ship",
+      "shot": "bridge",
+      "text": "Containment stable. We are back in orbit. I have added the Kestrel to your navigation chart. We can leave this mystery behind, or find out why it called to us. Take the pilot seat, select the wreck, and set a course. The decision to go is yours.",
+      "duration": 19.28,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.0,
+          "text": "Containment stable."
+        },
+        {
+          "start": 1.0,
+          "end": 3.01,
+          "text": "We are back in orbit."
+        },
+        {
+          "start": 3.01,
+          "end": 6.63,
+          "text": "I have added the Kestrel to your navigation chart."
+        },
+        {
+          "start": 6.63,
+          "end": 12.25,
+          "text": "We can leave this mystery behind, or find out why it called to us."
+        },
+        {
+          "start": 12.25,
+          "end": 16.67,
+          "text": "Take the pilot seat, select the wreck, and set a course."
+        },
+        {
+          "start": 16.67,
+          "end": 19.08,
+          "text": "The decision to go is yours."
+        }
+      ]
+    },
+    {
+      "id": "eva_discovery",
+      "speaker": "EVA",
+      "title": "What they left behind",
+      "shot": "port",
+      "text": "The Kestrel's recorder is intact. Its crew found something at the Pilgrim Vault. Not a weapon. Not a warning. A memory archive, built to survive its makers. The coordinates are in your chart. Survey the vault and recover its navigation seed. We should not let their last message disappear.",
+      "duration": 21.683,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 2.37,
+          "text": "The Kestrel's recorder is intact."
+        },
+        {
+          "start": 2.37,
+          "end": 5.85,
+          "text": "Its crew found something at the Pilgrim Vault."
+        },
+        {
+          "start": 5.85,
+          "end": 7.15,
+          "text": "Not a weapon."
+        },
+        {
+          "start": 7.15,
+          "end": 8.45,
+          "text": "Not a warning."
+        },
+        {
+          "start": 8.45,
+          "end": 11.93,
+          "text": "A memory archive, built to survive its makers."
+        },
+        {
+          "start": 11.93,
+          "end": 14.53,
+          "text": "The coordinates are in your chart."
+        },
+        {
+          "start": 14.53,
+          "end": 18.01,
+          "text": "Survey the vault and recover its navigation seed."
+        },
+        {
+          "start": 18.01,
+          "end": 21.48,
+          "text": "We should not let their last message disappear."
+        }
+      ]
+    },
+    {
+      "id": "eva_return",
+      "speaker": "EVA",
+      "title": "Bring them home",
+      "shot": "front",
+      "text": "Archive secured. I can read it now. They knew their star was dying. They sent their stories outward, hoping someone would listen. We did. Return to Asterion Anchorage, dock, and carry the discoveries to the exploration exchange. Let us make sure someone else can hear them too.",
+      "duration": 21.59,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 1.1,
+          "text": "Archive secured."
+        },
+        {
+          "start": 1.1,
+          "end": 3.36,
+          "text": "I can read it now."
+        },
+        {
+          "start": 3.36,
+          "end": 6.06,
+          "text": "They knew their star was dying."
+        },
+        {
+          "start": 6.06,
+          "end": 10.12,
+          "text": "They sent their stories outward, hoping someone would listen."
+        },
+        {
+          "start": 10.12,
+          "end": 11.02,
+          "text": "We did."
+        },
+        {
+          "start": 11.02,
+          "end": 16.88,
+          "text": "Return to Asterion Anchorage, dock, and carry the discoveries to the exploration exchange."
+        },
+        {
+          "start": 16.88,
+          "end": 21.39,
+          "text": "Let us make sure someone else can hear them too."
+        }
+      ]
+    },
+    {
+      "id": "eva_final",
+      "speaker": "EVA",
+      "title": "A long way home",
+      "shot": "bridge",
+      "text": "The archive has been accepted. Their names will not be lost. Neither will the Kestrel's. When we left home, I thought our mission was to measure the distance between the stars. I was wrong. It was to find what makes that distance worth crossing. Thank you, Commander. The story is complete. The ship, and the open sky, are yours.",
+      "duration": 25.688,
+      "recording": true,
+      "cues": [
+        {
+          "start": 0.2,
+          "end": 2.34,
+          "text": "The archive has been accepted."
+        },
+        {
+          "start": 2.34,
+          "end": 4.91,
+          "text": "Their names will not be lost."
+        },
+        {
+          "start": 4.91,
+          "end": 6.63,
+          "text": "Neither will the Kestrel's."
+        },
+        {
+          "start": 6.63,
+          "end": 13.49,
+          "text": "When we left home, I thought our mission was to measure the distance between the stars."
+        },
+        {
+          "start": 13.49,
+          "end": 14.77,
+          "text": "I was wrong."
+        },
+        {
+          "start": 14.77,
+          "end": 19.06,
+          "text": "It was to find what makes that distance worth crossing."
+        },
+        {
+          "start": 19.06,
+          "end": 20.34,
+          "text": "Thank you, Commander."
+        },
+        {
+          "start": 20.34,
+          "end": 22.06,
+          "text": "The story is complete."
+        },
+        {
+          "start": 22.06,
+          "end": 25.49,
+          "text": "The ship, and the open sky, are yours."
+        }
+      ]
+    }
+  ]
+}

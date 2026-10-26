@@ -1,0 +1,6 @@
+import url from '../assets/models/nasa-moon.hpm?url';
+// Original NASA lunar topology. Embedded data URL means file:// remains network independent.
+export function createLunarModel(gl){let geometry=null,error=null;
+ const ready=fetch(url).then(r=>r.arrayBuffer()).then(bytes=>{const header=new DataView(bytes),vertices=header.getUint32(0,true),count=header.getUint32(4,true);if(vertices!==46464||count!==69696||bytes.byteLength!==8+vertices*12+count*4)throw Error('Invalid lunar mesh');const positions=new Float32Array(bytes,8,vertices*3),indices=new Uint32Array(bytes,8+vertices*12,count);if(!positions.every(Number.isFinite)||indices.some(i=>i>=vertices))throw Error('Invalid lunar geometry');const vao=gl.createVertexArray(),vb=gl.createBuffer(),ib=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vb);gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,ib);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,indices,gl.STATIC_DRAW);geometry={vao,vb,ib,count};}).catch(e=>{error=e.message;console.error('Lunar asset unavailable:',error);});
+ return {ready,get geometry(){return geometry;},get error(){return error;}};
+}

@@ -1,0 +1,5 @@
+import {frameOrientation} from './planetary-flight.js';
+import {unit} from './flight-dynamics.js';
+import {moveOnGlobe,norm} from './terrain.js';
+export function requestPickup(s){if(s.pickup)return false;s.pickup={from:[...s.lander],to:moveOnGlobe(s.n,0,-31.5,s.radius),orientation:s.orientation||frameOrientation(s.lander),elapsed:0,altitude:0};s.recall=20;return true;}
+export function stepPickup(s,dt){const p=s.pickup;if(!p)return false;p.elapsed=Math.min(20,p.elapsed+Math.max(0,Math.min(.1,dt)));const t=Math.max(0,Math.min(1,(p.elapsed-4)/12)),ease=t*t*(3-2*t);s.lander=norm(p.from.map((v,i)=>v*(1-ease)+p.to[i]*ease));const target=frameOrientation(s.lander),sign=p.orientation.reduce((sum,x,i)=>sum+x*target[i],0)<0?-1:1;s.orientation=unit(p.orientation.map((x,i)=>x*(1-ease)+target[i]*sign*ease));p.altitude=p.elapsed<4?120*(p.elapsed/4)**2:p.elapsed>16?120*((20-p.elapsed)/4)**2:120;s.recall=20-p.elapsed;if(p.elapsed===20){s.lander=p.to;s.pickup=null;s.recall=0;return true;}return false;}
