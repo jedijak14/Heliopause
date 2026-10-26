@@ -45,4 +45,6 @@ The supplied Core remains the native implementation. This update extends the sha
 
 `node BrowserPreview/scripts/prepare-unreal-models.mjs` creates decoded, PNG-textured glTF import sources in ignored `Content/ThirdParty/Streaming/Unreal`. This removes browser-specific Draco/Meshopt/WebP dependencies before `Tools/import_unreal_assets.py` runs **inside Unreal Editor**. Commander and sofa preparation were exercised locally; Unreal Interchange import itself was not.
 
-**Not completed or validated:** native Earth staging/crew placement, native premium model scene assembly, equivalent native warp visuals/controls and full-ship nano-laminate rendering. No Unreal 5.8 UHT/UBT build, import, cook, packaged executable or runtime test was possible here. The source preview is not 100% browser/native parity and must not be represented as such.
+**Not completed or validated:** native Earth staging/crew placement, native premium model scene assembly, equivalent native warp visuals and full-ship nano-laminate rendering. No Unreal 5.8 UHT/UBT build, import, cook, packaged executable or runtime test was possible here. The source preview is not 100% browser/native parity and must not be represented as such.
+
+Post-release continuation: native warp motion/control integration and portable parity checks are now present on this branch; see `NATIVE_WARP.md`. Engine compilation, presentation and save integration still need validation.

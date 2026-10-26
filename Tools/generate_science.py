@@ -12,6 +12,8 @@ for i,w in enumerate(pack['worlds'],17):
    rows.append((group.upper()+' / '+f['key'],f['value']+' '.join(' · '+k+' '+v for k,v in f['attributes'].items())+' '+unit))
  rows += [('INTERPRETATION',s)for s in science['estimates']]+[('UNKNOWN / UNCONFIRMED',s)for s in science['unknown']]+[('SOURCE',science['source'])]
  for key,value in rows:lines.append('    {'+str(i)+','+q(key)+','+q(value)+'},')
-lines+=['};','inline constexpr const char* Profiles[]={'+','.join(q(w['profile'])for w in pack['worlds'])+'};','inline std::string_view profile(int i){return i>=17&&i<33?Profiles[i-17]:"";}','}'];text='\n'.join(lines)+'\n';p=root/'Source/Heliopause/Public/ScienceCatalog.h'
+lines+=['};','// Compressed game-space star exclusion spheres, not measured radii or separations.','struct Star {const char* name;std::array<double,3> position;double radius;};','inline constexpr std::array<Star,'+str(len(pack['systems']))+'> Stars={{']
+for star in pack['systems']:lines.append('    {'+q(star['id'])+', {'+','.join(str(v) for v in star['position'])+'}, '+str(star['radius'])+'},')
+lines+=['}};','inline constexpr const char* Profiles[]={'+','.join(q(w['profile'])for w in pack['worlds'])+'};','inline std::string_view profile(int i){return i>=17&&i<33?Profiles[i-17]:"";}','}'];text='\n'.join(lines)+'\n';p=root/'Source/Heliopause/Public/ScienceCatalog.h'
 if '--check' in sys.argv:assert p.read_text()==text;print('PASS: science field and terrain profile catalogs synchronized')
 else:p.write_text(text)

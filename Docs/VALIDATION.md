@@ -42,3 +42,7 @@ Current JS rule/model checks: **62/62 pass**. Portable checks and the 8,000-step
 The remaining v0.8 legacy regressions passed: refit (surfaces, aft doors, save/return, mobile), planetary crossing/contact, map assets, all six habitat modules/persistence/unload, and six-axis/planetary hazard integration. Earlier baseline and story checks also passed in this update. Final targeted premium checks exercise exterior-wrap imagery, the physical hatch refusal while wrapped, WARP pilot labeling and controlled braking. Stern/ramp/nozzle/armor coverage and warp-before-cockpit composition were corrected following screenshot review; native-resolution visual quality remains unverified.
 
 Both final targeted premium suites passed after the visual corrections, with zero captured browser/WebGL errors. The wrap screenshot and WARP readout/sky-only streak composition were inspected.
+
+## Post-release native warp continuation
+
+See [NATIVE_WARP.md](NATIVE_WARP.md) for implementation boundaries and the pending engine checklist. Portable sanitized checks pass: 117 JS/C++ warp cases, 3,624 matched snapshots, plus 194 successful route traversals at two frame sizes. Browser rules remain 62/62. No Unreal engine build or native runtime validation has been performed; the live browser/released v0.8 artifact is unchanged.

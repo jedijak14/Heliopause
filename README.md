@@ -12,6 +12,10 @@ Earth departure with rigged, breathing Rocketbox crew; Space-to-skip without a b
 
 **Unreal is still uncompiled source, not full visual parity.** Native catalog/science/save updates and model import preparation are included. Native Earth/crew staging, premium scene assembly, warp visuals and full-hull shades remain unfinished. No native executable is supplied.
 
+## Native continuation on this branch
+
+[Native warp source and validation](Docs/NATIVE_WARP.md): shared route/flight kernel, cockpit controls, controlled braking and safety/save integration have been added after the v0.8 release. Portable numerical tests pass; Unreal integration and visuals remain unbuilt/unverified. The published browser and v0.8 release are unchanged.
+
 ## Preserved gameplay
 
 - **Manual orbital descent:** the ship's sector position, velocity and quaternion continue through atmosphere and terrain contact. No 3 km landing timer, terminal corridor, scene-controlled descent or automatic climb. Touchdown requires speed at most 12 m/s and alignment to the radial local horizon. The launch command releases clamps with an outward thruster impulse; you control the subsequent climb.

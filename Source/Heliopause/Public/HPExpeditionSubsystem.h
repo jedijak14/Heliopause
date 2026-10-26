@@ -4,6 +4,7 @@
 #include "GameFramework/SaveGame.h"
 #include "Tickable.h"
 #include "ExplorationCore.h"
+#include "WarpFlight.h"
 #include "HPExpeditionSubsystem.generated.h"
 UCLASS()
 class HELIOPAUSE_API UHPExpeditionSave : public USaveGame
@@ -59,6 +60,14 @@ public:
     virtual bool IsTickable() const override { return !IsTemplate(); }
     virtual UWorld* GetTickableGameObjectWorld() const override { return GetWorld(); }
     bool Save();
+    UFUNCTION(BlueprintCallable,Category="Flight|Warp") bool EngageWarp();
+    UFUNCTION(BlueprintCallable,Category="Flight|Warp") bool CancelWarp();
+    bool SelectTarget(int Index);
+    UFUNCTION(BlueprintPure,Category="Flight|Warp") bool IsWarpActive() const { return Warp.active(); }
+    UFUNCTION(BlueprintPure,Category="Flight|Warp") float GetWarpProgress() const { return float(Warp.progress); }
+    UFUNCTION(BlueprintPure,Category="Flight|Warp") float GetWarpStrength() const { return float(Warp.strength); }
+    bool IsSaveQueued() const { return bSaveQueued; }
+    HPWarp::State Warp;
     bool Load();
     void RestoreShip(class AShipManager* Ship);
     bool Command(HelioExplore::Command Cmd);
@@ -69,4 +78,7 @@ public:
 private:
     UPROPERTY() TObjectPtr<UHPExpeditionSave> LoadedSnapshot;
     float SaveClock=0;
+    bool bSaveQueued=false;
+    void ClearFlightInput();
+    void FinishWarp();
 };

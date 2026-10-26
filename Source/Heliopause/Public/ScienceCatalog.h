@@ -829,6 +829,15 @@ inline constexpr Field Fields[]={
     {32,"UNKNOWN / UNCONFIRMED","Breathable air"},
     {32,"SOURCE","https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-62.xml"},
 };
+// Compressed game-space star exclusion spheres, not measured radii or separations.
+struct Star {const char* name;std::array<double,3> position;double radius;};
+inline constexpr std::array<Star,5> Stars={{
+    {"TRAPPIST-1", {1500,180,-1700}, 50},
+    {"LHS 1140", {2900,-180,-3050}, 50},
+    {"TOI-1452", {4300,180,-4400}, 50},
+    {"Kepler-22", {5700,-180,-5750}, 50},
+    {"Kepler-62", {7100,180,-7100}, 50},
+}};
 inline constexpr const char* Profiles[]={"desert","desert","desert","ocean","ocean","desert","desert","ocean","desert","ocean","ocean","desert","desert","desert","ocean","ocean"};
 inline std::string_view profile(int i){return i>=17&&i<33?Profiles[i-17]:"";}
 }

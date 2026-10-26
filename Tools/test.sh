@@ -15,7 +15,9 @@ Artifacts/exploration_test
 
 node Tests/flight-parity.mjs
 
-for suite in habitat planetary; do
+node Tests/warp-parity.mjs
+
+for suite in habitat planetary warp; do
  "${CXX:-g++}" -std=c++17 -Wall -Wextra -Werror -pedantic -fsanitize=address,undefined -fno-omit-frame-pointer -I Source/Heliopause/Public "Tests/${suite}_test.cpp" -o "Artifacts/${suite}_test"
  "Artifacts/${suite}_test"
 done
