@@ -641,6 +641,8 @@ function render(eye,tgt,ext,fov){
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.depthMask(true);
  renderGlobeBodies(M.mul(M.persp(fov*PI/180,VW/VH,.1,1e8),V),eye);gl.clear(gl.DEPTH_BUFFER_BIT);
  }
+ // Composite warp optics into the exterior before drawing the pressure hull and cockpit.
+ warpEffects.render(warp.strength,game.time,VW,VH);
  gl.useProgram(pPBR.p);gl.uniformMatrix4fv(U(pPBR,"uVP"),false,VP);gl.uniform3fv(U(pPBR,"uCam"),eye);gl.uniform1f(U(pPBR,"uTime"),game.time);
  gl.uniform3fv(U(pPBR,"uSunDir"),SUN);gl.uniform3f(U(pPBR,"uSunCol"),4.2,3.95,3.6);
  const open=windows.reduce((s,w,i)=>s+(1-w.k)*(i===0?.6:.2),0);
@@ -761,7 +763,7 @@ function frame(now){const dt=Math.min((now-last)/1000,.1);last=now;renderDT=dt;
   if(surface){renderSurface();}else if(game.cam===0){const e=[pl.x+sx,pl.y+sy2,pl.z],f=fwd();render(e,[e[0]+f[0],e[1]+f[1],e[2]+f[2]],false,voyage.pilot?Math.max(72,Math.atan(Math.tan(52*PI/180)/(VW/VH))*360/PI):72);}
   else if(game.cam===4){const r=orbit.distance,c=Math.cos(orbit.pitch);render([Math.sin(orbit.yaw)*r*c,3+Math.sin(orbit.pitch)*r,8+Math.cos(orbit.yaw)*r*c],[0,1.3,8],true,62);}
   else{const poses=[null,[[-8.4,3.3,25],[-2,1,-9]],[[8.4,3.3,25],[2,1,-9]],[[0,1.6,-10.7],[0,1.6,-30]]];const c=poses[game.cam];render(c[0],c[1],true,65);}
-  if(!surface){entryEffects.render(flight.heat*.6,game.time);warpEffects.render(warp.strength,game.time,VW,VH);}
+  if(!surface){entryEffects.render(flight.heat*.6,game.time);}
   hudAcc+=dt;if(hudAcc>.1){hudAcc=0;hud();storyTick();liveTab();}
  }
  requestAnimationFrame(loop);}
