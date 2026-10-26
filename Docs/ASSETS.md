@@ -1,6 +1,6 @@
 ## v0.7.0 asset and flight update
 
-The active browser embeds licensed Kenney geometry, Solar System Scope 2K maps and a fetched NASA lunar mesh, with optional verified HTTPS HD maps. `planetary-flight.js` resolves manual flight against deterministic globe terrain; `habitat.js` loads/unloads six room interiors. `HPHabitat.cpp` and `HPPlanetaryWorld.cpp` extend the existing native Core; they are uncompiled. See the root README and Docs/VALIDATION.md for current behavior and explicit parity gaps.
+The active browser embeds licensed Kenney geometry, Solar System Scope 2K maps and a fetched NASA lunar mesh, with optional verified HTTPS HD maps. `planetary-flight.js` resolves manual flight against deterministic globe terrain; `habitat.js` loads/unloads eight room interiors, including two dependency-guarded annexes. `HPHabitat.cpp` and `HPPlanetaryWorld.cpp` extend the existing native Core; they are uncompiled. See the root README and Docs/VALIDATION.md for current behavior and explicit parity gaps.
 
 ### Current third-party production assets
 

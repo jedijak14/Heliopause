@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import * as T from 'three';import {NodeIO} from '@gltf-transform/core';import {ALL_EXTENSIONS} from '@gltf-transform/extensions';import {MeshoptDecoder} from 'meshoptimizer';import {checkedClip,characterAnimator,walkData} from '../v4/character-animation.js';
+await MeshoptDecoder.ready;const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'meshopt.decoder':MeshoptDecoder});
+for(const id of ['commander','officer'])test(id+' matching walk: every target bound, finite unit quaternions, unchanged bone offsets and scales',async()=>{
+ const doc=await io.read(new URL('../assets/models/offline/'+id+'.glb',import.meta.url).pathname),nodes=doc.getRoot().listNodes(),joints=new Set(doc.getRoot().listSkins().flatMap(s=>s.listJoints()));const objects=new Map();
+ for(const n of nodes){const o=joints.has(n)?new T.Bone():new T.Object3D();o.name=n.getName();o.position.fromArray(n.getTranslation());o.quaternion.fromArray(n.getRotation());o.scale.fromArray(n.getScale());objects.set(n,o);}
+ const root=new T.Group();for(const n of nodes){const o=objects.get(n);if(!n.getParentNode())root.add(o);for(const c of n.listChildren())o.add(objects.get(c));}
+ const clip=checkedClip(root,T.AnimationClip.parse(walkData[id].clip));assert.ok(clip.tracks.length>=80);const rest=[...objects.values()].map(o=>({o,position:o.position.clone(),scale:o.scale.clone()})),anim=characterAnimator(root,id,null,{animation:'walk'});
+ for(let sample=0;sample<160;sample++){anim.tick(1/60);root.updateMatrixWorld(true);for(const {o,position,scale}of rest){if(o.name==='Bip01'){assert.equal(o.position.x,position.x);assert.equal(o.position.z,position.z);assert.ok(Math.abs(o.position.y-position.y)<10);}else assert.ok(o.position.equals(position));assert.ok(o.scale.equals(scale));assert.ok(Math.abs(o.quaternion.length()-1)<.005);assert.ok(o.matrixWorld.elements.every(Number.isFinite));}}
+ assert.equal(anim.state,'walk');assert.ok(walkData[id].strideMetres>1&&walkData[id].strideMetres<2);
+ const bad=clip.clone();bad.tracks[0].name='missing.quaternion';assert.throws(()=>checkedClip(root,bad),/Unbound/);bad.tracks[0].name=clip.tracks[0].name;bad.tracks[0].values[0]=NaN;assert.throws(()=>checkedClip(root,bad),/Non-unit/);
+});

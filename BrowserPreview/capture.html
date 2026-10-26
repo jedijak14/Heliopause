@@ -1,0 +1,5 @@
+<!doctype html><html><head><meta charset="UTF-8"><title>Heliopause renderer capture — internal tooling</title><style>body{margin:0;background:#14212c}canvas{display:block;width:960px;height:600px}</style></head><body><canvas width="960" height="600"></canvas><script type="module">
+import {createPremiumRenderer} from './v4/premium-renderer.js';
+const canvas=document.querySelector('canvas'),gl=canvas.getContext('webgl2',{antialias:true,preserveDrawingBuffer:true});
+const premium=createPremiumRenderer(gl,canvas);window.capture={premium,gl,frame:(t,dt=1/30)=>premium.earthScene(t,canvas.width,canvas.height,dt,t>=9&&t<18),asset:(id,t,dt=1/30,animation='idle')=>premium.assetScene(id,t,canvas.width,canvas.height,dt,animation)};
+</script></body></html>

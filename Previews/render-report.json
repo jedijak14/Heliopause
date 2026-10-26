@@ -1,0 +1,160 @@
+{
+  "renderer": "shared production Three.js renderer",
+  "resolution": [
+    960,
+    600
+  ],
+  "assetQuality": "embedded/offline geometry, software GPU texture cap 512px",
+  "stills": [
+    {
+      "file": "Cutscenes/terminal-establishing.png",
+      "sceneTime": 0
+    },
+    {
+      "file": "Cutscenes/commander-departure.png",
+      "sceneTime": 11
+    },
+    {
+      "file": "Cutscenes/boarding-clearance.png",
+      "sceneTime": 22
+    },
+    {
+      "file": "Assets/commander.png",
+      "asset": "commander"
+    },
+    {
+      "file": "Assets/officer.png",
+      "asset": "officer"
+    },
+    {
+      "file": "Assets/shuttle.png",
+      "asset": "shuttle"
+    },
+    {
+      "file": "Assets/iss.png",
+      "asset": "iss"
+    },
+    {
+      "file": "Assets/habitat.png",
+      "asset": "habitat"
+    },
+    {
+      "file": "Assets/habitat-interior.png",
+      "asset": "habitat-interior"
+    },
+    {
+      "file": "Assets/sofa.png",
+      "asset": "sofa"
+    },
+    {
+      "file": "Assets/chair.png",
+      "asset": "chair"
+    },
+    {
+      "file": "Assets/fridge.png",
+      "asset": "fridge"
+    }
+  ],
+  "errors": [],
+  "video": {
+    "file": "Cutscenes/earth-departure.mp4",
+    "duration": 12,
+    "fps": 12,
+    "resolution": [
+      640,
+      400
+    ],
+    "audio": false
+  },
+  "models": {
+    "ready": [
+      {
+        "id": "commander",
+        "quality": "offline"
+      },
+      {
+        "id": "officer",
+        "quality": "offline"
+      },
+      {
+        "id": "sofa",
+        "quality": "offline"
+      },
+      {
+        "id": "chair",
+        "quality": "offline"
+      },
+      {
+        "id": "habitat",
+        "quality": "offline"
+      },
+      {
+        "id": "shuttle",
+        "quality": "offline"
+      },
+      {
+        "id": "habitat-interior",
+        "quality": "offline"
+      }
+    ],
+    "instances": 14,
+    "bounds": [
+      {
+        "min": [
+          -31.517015430543672,
+          0.21135239628225122,
+          -14.521698089400092
+        ],
+        "max": [
+          29.953562523255464,
+          183.10480551471062,
+          25.397828895313197
+        ],
+        "scale": 0.010005825625781293
+      },
+      {
+        "min": [
+          -31.517015430543672,
+          0.21135239628225122,
+          -14.521698089400092
+        ],
+        "max": [
+          29.953562523255464,
+          183.10480551471062,
+          25.397828895313197
+        ],
+        "scale": 0.01093532855276644
+      }
+    ],
+    "rigs": [
+      {
+        "id": "commander",
+        "animation": "idle",
+        "bones": 81
+      },
+      {
+        "id": "officer",
+        "animation": "idle",
+        "bones": 80
+      },
+      {
+        "id": "officer",
+        "animation": "walk",
+        "bones": 80
+      },
+      {
+        "id": "commander",
+        "animation": "walk",
+        "bones": 81
+      },
+      {
+        "id": "officer",
+        "animation": "walk",
+        "bones": 80
+      }
+    ],
+    "errors": {},
+    "status": "Offline assets active."
+  },
+  "webglError": 0
+}

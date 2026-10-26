@@ -624,9 +624,11 @@ function cutCam(t){
 /* ============================ RENDER ============================ */
 const gpuInfo=gl.getExtension('WEBGL_debug_renderer_info');
 const softwareGPU=gpuInfo&&/swiftshader|llvmpipe|software/i.test(gl.getParameter(gpuInfo.UNMASKED_RENDERER_WEBGL));
+// Capture builds use the identical renderer at native raster resolution, independent of software-GPU speed.
+const softwareRasterLimit=import.meta.env.MODE==='capture'?1:.25;
 let renderScale=displaySettings.scale;
 let VW=2,VH=2,renderDT=0;
-function resize(){[VW,VH]=rasterSize(innerWidth,innerHeight,window.devicePixelRatio,renderScale,touchDevice(),softwareGPU?.25:1);canvas.width=VW;canvas.height=VH;}
+function resize(){[VW,VH]=rasterSize(innerWidth,innerHeight,window.devicePixelRatio,renderScale,touchDevice(),softwareGPU?softwareRasterLimit:1);canvas.width=VW;canvas.height=VH;}
 addEventListener("resize",resize);resize();
 const lP=new Float32Array(18),lC=new Float32Array(18),lR=new Float32Array(6);
 function planetCenter(){if(flight.sharedWorld&&!voyage.active)return bodyPosition(KEPLER);if(voyage.active)return bodyPosition(primaryPlanet());const d0=nrm([0,-.6,-1]),a=-flight.pitch*PI/180,c=Math.cos(a),s=Math.sin(a);
@@ -884,7 +886,7 @@ function storageHTML(){const e=voyage.expedition,samples=voyage.samples||[];retu
 function renderGlobeBodies(VP,eye){if(voyage.expedition.onStation)return;if(voyage.active)starRenderer.draw(VP,voyage.expedition,game.time);celestialRenderer.textures.focus(voyage.active?primaryPlanet():KEPLER);const bodies=voyage.active?celestial:[{i:KEPLER,s:sites[KEPLER]}];for(const {i,s} of bodies){const pos=(voyage.active||flight.sharedWorld)?bodyPosition(i):planetCenter(),r=(voyage.active||flight.sharedWorld)?s.radius*1000:R_PLANET,factor=1;const scale=r*factor;let rotation=M.id();if(voyage.active||flight.sharedWorld){const axes=[[1,0,0],[0,1,0],[0,0,1]].map(toLocal);axes.forEach((a,k)=>a.forEach((v,j)=>rotation[k*4+j]=v));}const model=M.mul(M.T(...pos.map(x=>x*factor)),M.mul(rotation,M.S(scale,scale,scale)));celestialRenderer.draw(i,model,VP,eye,game.time,(voyage.active||flight.sharedWorld)?toLocal(SUN):SUN);}}
 
 // Engineering breaker: physical access is the non-microbot repair path.
-{const b=new B();b.box([2.07,1.35,14],[.025,.35,.5]);add(b.build(),MAT.POLY,[.06,.09,.1],.5,.5);const handles=new B();for(const z of [13.7,14,14.3])handles.box([1.99,1.3,z],[.08,.17,.025]);add(handles.build(),MAT.TRIM,[.8,.5,.15],.6,.4);inter.unshift({label:()=> 'RESET ENGINEERING BREAKERS',box:{min:[1.8,.8,13.4],max:[2.15,1.8,14.6]},act:()=>{voyage.systems.faults.fill(false);notice('Breakers reset. Pressure seals and coolant pumps recovering.');SFX.clunk();saveGame();}});}
+{const b=new B();b.box([2.07,1.35,16],[.025,.35,.5]);add(b.build(),MAT.POLY,[.06,.09,.1],.5,.5);const handles=new B();for(const z of [15.7,16,16.3])handles.box([1.99,1.3,z],[.08,.17,.025]);add(handles.build(),MAT.TRIM,[.8,.5,.15],.6,.4);inter.unshift({label:()=> 'RESET ENGINEERING BREAKERS',box:{min:[1.8,.8,15.4],max:[2.15,1.8,16.6]},act:()=>{voyage.systems.faults.fill(false);notice('Breakers reset. Pressure seals and coolant pumps recovering.');SFX.clunk();saveGame();}});}
 
 let alienAmbience=null;
 function updateAmbience(dt){if(!A.ctx||!A.master)return;if(!alienAmbience)alienAmbience=createAlienAudio(A.ctx,A.master);let strength=0;if(game.mode==='play'){if(surface){const f=features(surface);strength=Math.max(.12,1-arcDistance(surface.n,f.relay,surface.radius)/100);}else if(voyage.active&&[5,8,9].includes(voyage.expedition.target))strength=clamp(1-distance(voyage.expedition)/15,0,1);}alienAmbience.update(dt,strength,A.muted||document.hidden);}
@@ -901,7 +903,7 @@ const targetMarker=document.createElement('div');targetMarker.id='targetMarker';
 // Compact bays keep no interior GPU buffers or collision objects alive.
 const habitats=createHabitats({B,M,MAT,add,meshes,gl,AREAS,DOORAREAS,OBST,inter,doors,rooms,LIGHTS,plac,label,notice,useDoor,
  conditions:()=>({speed:voyage.active?speed(voyage.expedition):flight.v/1000,throttle:voyage.throttle,autopilot:voyage.expedition.autopilot||flight.ap!=='none',transit:!!surface?.pickup||warp.phase!=='idle',player:!surface&&!voyage.expedition.onStation?pl:null}),
- openPanel:()=>{page='HABITAT';if(!game.tab)toggleTab();else renderTab();},save:saveGame,changed:()=>{if(game.tab&&page==='HABITAT')renderTab();}});
+ service:()=>repairRoom(3),medicalStatus:()=>notice(`Habitat support: ${voyage.systems.pressure[3].toFixed(0)}% pressure · ${voyage.systems.temperature[3].toFixed(0)}°C coolant zone · ${voyage.systems.faults[3]?'ENGINEERING FAULT':'DIAGNOSTICS CLEAR'}`),openPanel:()=>{page='HABITAT';if(!game.tab)toggleTab();else renderTab();},save:saveGame,changed:()=>{if(game.tab&&page==='HABITAT')renderTab();}});
 function flightReady(){if(habitats.locked){notice('FLIGHT INTERLOCK · Compact all habitat modules before moving.');return false;}if(grounded){notice('Landed. Use SURFACE → RELEASE CLAMPS / MANUAL LIFTOFF first.');return false;}if(outerHatch.open>.01||outerHatch.target){notice('Close the exterior hatch before flight.');return false;}return true;}
 canvas.addEventListener('wheel',e=>{if(game.cam===4){e.preventDefault();orbit.distance=clamp(orbit.distance+e.deltaY*.035,32,110);}},{passive:false});
 // Recessed shade cassettes and warm brass/teal accents.

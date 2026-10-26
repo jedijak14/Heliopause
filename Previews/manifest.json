@@ -1,0 +1,110 @@
+{
+  "Assets/chair.png": {
+    "bytes": 96206,
+    "sha256": "697b4765fb7228027d6624cd4e83e5f4062717422c2009b478e13d68fcf316de"
+  },
+  "Assets/commander-walk.mp4": {
+    "bytes": 67063,
+    "sha256": "a1aa1a051190a7d80bb449955814160d6acc55e241a5d92ebdab6d7e3c16d62e"
+  },
+  "Assets/commander.png": {
+    "bytes": 50728,
+    "sha256": "ed6b315d84b2b41e6d0956277fb986a0100ce05f30a2f4bfca151cbd617a4e27"
+  },
+  "Assets/fridge.png": {
+    "bytes": 116732,
+    "sha256": "c544be2d3356e5af4ec1811311a7f6672b7657658f47a227a690d2c5ff0e9b82"
+  },
+  "Assets/habitat-interior.png": {
+    "bytes": 62863,
+    "sha256": "44b4a005ba78fac07e854b99da423e8427af9015b926861305f49449809f33f0"
+  },
+  "Assets/habitat.png": {
+    "bytes": 71832,
+    "sha256": "c493e111be851bcf80492db6b7842be788a264efbb2f1722455ef4f31f5db83d"
+  },
+  "Assets/iss.png": {
+    "bytes": 49011,
+    "sha256": "e172a9ae00449ef1d2b009f88a734e57f704dc54627b0a677d4a3befa58094d7"
+  },
+  "Assets/officer-walk.mp4": {
+    "bytes": 67718,
+    "sha256": "2d46542301447ba1e8a98117d3fedf142d000b3470902193144278263fabeec3"
+  },
+  "Assets/officer.png": {
+    "bytes": 50450,
+    "sha256": "e7b348f6406c804d699818e232efbd8cd8e795110a9700c9df07165ca156200a"
+  },
+  "Assets/shuttle.png": {
+    "bytes": 52401,
+    "sha256": "0d5a93293f1395be5504ed1608ba543f431b63b8bcedbcc36e8772736c73e3ea"
+  },
+  "Assets/sofa.png": {
+    "bytes": 67526,
+    "sha256": "552d2f3e43acc32e799fc2aafcdadde8025a367ffebb0a22456385bc2662f359"
+  },
+  "Cutscenes/boarding-clearance.png": {
+    "bytes": 329236,
+    "sha256": "b9ebb1bd27c586a1fa1a8cd422764195312fca7ace0860ac6a3e8cd3f410a088"
+  },
+  "Cutscenes/commander-departure.png": {
+    "bytes": 307893,
+    "sha256": "8600022b2f6fa6a06320ddffd27ba691a9df74c2461c3aadd69466a3f5c94dd9"
+  },
+  "Cutscenes/earth-departure.mp4": {
+    "bytes": 1416232,
+    "sha256": "ddbe85c7c740818fdc3cf7ca32e38c39c0d2ae34c08c257a5055c61da849427e"
+  },
+  "Cutscenes/terminal-establishing.png": {
+    "bytes": 289035,
+    "sha256": "5f3376e451b48230d986c46d434ff74f0449ef0ec5b66cb9146e6096fa2b2dca"
+  },
+  "Mobile/phone-flight-controls.png": {
+    "bytes": 636712,
+    "sha256": "24d9a90139825c71abbe23f72b65bcc55c9404e6b497ce50429bb59dee2a879c"
+  },
+  "Mobile/tablet-flight-controls.png": {
+    "bytes": 1247919,
+    "sha256": "fa85f710eed7d1e1d6149ba1536493ef9c37d9ec60e19cceaa92825e473a8354"
+  },
+  "Mobile/tablet-start-settings.png": {
+    "bytes": 219694,
+    "sha256": "0b78306bc59f92f79cca8cd52d34407b6dcaf5f51052e7c17e91dbf659d3a446"
+  },
+  "Rooms/bathroom.png": {
+    "bytes": 293214,
+    "sha256": "24cd83197620ac83a1a4eeb618d602d3f69a19c223e5d27b848881d99109308d"
+  },
+  "Rooms/dining.png": {
+    "bytes": 314436,
+    "sha256": "55a15a6763bcc7f005c6d23308182a79e8d1b2a45923060bdeec26bbd6fe7425"
+  },
+  "Rooms/eight-room-ship.png": {
+    "bytes": 514166,
+    "sha256": "4b9a3d35d3c89efaf17ba924b54e19f4cd2ef988abd6ba7dd1faef0901c000eb"
+  },
+  "Rooms/gym.png": {
+    "bytes": 309186,
+    "sha256": "83bdf34754c89948855384dd538cc223e0d917740407ff8d56eb37c7eedc20ee"
+  },
+  "Rooms/kitchen.png": {
+    "bytes": 285761,
+    "sha256": "2e531bc751a49d7c6592776bd1ef8da7569c46e545c158595e77b5d6af716c7d"
+  },
+  "Rooms/living.png": {
+    "bytes": 428741,
+    "sha256": "c6e041cd310db583df9f797fed263d55b221e4be267bb2b693f15dcecee7008e"
+  },
+  "Rooms/medical.png": {
+    "bytes": 331581,
+    "sha256": "99ad7523768fe66fc717257d82531199804bf9b975735712d74ebb3075ef0650"
+  },
+  "Rooms/pool.png": {
+    "bytes": 289338,
+    "sha256": "ee2903f5806070a5c96dfd1613e1bc472d4701e7fed0746da98f29f8b7296de5"
+  },
+  "Rooms/workshop.png": {
+    "bytes": 379146,
+    "sha256": "df44af75b12f01f28b1cc4d12942ce27b42226fd1bd43ed970757de1a7f6d18f"
+  }
+}

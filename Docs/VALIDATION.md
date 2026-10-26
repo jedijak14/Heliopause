@@ -46,3 +46,8 @@ Both final targeted premium suites passed after the visual corrections, with zer
 ## Post-release native warp continuation
 
 See [NATIVE_WARP.md](NATIVE_WARP.md) for implementation boundaries and the pending engine checklist. Portable sanitized checks pass: 117 JS/C++ warp cases, 3,624 matched snapshots, plus 194 successful route traversals at two frame sizes. Browser rules remain 62/62. No Unreal engine build or native runtime validation has been performed; the live browser/released v0.8 artifact is unchanged.
+
+
+## Terminal / connected-room upgrade (2026-10-26)
+
+See [the update validation record](../Previews/validation.md), [rendered media](../Previews/README.md) and [scope/Unreal limitations](TERMINAL_AND_ANNEXES.md). In particular, portable and browser checks are not an Unreal Engine build or a high-end hardware benchmark.
