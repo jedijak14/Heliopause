@@ -1,3 +1,11 @@
+# v0.8.0-source-preview
+
+Browser update: Earth departure featuring rigged Rocketbox humans and breathing animations; Space skip; twelve human station crew; nine offline/HD model identities with PBR rendering (NASA spacecraft/ISS/habitat and licensed furnishings); sixteen additional sourced exoplanets; cockpit/full-record science scanner; collision-checked curved warp with controlled cancellation; fifteen external-shutter windows and full-ship nano-laminate coverage.
+
+Preserves recorded dialogue, saves, manual flight/landing, six expandable habitats, station exchanges and invisible microbots. Downloads are hash/size verified, bounded-concurrency and cached with an LRU budget. Hardware keeps source model texture resolution; software WebGL uses reduced decoded maps/raster resolution. Oceans and terrain are hypothetical visualizations, not claimed observations.
+
+Unreal **5.8 source only**: expanded shared catalog, scientific records, ocean/desert terrain profiles and version-3 64-bit discovery saves with v1/v2 migration. Browser transport decoding/PNG preparation and an editor import step are supplied. **No Unreal build/import/cook/runtime validation; native Earth staging, premium model placement, warp and shade rendering parity are not finished.** See STREAMING_MODELS.md and VALIDATION.md.
+
 # v0.7.0-source-preview
 
 Playable HTML: manual terrain-contact descent/liftoff, six expandable rooms, exterior airlocks/orbit camera, licensed models and verified optional HD map streaming. Original recordings/saves retained. Fetched NASA Moon GLB and browser geometry derivative included.

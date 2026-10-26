@@ -30,3 +30,9 @@ Software-rendered screenshots were inspected. They demonstrate functional, styli
 ## Historical results
 
 The v0.6.0 release used scene-based surface entry and a separate lander. Those limitations do **not** describe the current manual-descent implementation. Historical test logs/screenshots in ignored `Artifacts/` are not substituted for current checks.
+
+## v0.8 work (2026-10-26)
+
+See `STREAMING_MODELS.md` for exact scope and unresolved native parity. New checks exercise model manifest integrity, human skeleton/animation/facial-target presence, catalog evidence labeling, warp corridor collision safety, frame-rate independence, controlled cancellation and exclusion-zone guards. The offline premium browser test covers the Earth scene, Space skip, fifteen window controls, scanner and shared WebGL pass. The HTTPS premium test applies the production CSP, downloads/verifies HD crew, Shuttle and the 56.6 MB ISS, draws twelve human station crew, and checks offline continuation plus browser/WebGL errors. Its software GPU deliberately uses 512px decoded model maps; it is not an Ultra GPU benchmark.
+
+During implementation, testing caught and fixed: incorrect skinned bounds/giant characters, an unrelaxed arm pose (replaced with matching Rocketbox animation), CSP restrictions on blob texture fetches, a software-GPU memory failure from the ISS's 2+ GiB decoded textures, and outdated 17-site test assumptions. Native source/portable tests do not validate engine rendering.

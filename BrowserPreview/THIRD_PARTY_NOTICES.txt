@@ -345,3 +345,1005 @@ Original topology retained, uniformly scaled for browser; Solar System Scope map
 and fictional tints replace its atlas in browser. Not a scanned terrain mesh or
 measured exoplanet reconstruction. NASA does not endorse this game.
 Pinned mirror, source/derivative hashes: Content/ThirdParty/NASA/manifest.json.
+
+
+===== STREAMED AND EMBEDDED 3D MODELS / OEC CATALOG =====
+Microsoft Rocketbox Pilot_Male_01 and Pilot_Female_01: Copyright (c) 2020 Microsoft, MIT.
+Adaptations: highest-LOD FBX to glTF, matching Rocketbox male/female breathing animation, PBR materials, WebP maps,
+meshopt quantization/compression. Original facial targets and rigs retained in files;
+the runtime uploads five facial shapes for blinking, speech and expression.
+NASA 3D Resources: International Space Station IGOAL (HD), ISS B (offline),
+Space Shuttle D, Habitat Demonstration Unit parts 1 and 2. NASA media use guidelines.
+NASA insignia and vehicles do not imply endorsement. Model use in the fictional Reach
+is an artistic adaptation, not a representation of present ISS operations.
+GlamVelvetSofa: (c) 2021 Wayfair LLC / Eric Chadwick, CC BY 4.0.
+SheenChair: (c) 2020 Wayfair LLC / Eric Chadwick, CC0.
+CommercialRefrigerator: (c) 2025 Darmstadt Graphics Group / Eric Chadwick / Sean Thomas,
+CC BY 4.0, derived from https://sketchfab.com/3d-models/commercial-fridge-2174e1e4f1f24f1a95aa110ee060f473 .
+Furniture modifications: WebP textures, offline 512px textures, geometry compression.
+CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+CC0: https://creativecommons.org/publicdomain/zero/1.0/
+Exact pinned source paths, hashes, attribution and full source READMEs are preserved
+in Content/ThirdParty/Streaming. No externally licensed Sponza asset is included.
+Exoplanet positions/sizes in navigation, terrain and ocean visualizations are fictional.
+Catalog data are a pinned OEC snapshot, with source update dates and uncertainties.
+
+===== microsoft.md =====
+MIT License
+
+Copyright (c) 2020 Microsoft
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+===== nasa.md =====
+NASA-3D-Resources
+=================
+
+Welcome to the 3D Resources github site. This is a growing collection of 3D models, textures, and images from inside NASA. Our goal is to provide a comprehensive repository for 3D models, images, textures, and visualizations. These assets are free and without copyright.
+
+Please read the [usage guidelines][usage]. NASA [intranet interface][webinterface] for these resources.
+
+We welcome feedback and comments. Tell us how you're using our models and let us know what you think: arc-special-proj@lists.nasa.gov
+
+## Contributors
+
+We thank the many authors who have contributed to the 3D Resources collections.
+
+| Contributor                                             | Organization        |
+| ------------------------------------------------------- | ------------------- |
+| NASA Ames Research Center                               | NASA ARC            |
+| NASA Goddard Space Flight Center                        | NASA GSFC           |
+| NASA Jet Propulsion Laboratory                          | NASA JPL            |
+| NASA Jet Propulsion Laboratory - Solar System Simulator | NASA JPL            |
+| NASA Johnson Space Center                               | NASA JSC            |
+| NASA Johnson Space Center - Space Educators' Handbook   | NASA JSC            |
+| Ball Aerospace                                          |                     |
+| DigitalSpace Corporation                                |                     |
+| Eyes on the Solar System                                | NASA/JPL-Caltech    |
+| Berry, Dana                                             | NASA/Kepler Mission |
+| Carbajal, Michael                                       | NASA Headquarters   |
+| Conti, Carlo                                            |                     |
+| Ellison, Doug                                           | NASA JPL            |
+| Garcia, Christopher M.                                  | NASA/JPL-Caltech    |
+| Kumanchik, Brian                                        | NASA/JPL-Caltech    |
+| Lane, Kevin                                             | NASA/JPL-Caltech    |
+| Lopez, Christian A.                                     | NASA/JPL-Caltech    |
+| Meaney, Chris                                           | NASA GSFC           |
+
+[usage]: https://www.nasa.gov/nasa-brand-center/images-and-media
+[webinterface]: https://nasa3d.arc.nasa.gov
+===== CommercialRefrigerator.md =====
+# Commercial Refrigerator
+
+<!-- This file is auto-generated by modelmetadata. Do not edit by hand. -->
+
+## Tags
+
+[showcase](../Models-showcase.md), [extension](../Models-extension.md)
+
+## Extensions Required
+
+* KHR_materials_transmission
+
+## Extensions Used
+
+* KHR_materials_clearcoat
+* KHR_materials_transmission
+
+## Summary
+
+Commercial refrigerator with glass condensation, champagne bottles, and door animation.
+
+## Operations
+
+* [Display](https://github.khronos.org/glTF-Sample-Viewer-Release/?model=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/CommercialRefrigerator/glTF-Binary/CommercialRefrigerator.glb) in SampleViewer
+* [Download GLB](https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/CommercialRefrigerator/glTF-Binary/CommercialRefrigerator.glb)
+* [Model Directory](./)
+
+## Screenshot
+
+![Screenshot of the refrigerator asset in the glTF Sample Viewer](screenshot/screenshot_Large.jpg)
+<br/>_Screenshot from [glTF Sample Viewer](https://github.khronos.org/glTF-Sample-Viewer-Release/) with the environment Colorful Studio._
+
+
+## Description
+
+This asset represents a small glass-fronted commercial refrigerator of the type seen commonly in convenience stores.
+
+The asset was created to demonstrate a high quality model for e-commerce use, and to provide instructions on how to create similar assets using current industry-accepted 3D content creation techniques.
+
+## Source Asset
+
+This work is based on "Commercial Fridge" (https://sketchfab.com/3d-models/commercial-fridge-2174e1e4f1f24f1a95aa110ee060f473) by Sean Thomas (https://sketchfab.com/foon.) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/).
+
+This asset looked good in Sketchfab, but it needed editing to work better with the glTF PBR material model.
+
+## Model Cleanup
+
+The source model is provided in FBX, glTF, and USDz formats. FBX is usually the best for editing because it preserves quads and polygons, which helps with modeling operations. However the FBX file did not have textures assigned to the materials, and the UVs did not match the bitmaps.
+
+![A list of node names in a hierarchy, a shaded wireframe of the refrigerator, and a shaded non-wireframe view](screenshot/gltf-source-hierarchy.jpg)<br/>
+_The source node names & hierarchy, and the triangulated meshes._
+
+The model was re-imported using the provided glTF file. In a glTF the meshes are always triangulated. The triangles were then converted into quads using the 3ds Max _Quadrify All_ tool, then a few errant triangles and polygons needed to be fixed manually.
+
+
+## Mesh Transforms
+
+![Errant transforms are shwon for four nodes](screenshot/gltf-source-transforms.jpg)<br/>
+_Some of the source meshes had non-default transforms._
+
+The refrigerator imported with the front facing the other way, along positive Y (3ds Max uses Z up world orientation). The whole asset needed to be rotated 180 degrees to face the front.
+
+Then the meshes needed to have their transforms reset. This means the positions, rotations, and scales of the meshes were set to default values. Clean transforms are necessary for a well-formed 3D asset, as they allow renderers and editing tools to transform the parts accurately.
+
+## Chamfers for Shading
+
+The source model had a few shading errors, where vertex normals were averaged or smoothed across right angles. These were fixed by adding chamfers... thin bevels along hard edges.
+
+![Shaded and wireframe views of the upper part of the refrigerator, before and after chamfering](screenshot/chamfers-before-after.jpg)<br/>
+_Chamfers were added for improved shading._
+
+Then the shading was improved by using face-weighted normals.
+
+![Wireframe views of an L-shaped mesh, with vertex normals shown in various configurations](screenshot/bevels_normals.jpg)<br/>
+_Bevels can be added, and vertex normals can be adjusted for clean shading._
+
+Left to right in the image above:
+1. Simple geometry with face-aligned vertex normals (flat shading).
+2. Vertex normals averaged across neighboring faces (smooth shading).
+3. Bevels added.
+4. Vertex normals weighted to align with the largest faces.
+
+With this technique, the transitions in smooth shading are confined to the beveled faces of the model, resulting in clean well-ordered shading with a minimal number of vertices.
+
+This method avoids having to use a normal map to create the beveled edges, which helps reduce the download size of the finished asset. The vertices for the chamfers "cost less" in download size than a full normal map texture would.
+
+
+## Material Organization
+
+The materials in the source mesh were arranged in a different way than what was desired for the new asset.
+
+![Node lists are shown with selections of meshes, indicating three collections of nodes](screenshot/source-materials-hierarchy.jpg)<br/>
+_Source meshes selected by material._
+
+The new model will have an interior with baked lighting, using an emissiveTexture. The emissive will also be used for the lighted signage. Combining them together will allow the asset to use only one emissve texture, and the combined lighting can be easily turned on and off by disabling the emissive.
+
+![A colored wireframe shows three structures in the refrigerator.](screenshot/intended-materials.jpg)<br/>
+_Meshes colored to represent the new material structure. Red for interior, green for exterior, white for glass._
+
+The asset will have three main materials:
+ 1. Case for the exterior.
+ 2. Interior for lightmapping.
+ 3. Glass.
+
+When creating glass for a real-time model, it is especially important to use a separate material from the rest of the model, for two reasons:
+* Performance
+* Render order
+
+Performance: glass can use the glTF extension [KHR_materials_transmission](https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_transmission) to simulate refraction, reflection, absorption, and other realistic properties. However these effects rely on a multi-pass render technique which can cause real-time performance to drop, so it is best to use it on as few surfaces as possible.
+
+Render order: when transmissive surfaces are rendered in a real-time viewer, often only one layer of transmission can be rendered. Any transmissive surfaces behind the glass would be invisible. For this reason the wine bottles were set as opaque.
+
+The asset [GlassVaseFlowers](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/GlassVaseFlowers) is a good demonstration of this limitation. When viewed from below, the transmissive base completely occludes the upper glass parts.
+
+![A glass vase containing flowers is seen from below, with the real-time rasterizer occluding parts of the glass, while the pathtracer shows all parts](screenshot/rasterizer-vs-pathtracer.jpg)<br/>
+_Real-time rasterizer (left) versus a non-real-time pathtracer, in the [three.js Editor](https://threejs.org/editor/). Notice how parts of the base are obscured in the real-time view._
+
+Another way to add transparent surfaces behind transmission could be to use `alphaMode:Blend`. However this has limitations as well. Some real-time rasterizers will not render alpha blend behind transmission, while others will.
+
+![The glass flower vases are shown in different renderers, with three.js occluding alpha blend](screenshot/threejs-vs-babylonjs.jpg)<br/>
+_Three.js (left) does not render alpha blend behind tranmission, but Babylon.js does._
+
+
+## Texture Baking
+
+To redistribute the source textures into the new material structure, a 2nd UV was generated for each of the three intended materials: interior, exterior, and glass.
+
+![The UV layouts for the three materials are shown](screenshot/uv-layouts.jpg)<br/>
+_The UV layouts for the three materials._
+
+Then the textures were "baked" from their original UV layouts into the new UVs, using _Bake To Texture_ in 3ds Max.
+
+![The Bake To Texture interface is shown with the desired render elements](screenshot/bake-to-texture.jpg)<br/>
+_Bake To Texture with render elements for the exterior case and for the interior._
+
+The Arnold renderer was initially used to transfer the textures to the new UV layout. However some errors appeared in the bakes, where Arnold was mistakenly raycasting parts of nearby meshes. Switching to the V-Ray renderer avoided these artifacts.
+
+![Bake To Texture artifacts are shown from using the Arnold renderer](screenshot/arnold-baking-errors.jpg)<br/>
+_Bake To Texture errors in the ambient occlusion bake._
+
+
+## Emissive Light Baking
+
+The interior lighting in the source asset was done with a real-time light that casts shadows. While this works great in Sketchfab's renderer, shadow casting is not enabled in most web renderers.
+
+In a glTF material an `emissiveTexture` can be repurposed for baked lighting. Because Emissive is additive this can cause it to overpowers the baseColorTexture. Care must be taken to edit a baked lightmap to re-introduce parts of the baseColorTexture.
+
+![The refrigerator is shown with Emissive enabled on one side, and disabled on the other](screenshot/emissive_On_Off.jpg)<br/>
+_The emissive lightmap, on versus off._
+
+To create the lightmap for this asset, a _VRayLightMtl_ was added to the flourescent tube and _Bake To Texture_ was used to generate a _VRayLightingMap_ render element. Photoshop was then used to bias the lighting so it would be more evenly distributed in the interior.
+
+![The original emissive bake is darker, next to the edited and brighter final texture](screenshot/vray-lighting-map.jpg)<br/>
+_The raw VRayLIghtingMap bake, and the edited result._
+
+The printed label in the top right interior was re-added on top of the lightmap, and the upper backlit signage was also composited on top. The lightmap was de-noised, then the empty areas were filled in between the UV shells. This prevented seams when textures were filtered during rendering to fix aliasing.
+
+## Glass Material
+
+The glass for the door is best done as a single-sided quad, with the glTF material setting `"doubleSided": true`. If an explicit backfacing quad was added, this would cause rendering artifacts in pathtracers, since they nearly always render with backface culling disabled, which would cause the front and back quads to be rendered on top of each other.
+
+A texture of [rusty metal from PolyHaven](https://polyhaven.com/a/rusty_metal_03) was used for the condensation on the glass. The red channel was extracted, inverted, leveled, placed into the green channel, and assigned as a `metallicRoughnessTexture`.
+
+![A photo of rusty metal, next to an edited grayscale version, next to the final green version](screenshot/glass-roughness.jpg)<br/>
+_A photo of rust was edited to create the roughness texture._
+
+The roughnessFactor was adjusted to 0.75, using the [three.js Editor](https://threejs.org/editor/) web app to interactively determine which settings to use. Then [Microsoft Visual Studio Code](https://code.visualstudio.com) with the [Cesium glTF Tools Extension](https://marketplace.visualstudio.com/items?itemName=cesium.gltf-vscode) was used to edit the values into the .glTF file.
+
+![An animated GIF showing the adjustment of Roughness and how it blurs the glass refraction](screenshot/glass-roughness.gif)<br/>
+_The [three.js Editor](https://threejs.org/editor/) can be used to interactively fine-tune material settings._
+
+The extension [KHR_material_clearcoat](https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_clearcoat) was added to increase the reflectivity of the glass. The rust photo in the `metallicRoughnessTexture` was great for blurring refractions, but it also blurred reflections.
+
+To restore sharp and bright reflections the `clearcoatFactor` was set to 1 and the `clearcoatRoughnessFactor` was set to 0. This created bright reflection on the outside, while keeping blurry refractions on the inside.
+
+![Two screenshots show how clearcoat adds a brighter reflection](screenshot/clearcoat_On_Off.jpg)<br/>
+_Clearcoat added (left) versus without._
+
+
+## Naming and Hierarchy
+
+Model parts were attached together into as few meshes as possible. This improved real-time rendering performance. Then models were renamed to use logical names. This will help keep the model organized, and make it easier for others to use the asset.
+
+Meshes were linked together into hierarchies and pivots were adjusted, so parts can be rotated for examination and to allow interactivity. This allows the refrigerator to be opened, and the glass moves along with it in a natural fashion.
+
+## Animation
+
+The door was animated to open and close using bezier ease curves. This creates a more natural motion if the rotation can start slowly, speed up in the middle, and ease into the end angle.
+
+However in glTF there are no ease curves and animation keyframes are always linear. Here is a comparison of ease curves vs. linear rotation:
+
+![An animated GIF shows two refrigerators, one with natural ease curve rotation, the other with mechanical linear rotation](screenshot/ease-vs-linear.gif)<br/>
+_Ease curve rotation (left) versus linear rotation._
+
+The difference may appear subtle but linear rotation can look mechanical or robotic. Ease curves are preferrable for natural-looking animations.
+
+To preserve ease curves in glTF, the animation curves can be resampled or "baked" to use linear keyframes, one for each frame of the animation. In 3ds Max this is done in the Motion Panel using the tool _Collapse Transform_.
+
+![Animation curves are shown, one with a few bezier keyframes, the other with a linear keyframe on each animation frame](screenshot/resample-keyframes.jpg)<br/>
+_Before and after using Collapse Transform to resample the keyframes._
+
+Resampling like this will preserve custom curve data but can increase file sizes dramatically. After exporting to glTF, it is best to optimize the animation to reduce the number of keyframes while still retaining the same motion. [RapidPipeline 3D Processor](https://docs.rapidpipeline.com/docs/componentDocs/3dProcessor/3d-processor-overview) was used to automatically optimize the animation curve data, removing redundant keyframes.
+
+![A screenshot of Optimize setting parameters, with the Conservative option being chosen](screenshot/curve-simplification-conservative.jpg)<br/>
+_RapidPipeline 3D Processor settings for Animation Curve Simplification._
+
+For this asset, setting the _Animation Curve Simplification_ to _Conservative_ removed redundant keyframes while preserving the intent of the original animation.
+
+![Another comparison of animation curves, one with a linear keyframe on each animation frame, and the other with fewer keyframes but roughly same curvature](screenshot/keyframe-optimization.jpg)<br/>
+_Before and after using 3D Processor to optimize the keyframes._
+
+
+## Optimization and Compression
+
+[RapidPipeline 3D Processor](https://docs.rapidpipeline.com/docs/componentDocs/3dProcessor/3d-processor-overview) was also used to optimize and prepare the final glTF and GLB files.
+
+![Screenshots of multiple setting parameters](screenshot/compression-settings.jpg)<br/>
+_glTF export settings in RapidPipeline 3D Processor._
+
+* _Preserve Texture File Names_ keeps the original names of the textures. These names are usually stripped out to reduce filesize, but they can be useful when debugging or editing. A .glTF file is in plain text which makes it easy to examine in any text editor.
+* _Discard unused UVs_ is useful for removing unwanted and unused vertex data.
+* _Exclude Tangents_ is disabled to force the creation of tangents. Tangents are used by materials with normal maps to reproduce the same shading as seen by the artist when they were making the asset.
+* It's often useful to downsize `occlusionTexture` and `metallicRoughnessTexture` files because the decreased resolution is usually not noticeable, but can drastically reduce filesizes which can speed up download time for the user.
+* _JPG Compression Quality_ is set to 75/100 because most textures can be compressed heavily without causing too many artifacts.
+* _JPG Compression Normal Quality_ uses a higher value because normal maps tend to cause more visible errors from compression artifacts than other textures.
+
+With these settings, the final glTF asset was reduced from 36mb down to 10mb.
+
+## glTF Validator
+
+It is often helpful to examine glTF files with the [glTF Validator](https://github.khronos.org/glTF-Validator/) which can point out problems with the asset. A well-formed glTF file behaves predictably in multiple viewers and renderers, preserving the original intent of the artist.
+
+![A screenshot of a result from the glTF Validator, showing zero Errors/Warnings/Infos/Hints](screenshot/glTF-Validator.jpg)<br/>
+_The asset report in glTF Validator._
+
+In particular, the previously-mentioned setting _Discard unused UVs_ and the disabled setting _Exclude Tangents_ helped to remove Warnings from this asset.
+
+
+## Legal
+
+&copy; 2025, Darmstadt Graphics Group GmbH. [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode)
+
+ - Eric Chadwick for Model and textures and all images in the README.md
+
+&copy; 2025, Sean Thomas. [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode)
+
+ - Sean Thomas for This work is based on 'Commercial Fridge' (https://sketchfab.com/3d-models/commercial-fridge-2174e1e4f1f24f1a95aa110ee060f473) by Sean Thomas (https://sketchfab.com/foon.) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+<!-- This file is auto-generated by modelmetadata. Do not edit by hand. -->
+
+===== GlamVelvetSofa.md =====
+# GlamVelvetSofa
+
+<!-- This file is auto-generated by modelmetadata. Do not edit by hand. -->
+
+## Tags
+
+[video](../Models-video.md), [extension](../Models-extension.md)
+
+## Extensions Required
+
+* KHR_texture_transform
+
+## Extensions Used
+
+* KHR_texture_transform
+* KHR_materials_sheen
+* KHR_materials_specular
+* KHR_materials_variants
+* KHR_lights_punctual
+
+## Summary
+
+Sofa using material variants, sheen, and specular.
+
+## Operations
+
+* [Display](https://github.khronos.org/glTF-Sample-Viewer-Release/?model=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/GlamVelvetSofa/glTF-Binary/GlamVelvetSofa.glb) in SampleViewer
+* [Download GLB](https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/GlamVelvetSofa/glTF-Binary/GlamVelvetSofa.glb)
+* [Model Directory](./)
+
+## Screenshot
+
+![screenshot](screenshot/screenshot_large.jpg)
+
+Above: screenshot from the [Babylon.js Sandbox](https://sandbox.babylonjs.com/).
+
+## Description
+
+This model represents a real product, a velvet sofa bed being sold [on the Wayfair website](https://www.wayfair.com/furniture/pdp/mercer41-frankie-velvet-86-recessed-arm-sofa-bed-mcrf6337.html).
+
+The model is made of three parts, each with their own materials. Two 1024x1024 PNG textures are used for the whole model, an ambient occlusion map and a normal bump map. All UVs are arranged between 0 and 1, and `KHR_texture_transform` is used to repeat the normal map for the fabric. The model uses 4319 triangles and 3204 vertices.
+
+The model uses several extensions:
+* [KHR_lights_punctual](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual) to provide a key light for better velvet illumination. Sheen seems to respond better to punctual lights than with image-based lighting alone.
+* [KHR_materials_sheen](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_materials_sheen) for velvet sheen.
+* [KHR_materials_specular](https://github.com/KhronosGroup/glTF/pull/1719) to colorize facing-angle reflections, which occurs with some fabrics (satins, silks, velvets, etc.).
+* [KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_materials_variants/README.md) to represent the five fabric color options on this product.
+* [KHR_texture_transform](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_texture_transform/README.md) to scale the normal bump texture separately from the ambient occlusion texture.
+
+## Reference Photos
+
+The use of real-world photographic reference is meant to help glTF developers with calibrating material features and renderer behavior, so we can more accurately represent e-commerce products. Additional photo reference is available [on the Wayfair website](https://www.wayfair.com/furniture/pdp/mercer41-frankie-velvet-86-recessed-arm-sofa-bed-mcrf6337.html).
+
+The official photos of the product have been retouched to emphasize materials and finishes, a common practice in retail photography. This can make the materials difficult to reproduce in a 3D model, as it's tricky to isolate accurate base colors, roughness, specular color, etc. Sometimes a physical sample of the surface is difficult to obtain, and prescribing controlled photography can be onerous for manufacturers.
+
+Fortunately, we can rely on customer review photos to provide additional material reference. Although lighting can be poor, customer photos are often unretouched which can offer a less-biased view of the surface materials. The ground truth is usually somewhere in the middle, since the official photography provides higher resolution and controlled lighting, while the customer imagery provides little or no retouching.
+
+![photo references](screenshot/photoreference_vs_customer.jpg)
+
+Photo references of the product. Top row: official product photography, bottom row: customer review photography
+
+## KHR_materials_variants
+
+The model uses the extension [KHR_materials_variants](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_materials_variants/README.md) to add five fabric variants. Each uses slightly different UV offsets via `KHR_texture_transform` to add variety.
+* Black
+* Champagne
+* Gray
+* Navy
+* Pale Pink
+
+![screenshots of the five variants](screenshot/screenshot_variants.jpg)
+
+## KHR_materials_sheen and KHR_materials_specular
+
+The extension [KHR_materials_sheen](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_materials_sheen) is used for the main fabric color; it best represents how velvet microfibers interact with lighting at glancing angles.
+
+[KHR_materials_specular](https://github.com/KhronosGroup/glTF/pull/1719) is used to colorize reflections on dielectric (non-metal) surfaces. Velvet, satin, silk, and similar fabrics can colorize reflections which makes them difficult to replicate in a traditional PBR metal-rough material.
+
+![screenshots of how the various material layers combine together](screenshot/screenshot_layers.jpg)
+
+Top to bottom: base color alone, sheen color added, specular color added.
+
+A normalTexture simulates the bending of velvet microfibers from human touches, by bending the surface normals to point at different areas of the image-based lighting. The texture is a combination of tiled "grunge" patterns. The red channel was rotated 90 degrees to create variation, the blue channel was filled with white, and a cotton-weave normal map was overlaid. Then the texture was re-normalized.
+
+![the fabric normalTexture](screenshot/normalTexture.jpg)
+
+The normal map, enlarged and cropped to show detail.
+
+## KHR_lights_punctual
+
+The extension [KHR_lights_punctual](https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual) is used to add a directional light to the model, with its Intensity set to 3. This provides better velvet illumination, as sheen responds better to punctual lights than to image-based lighting (IBL) alone.
+
+This is highly dependent on the exposure range in each IBL, however most IBLs do not capture strong exposure values for the lights unless the sun or a suitably bright light source are present. In these examples, the "studio" IBL from Babylon.js was used, which uses +2.40 stops for each light.
+
+Augmented reality IBLs typically contain a low value range, as they're often created by transforming the view from the mobile device's front camera. It is hoped the addition of a punctual light can restore the benefits of strong key light to improve the sheen response.
+
+![screenshots with punctual enabled and disabled](screenshot/screenshot_punctual.jpg)
+
+Top: Punctual light improves sheen. Bottom: Disabling the punctual light.
+
+## Authoring Details ##
+
+The model was created with [3ds Max](https://www.autodesk.com/products/3ds-max/) and exported to glTF via the [Max2Babylon](https://github.com/BabylonJS/Exporters/tree/master/3ds%20Max) exporter. The glTF file was then edited manually in [Visual Studio Code](https://code.visualstudio.com) with the [glTF Tools](https://github.com/AnalyticalGraphicsInc/gltf-vscode) extension to add KHR extensions and fine-tune material values.
+
+
+## Legal
+
+&copy; 2021, Wayfair, LLC. [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode)
+
+ - Eric Chadwick for Everything
+
+<!-- This file is auto-generated by modelmetadata. Do not edit by hand. -->
+
+===== SheenChair.md =====
+# Sheen Chair
+
+<!-- This file is auto-generated by modelmetadata. Do not edit by hand. -->
+
+## Tags
+
+[showcase](../Models-showcase.md), [video](../Models-video.md), [extension](../Models-extension.md)
+
+## Extensions Required
+
+* KHR_texture_transform
+
+## Extensions Used
+
+* KHR_texture_transform
+* KHR_materials_sheen
+* KHR_materials_variants
+
+## Summary
+
+Chair using material variants and sheen.
+
+## Operations
+
+* [Display](https://github.khronos.org/glTF-Sample-Viewer-Release/?model=https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/SheenChair/glTF-Binary/SheenChair.glb) in SampleViewer
+* [Download GLB](https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/./Models/SheenChair/glTF-Binary/SheenChair.glb)
+* [Model Directory](./)
+
+## Screenshot
+
+![screenshot](screenshot/screenshot-large.jpg)
+
+[Babylon.JS](https://sandbox.babylonjs.com/) screenshot (above), using the Studio lighting environment.
+
+## Description
+
+This model is a wood-framed chair with a fabric seat, tufted with fabric buttons and metal hardware. It uses three extensions: `KHR_materials_sheen` for velvet fabrics, `KHR_texture_transform` to tile the textures for fabric and  wood, and `KHR_materials_variants` to create two versions of the chair: "Mango Velvet", and "Peacock Velvet".
+
+The model is made of four parts using subdivision surface modeling, with four materials for fabric, wood, metal, and the label. The ambient occlusion texture is shared by all materials and uses a 2nd UV with all UVs arranged between 0 and 1. All the other textures use the 1st UV which is not so constrained; it has overlaps and the UVs extend outside the 0-1 UV space.
+
+The textures were created uniquely, edited from public domain imagery (https://www.publicdomainpictures.net/), or edited from personal photos. This model does not represent a real product, however the fabrics were modeled to match real fabrics, represented [here on the Wayfair website](https://www.wayfair.com/furniture/pdp/bungalow-rose-griner-slipper-chair-bgrs8778.html). The use of real-world reference is meant to help glTF developers with calibrating material features and renderer handling, so we can more accurately represent e-commerce products.
+
+## KHR_materials_sheen
+
+The fabric materials use the extension `KHR_materials_sheen` to reproduce velvet fabrics. These screenshots show the real-world photo reference, alongside the intended rendering result, and what may occur if the extension is disabled or not implemented.
+
+![screenshot](screenshot/mango_reference.jpg)
+
+Above: real-world reference, and [Babylon.JS](https://sandbox.babylonjs.com/) screenshots using the Studio lighting environment, showing the variant "Mango Velvet" with `KHR_materials_sheen` enabled and disabled.
+
+![screenshot](screenshot/peacock_reference.jpg)
+
+Above: real-world reference, and [Babylon.JS](https://sandbox.babylonjs.com/) screenshots using the Studio lighting environment, showing the variant "Peacock Velvet" with `KHR_materials_sheen` enabled and disabled.
+
+## Material Authoring Choices
+
+To simulate the bending of velvet microfibers from human handling, the red and green color channels of the normal map have been biased in different directions. The normal map has been reduced in strength using the Scale parameter; if this is disabled the fabric may look too rough and bumpy.
+
+The Peacock Velvet material uses 1.0 metalness. While not being physically accurate, metalness colorizes reflections similarly to real-world velvet fabric, creating more contrast to match the real-world reference. Future extensions may add specular color to metallic-roughness materials for dielectric surfaces, negating the need to force metalness in this case.
+
+## Authoring Software
+
+The model was created in Autodesk 3ds Max 2020 and exported using the [`Max2Babylon`](https://github.com/BabylonJS/Exporters/tree/master/3ds%20Max) exporter. To add `KHR_materials_sheen` and `KHR_materials_variants` the glTF file was edited manually.
+
+
+## Legal
+
+&copy; 2020, Wayfair, LLC. [Creative Commons Zero v1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+ - Eric Chadwick for Everything
+
+<!-- This file is auto-generated by modelmetadata. Do not edit by hand. -->
+
+===== open-exoplanet-catalogue.md =====
+Open Exoplanet Catalogue
+==============
+
+Status update
+--------------
+Since June 2020, I have started maintaining the Open Exoplanet Catalogue more actively again. I plan to manually enter data for time sensitive and high profile discoveries. But due to the large number of planets that get discovered these days, I will import data from the NASA Exoplanet Archive for all other planets. See the `oec_continuity` repository for details. Please continue to watch out for errors and submit pull requests!  -- Hanno Rein
+
+About the Open Exoplanet Catalogue
+--------------
+
+[![Travis](http://img.shields.io/travis/OpenExoplanetCatalogue/open_exoplanet_catalogue/master.svg?style=flat)](https://travis-ci.org/OpenExoplanetCatalogue/open_exoplanet_catalogue/)
+[![MIT](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/MIT)
+[![arXiv](http://img.shields.io/badge/arXiv-1211.7121-orange.svg?style=flat)](http://arxiv.org/abs/1211.7121)
+
+The Open Exoplanet Catalogue is a database of all discovered extra-solar planets. New planets are usually added within 24 hours of their announcement.
+
+The database is licensed under an MIT license (see below), which basically says you can do everything with it. If you use it for a scientific publication, please include a reference to the Open Exoplanet Catalogue on [github](https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue) or to [this arXiv paper](http://arxiv.org/abs/1211.7121).
+
+The catalogue is a community project. Please send corrections and additions via pull request or [email](mailto:exoplanet@hanno-rein.de). If you have questions or comments about git or the database, please do not hesitate to contact of the contributors directly.
+
+If you are looking for a simple comma/tab separated table, you might want to check out [this repository](https://github.com/OpenExoplanetCatalogue/oec_tables/).
+
+How to access the catalogue using Python
+--------------
+It is very easy to access the Open Exoplanet Catalogue using python. Here is a short [snippet](https://gist.github.com/hannorein/2a069763cf114f66641c) to print out some basic planet data. No download, no installation and no external libraries are required.
+
+If you are using python 3:
+
+```python
+import xml.etree.ElementTree as ET, urllib.request, gzip, io
+url = "https://github.com/OpenExoplanetCatalogue/oec_gzip/raw/master/systems.xml.gz"
+oec = ET.parse(gzip.GzipFile(fileobj=io.BytesIO(urllib.request.urlopen(url).read())))
+
+# Output mass and radius of all planets
+for planet in oec.findall(".//planet"):
+    print([planet.findtext("mass"), planet.findtext("radius")])
+
+# Find all circumbinary planets
+for planet in oec.findall(".//binary/planet"):
+    print(planet.findtext("name"))
+
+# Output distance to planetary system (in pc, if known) and number of planets in system
+for system in oec.findall(".//system"):
+    print(system.findtext("distance"), len(system.findall(".//planet")))
+```
+
+If you are using python 2:
+
+```python
+import xml.etree.ElementTree as ET, urllib, gzip, io
+url = "https://github.com/OpenExoplanetCatalogue/oec_gzip/raw/master/systems.xml.gz"
+oec = ET.parse(gzip.GzipFile(fileobj=io.BytesIO(urllib.urlopen(url).read())))
+
+# Output mass and radius of all planets
+for planet in oec.findall(".//planet"):
+    print [planet.findtext("mass"), planet.findtext("radius")]
+
+# Find all circumbinary planets
+for planet in oec.findall(".//binary/planet"):
+    print planet.findtext("name")
+
+# Output distance to planetary system (in pc, if known) and number of planets in system
+for system in oec.findall(".//system"):
+    print system.findtext("distance"), len(system.findall(".//planet"))
+```
+
+Data Structure
+-------------
+The following table shows all the possible tags in the Open Exoplanet Catalogue.
+
+| Tag      | Can be child of | Description | Unit |
+| -------- | --------------- | ----------- | ---- |
+| `system` |                 | This is the root container for an entire planetary system |  |
+| ` planet` | `system`, `binary`, `star` | This is the container for a single planet. The planet is a free floating (orphan) planet if this tag is a child of `system`. |
+| `star`  | `system`, `binary` | This is the container for a single star. A star can be host to one or more planets (circum-stellar planets). |
+| `binary` 		| `system`, `binary` | A binary consists of either two stars, one star and one binary or two binaries. In addition a binary can be host to one or more planets (circum-binary planets).| |
+| | | | |
+| `declination`	| `system` | Declination | +/- dd mm ss   |
+| `rightascension`	| `system` | Right ascension | hh mm ss   |
+| `distance`		| `system` | Distance from the Sun | parsec   |
+| `name`		| `system`, `binary`, `star`, `planet` | Name of this object. This tag can be used multiple times if the object has multiple Names. |   |
+| `semimajoraxis` 	| `binary`, `planet` | Semi-major axis of a planet (heliocentric coordinates) if child of `planet`. Semi-major axis of the binary if child of `binary`. |  AU |
+| `separation`	 	| `binary`, `planet` | Projected separation of planet from its host, or if child of `binary` the projected separation from one component to the other. This tag can occur multiple times with different units. It is different from the tag `semimajoraxis` as it does not imply a specific orbital configuration. |  AU, arcsec |
+| `positionangle` | `binary` | Position angle | degree |
+| `eccentricity` 	| `binary`, `planet` | Eccentricity  | |
+| `periastron` 	| `binary`, `planet` | Longitude of periastron | degree  |
+| `longitude` 	| `binary`, `planet` | Mean longitude at a given Epoch (same for all planets in one system) | degree  |
+| `meananomaly`	| `binary`, `planet` | Mean anomaly at a given Epoch (same for all planets in one system) | degree  |
+| `ascendingnode` 	| `binary`, `planet` | Longitude of the ascending node | degree  |
+| `inclination` 	| `binary`, `planet` | Inclination of the orbit | degree  |
+| `impactparameter`	| `planet` | Impact parameter of transit | |
+| `epoch` | `system` | Epoch for the orbital elements | BJD |
+| `period`	 	| `binary`, `planet` | Orbital period   | day  |
+| `transittime` | `binary`, `planet` | Time of the center of a transit | BJD |
+| `periastrontime` | `binary`, `planet` | Time of periastron | BJD |
+| `maximumrvtime` | `binary`, `planet` | Time of maximum radial velocity | BJD |
+| `mass`		| `planet`, `star` |Mass (or m sin(i) for radial velocity planets) | Jupiter masses (`planet`), Solar masses (`star`)  |
+| `radius`		| `planet`, `star` |Physical radius | Jupiter radii (`planet`), Solar radii (`star`)  |
+| `temperature`	| `planet`, `star` |Temperature (surface or equilibrium) | Kelvin  |
+| `age`		| `planet`, `star` |Age | Gyr  |
+| `metallicity`	| `star` | Stellar metallicity  | log, relative to solar  |
+| `spectraltype`	| `star`, `planet` | Spectral type  |   |
+| `magB`		| `binary`, `star`, `planet` | B magnitude |   |
+| `magV`		| `binary`, `star`, `planet` | Visual magnitude |   |
+| `magR`		| `binary`, `star`, `planet` | R magnitude |   |
+| `magI`		| `binary`, `star`, `planet` | I magnitude |   |
+| `magJ`		| `binary`, `star`, `planet` | J magnitude |   |
+| `magH`		| `binary`, `star`, `planet` | H magnitude |   |
+| `magK`		| `binary`, `star`, `planet` | K magnitude |   |
+| | | | |
+| `discoverymethod` 	| `planet` | Discovery method of the planet. For example: timing, RV, transit, imaging.  |   |
+| `istransiting` 	| `planet` | Whether the planet is transiting (1) or not (0).  |   |
+| `description` 	| `planet` | Short description of the planet  |   |
+| `discoveryyear`	| `planet` | Year of the planet's discovery | yyyy  |
+| `lastupdate`	| `planet` | Date of the last (non-trivial) update | yy/mm/dd   |
+| `spinorbitalignment` | `planet` | Rossiter-McLaughlin Effect. | degree |
+| `constellation` | `system` | Constellation (IAU definition) |  |
+
+Errors
+-------------
+Uncertainties can be added to values using the following attributes of the tag. We assume that these uncertainties represent the standard error of the measurement (68.2% confidence level). However, keep in mind that it is often not possible to collapse an entire posterior distribution to a single number.
+
+The syntax for error bars is: `<mass errorminus="0.1" errorplus="0.1">1.0</mass>`
+
+The syntax for upper/lower limits is: `<mass upperlimit="1.0" />`
+
+Constants
+-------------
+The Open Exoplanet Catalogue stores information using a few basis units. For stars, mass and radius units are derived from our star, Sol (the Sun). For exoplanets, mass and radius units are derived from the planet Jupiter.
+
+The mass of Jupiter, the Sun, and even Earth are so huge that it is more meaningful to simply reference their mass in relation to each other, rather than common SI units. These values are approximate.
+
+Ratio | Value
+--- | ---
+Sol/Jupiter mass | 1047.566
+Jupiter/Earth mass | 317.8284
+Sol/Earth mass | 332,946.1
+
+In many publications, radius measurements are quoted based on Earth’s or Jupiter’s equatorial radius, so we list here the relevant IAU recommended nominal constants.
+
+Constant Name | Value
+--- | ---
+Solar radius | 695,700 km
+Jupiter equatorial radius | 71,492 km
+Earth equatorial radius | 6378.1 km
+
+There are a few more units and standards used: degrees, days, billions of years (gigayears or Gyr), AU, parsecs, sexagesimal degrees (declination), and sexagesimal hour angle (Right Ascension). These are all much more well defined than the mass and radius units above, so we will not produce them here. Please note that the Open Exoplanet Catalogue makes no accommodation for different celestial reference frames.
+
+
+Plots
+-------------
+![Mass vs semi-major axis](https://raw.github.com/OpenExoplanetCatalogue/oec_plots/master/plot_mass_vs_semimajoraxis_discovery.svg.png "Plot")
+![Architecture](https://raw.github.com/OpenExoplanetCatalogue/oec_plots/master/plot_architecture.svg.png "Plot")
+![Discovery year](https://raw.github.com/OpenExoplanetCatalogue/oec_plots/master/plot_discoveryyear.svg.png "Plot")
+![Period ratios](https://raw.github.com/OpenExoplanetCatalogue/oec_plots/master/plot_periodratio.svg.png "Plot")
+
+To create custom plots please visit [this repository](https://github.com/OpenExoplanetCatalogue/oec_plots) for example scripts.
+
+
+Download ASCII tables
+--------------
+A few words of caution: Many planetary systems are part of binary star systems. The architecture of these systems is correctly represented in the original XML files of the Open Exoplanet Catalogue. In fact, it is to my knowledge the only catalogue that can do that. However, you might prefer to work with a simpler comma or tab separated table instead of the hierarchical XML file format. During the conversion process, some information is inevitably lost. Most importantly, the architecture of the star system. One cannot easily represent an arbitrary binary/triple/quadruple system in a simple table. Additionally, if planets have multiple identifiers only the first identifier is outputted. Using the original XML file format and git, you can use the `git blame` functionality to find references to scientific publications for every numeric value in the database. This functionality is also lost in the conversion process.
+
+In a [separate repository](https://github.com/OpenExoplanetCatalogue/oec_tables/), you will find a [comma separated](https://github.com/OpenExoplanetCatalogue/oec_tables/raw/master/comma_separated/open_exoplanet_catalogue.txt) and a [tab separated](https://github.com/OpenExoplanetCatalogue/oec_tables/blob/master/tab_separated/open_exoplanet_catalogue.txt) ASCII table of the Open Exoplanet Catalogue.
+
+
+
+Documentation
+--------------
+[This file](https://raw.github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/master/oec_paper.pdf) describes the philosophy and data-format of the catalogue. However, everything should be rather self-explanatory. The actual data is in the `systems` directory. Each XML file corresponds to one planetary system.
+
+If you are editing the file with vim, have a look at the [xmledit plugin](http://www.vim.org/scripts/script.php?script_id=301). I found it very helpful.
+
+
+How to include references to publications
+--------------
+It seems that the most elegant place to put references to publications is the commit message.
+This allows one to trace back each individual value in the database to the source using `git blame`.
+Furthermore it does not add any additional clutter to the text files themselves.
+So, when committing any changes, please create one commit per publication and include the reference in the commit message from now on.
+
+
+Derived products
+--------------
+The following list contains links to other catalogues, websites and apps that are derived from or make use of the Open Exoplanet Catalogue.
+
+ * [oec_web](https://github.com/OpenExoplanetCatalogue/oec_web): A suite of HTML pages acting as a front-end of the Open Exoplanet Catalogue. It includes visualizations of orbits, planet sizes and habitable zones. It also includes a plotting tool to generate correlation diagrams. The website is hosted at [openexoplanetcatalogue.com](http://openexoplanetcatalogue.com).
+ * [oec_plots](https://github.com/OpenExoplanetCatalogue/oec_plots): Plots and example scripts that make use of the Open Exoplanet Catalogue.
+ * [oec_outreach](https://github.com/hannorein/oec_outreach): A clone of the main repository with images and tags that are mainly used for outreach purposes.
+ * [oec_iphone](https://github.com/hannorein/oec_iphone): Compressed files, references to refereed publications, resized images and legacy support for various versions of the mobile version are in the repository.
+ * [ExoData](https://github.com/ryanvarley/ExoData): A Python module for loading the catalogue into python for use with applications along with many exoplanet related equations and tools.
+ * [iPhone Exoplanet App](http://exoplanetapp.com): Popular iOS application with many visualizations of the entire catalogue. Version 9.1 and later will fully support planets in multiple star systems.
+
+
+License
+--------------
+Copyright (C) 2012 Hanno Rein
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this database and associated scripts (the "Database"), to deal in the Database without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Database, and to permit persons to whom the Database is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Database.
+A reference to the Database shall be included in all scientific publications that make use of the Database.
+
+THE DATABASE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATABASE OR THE USE OR OTHER DEALINGS IN THE DATABASE.
+
+===== Meshoptimizer =====
+MIT License
+
+Copyright (c) 2016-2026 Arseny Kapoulkine
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+--------------------------------------------------------------------------------
+Files: docs/assets/js/ASCIIMathML.js
+
+Copyright (c) 2014 Peter Jipsen and other ASCIIMathML.js contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+Files: docs/assets/css/pygments/*
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org>

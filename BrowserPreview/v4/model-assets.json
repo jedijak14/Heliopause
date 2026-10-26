@@ -1,0 +1,65 @@
+{
+  "iss": {
+    "bytes": 56601884,
+    "sha256": "678a41969832fc9065f1b831e4cedc4a9ffc5f4cdc254a2853adcc4978bb4bff",
+    "url": "/hd/models/iss.glb",
+    "type": "glb",
+    "offline": "iss.glb"
+  },
+  "shuttle": {
+    "bytes": 1299404,
+    "sha256": "d8fa920ae2ab9bf10f22cb961b9959f3a4f0fe2d977694ffda96e440bac78c61",
+    "url": "/hd/models/shuttle.glb",
+    "type": "glb",
+    "offline": "shuttle.glb"
+  },
+  "habitat": {
+    "bytes": 175688,
+    "sha256": "6c8bf2a3457e9b654dcf984e6317c7f772ac56421958ce8bc91ae5766bdc3ff9",
+    "url": "/hd/models/habitat.glb",
+    "type": "glb",
+    "offline": "habitat.glb"
+  },
+  "habitat-interior": {
+    "bytes": 323180,
+    "sha256": "62f951cb631f7379b08e64884375829ccb639438631c54a04c568e45054e927f",
+    "url": "/hd/models/habitat-interior.glb",
+    "type": "glb",
+    "offline": "habitat-interior.glb"
+  },
+  "sofa": {
+    "bytes": 897020,
+    "sha256": "382ae97a89bf2472a6ddee0bfa8aa35360b0c9fb8bb3909391f25f70761eb756",
+    "url": "/hd/models/sofa.glb",
+    "type": "glb",
+    "offline": "sofa.glb"
+  },
+  "chair": {
+    "bytes": 1366784,
+    "sha256": "fbfc530bcf976a48ee57071bdf6496e557d5382f19ce7e02c323b95a217883ed",
+    "url": "/hd/models/chair.glb",
+    "type": "glb",
+    "offline": "chair.glb"
+  },
+  "fridge": {
+    "bytes": 4240340,
+    "sha256": "037ee0e02e305e4a4369d523065631fa72d35fdb6c78c4272cacba10caa7dcf0",
+    "url": "/hd/models/fridge.glb",
+    "type": "glb",
+    "offline": "fridge.glb"
+  },
+  "commander": {
+    "bytes": 4071764,
+    "sha256": "f2f74ed5ac29bf5578becc306d411affe06a8dca29a8815c3cc50f9f8bec4351",
+    "url": "/hd/models/commander.glb",
+    "type": "glb",
+    "offline": "commander.glb"
+  },
+  "officer": {
+    "bytes": 4880412,
+    "sha256": "7e6745a8d0d80aaabb277fc41ae510ebaf2880a0b7df958c872c697824e9bb24",
+    "url": "/hd/models/officer.glb",
+    "type": "glb",
+    "offline": "officer.glb"
+  }
+}

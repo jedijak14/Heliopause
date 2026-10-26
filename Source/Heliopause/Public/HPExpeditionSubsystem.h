@@ -10,7 +10,7 @@ class HELIOPAUSE_API UHPExpeditionSave : public USaveGame
 {
     GENERATED_BODY()
 public:
-    UPROPERTY() int32 Version=2;
+    UPROPERTY() int32 Version=3;
     UPROPERTY() TMap<FName,bool> HabitatDeployment;
  UPROPERTY() int32 LandedPlanet=-1;
     UPROPERTY() TMap<FName,bool> RoomLights;
@@ -35,6 +35,12 @@ public:
     UPROPERTY() int32 Credits=0;
     UPROPERTY() int32 EngineLevel=0;
     UPROPERTY() int32 SensorLevel=0;
+    UPROPERTY() int64 ScannedWide=0;
+    UPROPERTY() int64 RecoveredWide=0;
+    UPROPERTY() int64 SoldWide=0;
+    UPROPERTY() int64 ArtifactSoldWide=0;
+    UPROPERTY() int64 VisitedWide=1;
+    // Retained for v1/v2 save migration.
     UPROPERTY() int32 Scanned=0;
     UPROPERTY() int32 Recovered=0;
     UPROPERTY() int32 Sold=0;

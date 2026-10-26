@@ -44,3 +44,7 @@ Native art is constructed separately in `HPWorldBuilder.cpp`, using engine Basic
 UI icons/layout are source-authored. Three.js is MIT; Inter, Barlow Condensed and IBM Plex Mono use OFL licenses. Full notices are saved in `BrowserPreview/THIRD_PARTY_NOTICES.txt` and embedded in the standalone HTML.
 
 Generated screenshots, browser runtimes, build scratch data and FFmpeg tooling remain in ignored `Artifacts/` or dependency directories, not in the release asset inventory.
+
+## Rigged humans, NASA spacecraft and PBR interiors (v0.8)
+
+See [STREAMING_MODELS.md](STREAMING_MODELS.md) and `Content/ThirdParty/Streaming/sources.json` for the nine-model streaming library, exact pins, hashes, individually verified licenses and offline/HD policies. The expanded OEC science snapshot is `Shared/exoplanets.json`; visualization assumptions are separate from its sourced astronomical fields. The library is extensible, not a claim to include all models on the Internet or observed maps of exoplanet surfaces.

@@ -9,7 +9,8 @@ namespace HelioExplore {
 using Vec=std::array<double,3>;
 inline double length(const Vec& v){return std::sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);}
 inline Vec minus(const Vec& a,const Vec& b){return {a[0]-b[0],a[1]-b[1],a[2]-b[2]};}
-inline uint32_t bit(int i){return uint32_t(1)<<i;}
+static_assert(Sites.size()<64,"Expand discovery storage before adding more than 63 native destinations.");
+inline uint64_t bit(int i){return i>=0&&i<64?uint64_t(1)<<i:0;}
 enum class Command { Undock, Navigate, Brake, Dock, Board, Return, Scan, Recover, Sell, Engine, Sensor };
 struct State {
     Vec position{0,0,.56},velocity{0,0,0};
@@ -17,7 +18,7 @@ struct State {
     double roll=0;
     double yaw=0,pitch=0,scanProgress=0,totalTravel=0;
     int target=3,docked=0,credits=0,engine=0,sensor=0;
-    uint32_t scanned=0,recovered=0,sold=0,artifactSold=0,visited=1;
+    uint64_t scanned=0,recovered=0,sold=0,artifactSold=0,visited=1;
     bool onStation=false,autopilot=false,scanning=false,complete=false;
     std::string message="Undock, survey Glasswake, and return to a station exchange.";
     double distance(int i) const {if(i<0||i>=int(Sites.size()))return 1e9;return std::max(0.0,length(minus(position,Sites[i].position))-Sites[i].radius);}
@@ -86,7 +87,7 @@ struct State {
         if(target<0||target>=int(Sites.size())||docked< -1||docked>=int(Sites.size()))return false;
         if(docked>=0&&(Sites[docked].kind!=Kind::Station||distance(docked)>.7))return false;
         if(credits<0||credits>10000000||engine<0||engine>3||sensor<0||sensor>3)return false;
-        const uint32_t mask=(uint32_t(1)<<Sites.size())-1;
+        const uint64_t mask=(uint64_t(1)<<Sites.size())-1;
         if(((scanned|recovered|sold|artifactSold|visited)&~mask)||(sold&~scanned)||(recovered&~scanned)||(artifactSold&~recovered))return false;
         for(int i=0;i<int(Sites.size());++i)if((recovered&bit(i))&&!Sites[i].artifact)return false;
         return true;

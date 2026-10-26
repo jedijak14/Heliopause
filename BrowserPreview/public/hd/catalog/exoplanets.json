@@ -1,0 +1,5393 @@
+{
+  "version": 1,
+  "snapshot": "2026-10-26",
+  "sourceCommit": "fd375cc7e9102f2978e23b7788697926ca9f41ff",
+  "systems": [
+    {
+      "id": "TRAPPIST-1",
+      "position": [
+        1500,
+        180,
+        -1700
+      ],
+      "radius": 50,
+      "fields": [
+        {
+          "key": "name",
+          "value": "TRAPPIST-1",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "2MASS J23062928-0502285",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "K2-112",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "EPIC 246199087",
+          "attributes": {}
+        },
+        {
+          "key": "rightascension",
+          "value": "23 06 29.3684052886",
+          "attributes": {}
+        },
+        {
+          "key": "declination",
+          "value": "-05 02 29.031690445",
+          "attributes": {}
+        },
+        {
+          "key": "distance",
+          "value": "12.430",
+          "attributes": {
+            "errorminus": "0.019",
+            "errorplus": "0.019"
+          }
+        },
+        {
+          "key": "constellation",
+          "value": "Aquarius",
+          "attributes": {}
+        }
+      ],
+      "stars": [
+        [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "id": "LHS 1140",
+      "position": [
+        2900,
+        -180,
+        -3050
+      ],
+      "radius": 50,
+      "fields": [
+        {
+          "key": "name",
+          "value": "LHS 1140",
+          "attributes": {}
+        },
+        {
+          "key": "rightascension",
+          "value": "00 45 00",
+          "attributes": {}
+        },
+        {
+          "key": "declination",
+          "value": "-15 16 27",
+          "attributes": {}
+        },
+        {
+          "key": "distance",
+          "value": "14.9861000",
+          "attributes": {
+            "errorminus": "0.0152000",
+            "errorplus": "0.0153000"
+          }
+        },
+        {
+          "key": "constellation",
+          "value": "Cetus",
+          "attributes": {}
+        }
+      ],
+      "stars": [
+        [
+          {
+            "key": "name",
+            "value": "LHS 1140",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.21",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "14.1500000",
+            "attributes": {
+              "errorminus": "0.0620000",
+              "errorplus": "0.0620000"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "9.6120010",
+            "attributes": {
+              "errorminus": "0.0230000",
+              "errorplus": "0.0230000"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "9.0920000",
+            "attributes": {
+              "errorminus": "0.0260000",
+              "errorplus": "0.0260000"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "8.8210000",
+            "attributes": {
+              "errorminus": "0.0240000",
+              "errorplus": "0.0240000"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.19",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3216.00",
+            "attributes": {
+              "errorminus": "39.00",
+              "errorplus": "39.00"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.240",
+            "attributes": {
+              "errorminus": "0.100",
+              "errorplus": "0.100"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M4.5V",
+            "attributes": {}
+          }
+        ]
+      ]
+    },
+    {
+      "id": "TOI-1452",
+      "position": [
+        4300,
+        180,
+        -4400
+      ],
+      "radius": 50,
+      "fields": [
+        {
+          "key": "name",
+          "value": "TOI-1452",
+          "attributes": {}
+        },
+        {
+          "key": "rightascension",
+          "value": "19 20 42",
+          "attributes": {}
+        },
+        {
+          "key": "declination",
+          "value": "+73 11 42",
+          "attributes": {}
+        },
+        {
+          "key": "distance",
+          "value": "30.5212000",
+          "attributes": {
+            "errorminus": "0.0390000",
+            "errorplus": "0.0392000"
+          }
+        },
+        {
+          "key": "constellation",
+          "value": "Draco",
+          "attributes": {}
+        }
+      ],
+      "stars": [
+        [
+          {
+            "key": "name",
+            "value": "TOI-1452",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.28",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "magV",
+            "value": "14.3540000",
+            "attributes": {
+              "errorminus": "0.1210000",
+              "errorplus": "0.1210000"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "10.6040000",
+            "attributes": {
+              "errorminus": "0.0580000",
+              "errorplus": "0.0580000"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.0260000",
+            "attributes": {
+              "errorminus": "0.0580000",
+              "errorplus": "0.0580000"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "9.7400000",
+            "attributes": {
+              "errorminus": "0.0460000",
+              "errorplus": "0.0460000"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.25",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3185.00",
+            "attributes": {
+              "errorminus": "50.00",
+              "errorplus": "50.00"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.070",
+            "attributes": {
+              "errorminus": "0.020",
+              "errorplus": "0.020"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M4۪.5V",
+            "attributes": {}
+          }
+        ]
+      ]
+    },
+    {
+      "id": "Kepler-22",
+      "position": [
+        5700,
+        -180,
+        -5750
+      ],
+      "radius": 50,
+      "fields": [
+        {
+          "key": "name",
+          "value": "Kepler-22",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "KOI-87",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "KIC 10593626",
+          "attributes": {}
+        },
+        {
+          "key": "rightascension",
+          "value": "19 16 52.1904",
+          "attributes": {}
+        },
+        {
+          "key": "declination",
+          "value": "+47 53 03.9475",
+          "attributes": {}
+        },
+        {
+          "key": "distance",
+          "value": "180",
+          "attributes": {}
+        },
+        {
+          "key": "constellation",
+          "value": "Cygnus",
+          "attributes": {}
+        }
+      ],
+      "stars": [
+        [
+          {
+            "key": "magB",
+            "value": "11.5",
+            "attributes": {}
+          },
+          {
+            "key": "magR",
+            "value": "11.70",
+            "attributes": {
+              "errorminus": "0.06",
+              "errorplus": "0.06"
+            }
+          },
+          {
+            "key": "name",
+            "value": "Kepler-22",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GSC 03546-02301",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 10593626",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-87",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J19165219+4753040",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "UCAC3 276-148830",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2127941757262806656",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.97",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.979",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "G5",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "10.523",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.211",
+            "attributes": {
+              "errorminus": "0.017",
+              "errorplus": "0.017"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.152",
+            "attributes": {
+              "errorminus": "0.014",
+              "errorplus": "0.014"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "5510.0",
+            "attributes": {}
+          }
+        ]
+      ]
+    },
+    {
+      "id": "Kepler-62",
+      "position": [
+        7100,
+        180,
+        -7100
+      ],
+      "radius": 50,
+      "fields": [
+        {
+          "key": "name",
+          "value": "Kepler-62",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "KIC-9002278",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "KOI-701",
+          "attributes": {}
+        },
+        {
+          "key": "name",
+          "value": "KIC 9002278",
+          "attributes": {}
+        },
+        {
+          "key": "rightascension",
+          "value": "18 52 51.0518",
+          "attributes": {}
+        },
+        {
+          "key": "declination",
+          "value": "+45 20 59.4000",
+          "attributes": {}
+        },
+        {
+          "key": "distance",
+          "value": "368",
+          "attributes": {}
+        },
+        {
+          "key": "constellation",
+          "value": "Lyra",
+          "attributes": {}
+        }
+      ],
+      "stars": [
+        [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J18525105+4520595",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GPM 283.213142+45.350276",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.69",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.63",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "4925",
+            "attributes": {}
+          },
+          {
+            "key": "age",
+            "value": "7",
+            "attributes": {}
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.37",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "K2V",
+            "attributes": {}
+          },
+          {
+            "key": "magB",
+            "value": "14.4",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "13.8",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "12.256",
+            "attributes": {
+              "errorminus": "0.022",
+              "errorplus": "0.022"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "11.739",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "11.659",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          }
+        ]
+      ]
+    }
+  ],
+  "worlds": [
+    {
+      "id": "oec-trappist-1-b",
+      "name": "TRAPPIST-1 b",
+      "kind": "planet",
+      "position": [
+        1720,
+        180,
+        -1470
+      ],
+      "radius": 7.0007,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 b",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457606.56117",
+            "attributes": {
+              "errorminus": "0.00058",
+              "errorplus": "0.00058"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.126",
+            "attributes": {
+              "errorminus": "0.078",
+              "errorplus": "0.092"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.10001",
+            "attributes": {
+              "errorminus": "0.00285",
+              "errorplus": "0.00277"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.65",
+            "attributes": {
+              "errorminus": "0.27",
+              "errorplus": "0.22"
+            }
+          },
+          {
+            "key": "period",
+            "value": "1.5108739",
+            "attributes": {
+              "errorminus": "0.0000075",
+              "errorplus": "0.0000075"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.01154775",
+            "attributes": {
+              "errorminus": "0.000000057",
+              "errorplus": "0.000000057"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.00622",
+            "attributes": {
+              "errorminus": "0.00304",
+              "errorplus": "0.00304"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "336.86",
+            "attributes": {
+              "errorminus": "34.24",
+              "errorplus": "34.24"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "400.1",
+            "attributes": {
+              "errorminus": "7.7",
+              "errorplus": "7.7"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.003200",
+            "attributes": {
+              "errorminus": "0.0000450",
+              "errorplus": "0.000485"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2016",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "eso1706a",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of the TRAPPIST-1 planetary system. Credit: ESO/M. Kornmesser/spaceengine.org.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-trappist-1-c",
+      "name": "TRAPPIST-1 c",
+      "kind": "planet",
+      "position": [
+        1865,
+        205,
+        -1400
+      ],
+      "radius": 7,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 c",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457568.58230",
+            "attributes": {
+              "errorminus": "0.00064",
+              "errorplus": "0.00064"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.161",
+            "attributes": {
+              "errorminus": "0.084",
+              "errorplus": "0.076"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.09769",
+            "attributes": {
+              "errorminus": "0.00276",
+              "errorplus": "0.00267"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.67",
+            "attributes": {
+              "errorminus": "0.17",
+              "errorplus": "0.17"
+            }
+          },
+          {
+            "key": "period",
+            "value": "2.421818",
+            "attributes": {
+              "errorminus": "0.000015",
+              "errorplus": "0.000015"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.01581512",
+            "attributes": {
+              "errorminus": "0.00000015",
+              "errorplus": "0.00000015"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.00654",
+            "attributes": {
+              "errorminus": "0.00188",
+              "errorplus": "0.00188"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "282.45",
+            "attributes": {
+              "errorminus": "17.10",
+              "errorplus": "17.10"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "341.9",
+            "attributes": {
+              "errorminus": "6.6",
+              "errorplus": "6.6"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.003637",
+            "attributes": {
+              "errorminus": "0.000412",
+              "errorplus": "0.000447"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2016",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "eso1706a",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of the TRAPPIST-1 planetary system. Credit: ESO/M. Kornmesser/spaceengine.org.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-trappist-1-d",
+      "name": "TRAPPIST-1 d",
+      "kind": "planet",
+      "position": [
+        2010,
+        230,
+        -1330
+      ],
+      "radius": 7,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 d",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457682.2921",
+            "attributes": {
+              "errorminus": "0.0023",
+              "errorplus": "0.0023"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.17",
+            "attributes": {
+              "errorminus": "0.11",
+              "errorplus": "0.11"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.06994",
+            "attributes": {
+              "errorminus": "0.00205",
+              "errorplus": "0.00205"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.75",
+            "attributes": {
+              "errorminus": "0.16",
+              "errorplus": "0.16"
+            }
+          },
+          {
+            "key": "period",
+            "value": "4.04982",
+            "attributes": {
+              "errorminus": "0.00017",
+              "errorplus": "0.00017"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.02228038",
+            "attributes": {
+              "errorminus": "0.00000044",
+              "errorplus": "0.00000044"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.00837",
+            "attributes": {
+              "errorminus": "0.00093",
+              "errorplus": "0.00093"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "-8.73",
+            "attributes": {
+              "errorminus": "6.17",
+              "errorplus": "6.17"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "288.0",
+            "attributes": {
+              "errorminus": "5.6",
+              "errorplus": "5.6"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.000934",
+            "attributes": {
+              "errorminus": "0.000110",
+              "errorplus": "0.000122"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2017",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "eso1706a",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of the TRAPPIST-1 planetary system. Credit: ESO/M. Kornmesser/spaceengine.org.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-trappist-1-e",
+      "name": "TRAPPIST-1 e",
+      "kind": "planet",
+      "position": [
+        2155,
+        255,
+        -1260
+      ],
+      "radius": 7,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 e",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457574.9829",
+            "attributes": {
+              "errorminus": "0.0025",
+              "errorplus": "0.0025"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.12",
+            "attributes": {
+              "errorminus": "0.09",
+              "errorplus": "0.11"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.08118",
+            "attributes": {
+              "errorminus": "0.00241",
+              "errorplus": "0.00232"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.86",
+            "attributes": {
+              "errorminus": "0.12",
+              "errorplus": "0.10"
+            }
+          },
+          {
+            "key": "period",
+            "value": "6.099570",
+            "attributes": {
+              "errorminus": "0.000091",
+              "errorplus": "0.000091"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.02928285",
+            "attributes": {
+              "errorminus": "0.00000034",
+              "errorplus": "0.00000034"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.00510",
+            "attributes": {
+              "errorminus": "0.00058",
+              "errorplus": "0.00058"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "108.37",
+            "attributes": {
+              "errorminus": "8.47",
+              "errorplus": "8.47"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "251.3",
+            "attributes": {
+              "errorminus": "4.9",
+              "errorplus": "4.9"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.002429",
+            "attributes": {
+              "errorminus": "0.000236",
+              "errorplus": "0.000249"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2017",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "eso1706a",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of the TRAPPIST-1 planetary system. Credit: ESO/M. Kornmesser/spaceengine.org.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-trappist-1-f",
+      "name": "TRAPPIST-1 f",
+      "kind": "planet",
+      "position": [
+        2300,
+        280,
+        -1190
+      ],
+      "radius": 7,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 f",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457616.1548",
+            "attributes": {
+              "errorminus": "0.0072",
+              "errorplus": "0.0072"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.382",
+            "attributes": {
+              "errorminus": "0.035",
+              "errorplus": "0.035"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.09332",
+            "attributes": {
+              "errorminus": "0.00268",
+              "errorplus": "0.00259"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.680",
+            "attributes": {
+              "errorminus": "0.034",
+              "errorplus": "0.034"
+            }
+          },
+          {
+            "key": "period",
+            "value": "9.20648",
+            "attributes": {
+              "errorminus": "0.00053",
+              "errorplus": "0.00053"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.03853361",
+            "attributes": {
+              "errorminus": "0.00000048",
+              "errorplus": "0.00000048"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.01007",
+            "attributes": {
+              "errorminus": "0.00068",
+              "errorplus": "0.00068"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "368.81",
+            "attributes": {
+              "errorminus": "3.11",
+              "errorplus": "3.11"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "219.0",
+            "attributes": {
+              "errorminus": "4.2",
+              "errorplus": "4.2"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.002939",
+            "attributes": {
+              "errorminus": "0.000245",
+              "errorplus": "0.000252"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2017",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "eso1706a",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of the TRAPPIST-1 planetary system. Credit: ESO/M. Kornmesser/spaceengine.org.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-trappist-1-g",
+      "name": "TRAPPIST-1 g",
+      "kind": "planet",
+      "position": [
+        2445,
+        305,
+        -1120
+      ],
+      "radius": 7.1693999999999996,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 g",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 g",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 g",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 g",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 g",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457529.4724",
+            "attributes": {
+              "errorminus": "0.0058",
+              "errorplus": "0.0058"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.421",
+            "attributes": {
+              "errorminus": "0.031",
+              "errorplus": "0.031"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.10242",
+            "attributes": {
+              "errorminus": "0.00294",
+              "errorplus": "0.00285"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.710",
+            "attributes": {
+              "errorminus": "0.025",
+              "errorplus": "0.025"
+            }
+          },
+          {
+            "key": "period",
+            "value": "12.35281",
+            "attributes": {
+              "errorminus": "0.00044",
+              "errorplus": "0.00044"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.04687692",
+            "attributes": {
+              "errorminus": "0.00000032",
+              "errorplus": "0.00000032"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.00208",
+            "attributes": {
+              "errorminus": "0.00058",
+              "errorplus": "0.00058"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "191.34",
+            "attributes": {
+              "errorminus": "13.83",
+              "errorplus": "13.83"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "198.6",
+            "attributes": {
+              "errorminus": "3.8",
+              "errorplus": "3.8"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.003612",
+            "attributes": {
+              "errorminus": "0.000299",
+              "errorplus": "0.000308"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2017",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "eso1706a",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of the TRAPPIST-1 planetary system. Credit: ESO/M. Kornmesser/spaceengine.org.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-trappist-1-h",
+      "name": "TRAPPIST-1 h",
+      "kind": "planet",
+      "position": [
+        2590,
+        330,
+        -1050
+      ],
+      "radius": 7,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "TRAPPIST-1",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TRAPPIST-1.xml",
+        "blob": "3c73bdeca3b237ab8411a406d1b5c70429b372d0",
+        "sha256": "8eeaf061f95efd2b8236db939566a65f14e2273c69830bdcc6f5a48b2b632de2",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1 h",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285 h",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112 h",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087 h",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008 h",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2457700.0875",
+            "attributes": {
+              "errorminus": "0.0018",
+              "errorplus": "0.0018"
+            }
+          },
+          {
+            "key": "impactparameter",
+            "value": "0.45",
+            "attributes": {
+              "errorminus": "0.29",
+              "errorplus": "0.22"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.06896",
+            "attributes": {
+              "errorminus": "0.00241",
+              "errorplus": "0.00232"
+            }
+          },
+          {
+            "key": "inclination",
+            "value": "89.80",
+            "attributes": {
+              "errorminus": "0.05",
+              "errorplus": "0.10"
+            }
+          },
+          {
+            "key": "period",
+            "value": "18.76626",
+            "attributes": {
+              "errorminus": "0.00068",
+              "errorplus": "0.00068"
+            }
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.06193488",
+            "attributes": {
+              "errorminus": "0.00000080",
+              "errorplus": "0.00000080"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.00567",
+            "attributes": {
+              "errorminus": "0.00121",
+              "errorplus": "0.00121"
+            }
+          },
+          {
+            "key": "periastron",
+            "value": "338.92",
+            "attributes": {
+              "errorminus": "9.66",
+              "errorplus": "9.66"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "167",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.001041",
+            "attributes": {
+              "errorminus": "0.000154",
+              "errorplus": "0.000176"
+            }
+          },
+          {
+            "key": "lastupdate",
+            "value": "18/09/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2017",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "Astronomers have found this system of seven Earth-sized planets just 40 light-years away. Using ground and space telescopes the planets were all detected as they passed in front of their parent star, the ultracool dwarf star known as TRAPPIST-1. The six inner planets form a near-resonant chain such that their orbital periods (1.51, 2.42, 4.04, 6.06, 9.21, 12.35 days) are near ratios of small integers. This architecture suggests that the planets formed farther from the star and migrated inward. The seven planets have equilibrium temperatures low enough to support liquid water on their surfaces.",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2635476908753563008",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "18.798",
+            "attributes": {
+              "errorminus": "0.082",
+              "errorplus": "0.082"
+            }
+          },
+          {
+            "key": "magR",
+            "value": "16.401",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "magI",
+            "value": "13.966",
+            "attributes": {
+              "errorminus": "0.002",
+              "errorplus": "0.002"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "11.35",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.72",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.30",
+            "attributes": {
+              "errorminus": "0.02",
+              "errorplus": "0.02"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M8 V",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "2516",
+            "attributes": {
+              "errorminus": "41",
+              "errorplus": "41"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "0.04",
+            "attributes": {
+              "errorminus": "0.08",
+              "errorplus": "0.08"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.121",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.089",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "age",
+            "value": "7.6",
+            "attributes": {
+              "errorminus": "2.2",
+              "errorplus": "2.2"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TRAPPIST-1",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J23062928-0502285",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "K2-112",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "EPIC 246199087",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "23 06 29.3684052886",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-05 02 29.031690445",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "12.430",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Aquarius",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-lhs-1140-b",
+      "name": "LHS 1140 b",
+      "kind": "planet",
+      "position": [
+        3120,
+        -180,
+        -2820
+      ],
+      "radius": 10.219999999999999,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "LHS 1140",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/LHS 1140.xml",
+        "blob": "d3441c9b5cd7586cbd873c903bf9b8c705a75413",
+        "sha256": "6c402c1be228c06df63193d08dab38b189327b91cca3fae4ff16b5f9f5e78849",
+        "planet": [
+          {
+            "key": "name",
+            "value": "LHS 1140 b",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.095700",
+            "attributes": {
+              "errorminus": "0.001900",
+              "errorplus": "0.001900"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.096000",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.877",
+            "attributes": {
+              "errorminus": "0.045",
+              "errorplus": "0.049"
+            }
+          },
+          {
+            "key": "period",
+            "value": "24.73694000",
+            "attributes": {
+              "errorminus": "0.00040000",
+              "errorplus": "0.00041000"
+            }
+          },
+          {
+            "key": "description",
+            "value": "This planet was discovered by Dittmann et al. 2017. This was a ground based discovery. The parameters listed here have been imported into the Open Exoplanet Catalogue from the NASA Exoplanet Archive.",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.02007",
+            "attributes": {
+              "errorminus": "0.00138",
+              "errorplus": "0.00145"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.146",
+            "attributes": {
+              "errorminus": "0.004",
+              "errorplus": "0.004"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3.78900000000e+02",
+            "attributes": {
+              "errorminus": "4.20000000000e+00",
+              "errorplus": "4.30000000000e+00"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2017",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "21/06/13",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2458399.930300",
+            "attributes": {
+              "errorminus": "0.001300",
+              "errorplus": "0.001200"
+            }
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "LHS 1140",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.21",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "14.1500000",
+            "attributes": {
+              "errorminus": "0.0620000",
+              "errorplus": "0.0620000"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "9.6120010",
+            "attributes": {
+              "errorminus": "0.0230000",
+              "errorplus": "0.0230000"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "9.0920000",
+            "attributes": {
+              "errorminus": "0.0260000",
+              "errorplus": "0.0260000"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "8.8210000",
+            "attributes": {
+              "errorminus": "0.0240000",
+              "errorplus": "0.0240000"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.19",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3216.00",
+            "attributes": {
+              "errorminus": "39.00",
+              "errorplus": "39.00"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.240",
+            "attributes": {
+              "errorminus": "0.100",
+              "errorplus": "0.100"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M4.5V",
+            "attributes": {}
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "LHS 1140",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "00 45 00",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-15 16 27",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "14.9861000",
+            "attributes": {
+              "errorminus": "0.0152000",
+              "errorplus": "0.0153000"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Cetus",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-lhs-1140-c",
+      "name": "LHS 1140 c",
+      "kind": "planet",
+      "position": [
+        3265,
+        -155,
+        -2750
+      ],
+      "radius": 7.279999999999999,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "LHS 1140",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/LHS 1140.xml",
+        "blob": "d3441c9b5cd7586cbd873c903bf9b8c705a75413",
+        "sha256": "6c402c1be228c06df63193d08dab38b189327b91cca3fae4ff16b5f9f5e78849",
+        "planet": [
+          {
+            "key": "name",
+            "value": "LHS 1140 c",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.027340",
+            "attributes": {
+              "errorminus": "0.000540",
+              "errorplus": "0.000540"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.274000",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.913",
+            "attributes": {
+              "errorminus": "0.049",
+              "errorplus": "0.046"
+            }
+          },
+          {
+            "key": "period",
+            "value": "3.77792000",
+            "attributes": {
+              "errorminus": "0.00003000",
+              "errorplus": "0.00003000"
+            }
+          },
+          {
+            "key": "description",
+            "value": "This planet was discovered by Ment et al. 2019. The parameters listed here have been imported into the Open Exoplanet Catalogue from the NASA Exoplanet Archive.",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.00554",
+            "attributes": {
+              "errorminus": "0.00050",
+              "errorplus": "0.00053"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.104",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "7.08900000000e+02",
+            "attributes": {
+              "errorminus": "7.80000000000e+00",
+              "errorplus": "8.00000000000e+00"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2018",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "21/06/13",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2458389.293830",
+            "attributes": {
+              "errorminus": "0.000820",
+              "errorplus": "0.000810"
+            }
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "LHS 1140",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.21",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "14.1500000",
+            "attributes": {
+              "errorminus": "0.0620000",
+              "errorplus": "0.0620000"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "9.6120010",
+            "attributes": {
+              "errorminus": "0.0230000",
+              "errorplus": "0.0230000"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "9.0920000",
+            "attributes": {
+              "errorminus": "0.0260000",
+              "errorplus": "0.0260000"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "8.8210000",
+            "attributes": {
+              "errorminus": "0.0240000",
+              "errorplus": "0.0240000"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.19",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3216.00",
+            "attributes": {
+              "errorminus": "39.00",
+              "errorplus": "39.00"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.240",
+            "attributes": {
+              "errorminus": "0.100",
+              "errorplus": "0.100"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M4.5V",
+            "attributes": {}
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "LHS 1140",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "00 45 00",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "-15 16 27",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "14.9861000",
+            "attributes": {
+              "errorminus": "0.0152000",
+              "errorplus": "0.0153000"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Cetus",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-toi-1452-b",
+      "name": "TOI-1452 b",
+      "kind": "planet",
+      "position": [
+        4520,
+        180,
+        -4170
+      ],
+      "radius": 10.43,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "TOI-1452",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/TOI-1452.xml",
+        "blob": "faad1e4d3da99388a2ec1efcec0c4cef10350bad",
+        "sha256": "66153e266828e4a03443d85d339a9780b0d0a70d46e168f80a2cde481f0e9f8d",
+        "planet": [
+          {
+            "key": "name",
+            "value": "TOI-1452 b",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.061000",
+            "attributes": {
+              "errorminus": "0.003000",
+              "errorplus": "0.003000"
+            }
+          },
+          {
+            "key": "eccentricity",
+            "value": "0.000000",
+            "attributes": {}
+          },
+          {
+            "key": "periastron",
+            "value": "90.0000",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.770",
+            "attributes": {
+              "errorminus": "0.160",
+              "errorplus": "0.160"
+            }
+          },
+          {
+            "key": "period",
+            "value": "11.06201000",
+            "attributes": {
+              "errorminus": "0.00002000",
+              "errorplus": "0.00002000"
+            }
+          },
+          {
+            "key": "description",
+            "value": "This planet was discovered by Cadieux et al. 2022. The discovery was made with a space based telescope (0.1 m TESS Telescope). The parameters listed here have been imported into the Open Exoplanet Catalogue from the NASA Exoplanet Archive.",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.01517",
+            "attributes": {
+              "errorminus": "0.00409",
+              "errorplus": "0.00409"
+            }
+          },
+          {
+            "key": "radius",
+            "value": "0.149",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3.26000000000e+02",
+            "attributes": {
+              "errorminus": "7.00000000000e+00",
+              "errorplus": "7.00000000000e+00"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2022",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "22/09/15",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2458691.532100",
+            "attributes": {
+              "errorminus": "0.001500",
+              "errorplus": "0.001500"
+            }
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "TOI-1452",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.28",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "magV",
+            "value": "14.3540000",
+            "attributes": {
+              "errorminus": "0.1210000",
+              "errorplus": "0.1210000"
+            }
+          },
+          {
+            "key": "magJ",
+            "value": "10.6040000",
+            "attributes": {
+              "errorminus": "0.0580000",
+              "errorplus": "0.0580000"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.0260000",
+            "attributes": {
+              "errorminus": "0.0580000",
+              "errorplus": "0.0580000"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "9.7400000",
+            "attributes": {
+              "errorminus": "0.0460000",
+              "errorplus": "0.0460000"
+            }
+          },
+          {
+            "key": "mass",
+            "value": "0.25",
+            "attributes": {
+              "errorminus": "0.01",
+              "errorplus": "0.01"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "3185.00",
+            "attributes": {
+              "errorminus": "50.00",
+              "errorplus": "50.00"
+            }
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.070",
+            "attributes": {
+              "errorminus": "0.020",
+              "errorplus": "0.020"
+            }
+          },
+          {
+            "key": "spectraltype",
+            "value": "M4۪.5V",
+            "attributes": {}
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "TOI-1452",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "19 20 42",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+73 11 42",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "30.5212000",
+            "attributes": {
+              "errorminus": "0.0390000",
+              "errorplus": "0.0392000"
+            }
+          },
+          {
+            "key": "constellation",
+            "value": "Draco",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-kepler-22-b",
+      "name": "Kepler-22 b",
+      "kind": "planet",
+      "position": [
+        5920,
+        -180,
+        -5520
+      ],
+      "radius": 15.1823,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "Kepler-22",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-22.xml",
+        "blob": "9b46d620f92a4c3cffd09e4389dfb5ac1df0e2dc",
+        "sha256": "f50ca22813585a3b5189b1ff5e229d95b61e10fd5e29dffe0a0fdc75376bb5c0",
+        "planet": [
+          {
+            "key": "name",
+            "value": "Kepler-22 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-87.01",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-87 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 10593626 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2127941757262806656 b",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.21689",
+            "attributes": {}
+          },
+          {
+            "key": "period",
+            "value": "290",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.849",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2454966.6983",
+            "attributes": {
+              "errorminus": "0.0023",
+              "errorplus": "0.0023",
+              "unit": "BJD"
+            }
+          },
+          {
+            "key": "description",
+            "value": "The planet Kepler-22b has been discovered with the Kepler spacecraft. It is orbiting the solar type Kepler target star KIC10593626. This puts it in the habitable zone with an equilibrium temperature of minus 11 degrees Celsius (plus 11 degrees Fahrenheit). If the planet has an atmosphere similar to that of Earth then the surface temperature is 22 degrees Celsius (71 degrees Fahrenheit). Kepler-22b is the smallest radius planet known to orbit in the habitable zone of any star other than the Sun.",
+            "attributes": {}
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "11/12/05",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2011",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "Kepler22b",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "This is an artist's conception illustrating the exoplanet Kepler-22b. The planet lies in the habitable zone of a Sun-like star KIC10593626. The habitable zone around a star is usually defined to be the zone in which liquid water, a requirement for life on Earth, could persist. \n\t\nScientists do not yet know if the planet has a predominantly rocky, gaseous or liquid composition. It's possible that the world would have clouds in its atmosphere, as depicted here in the artist's interpretation.\n\t\nCredit: NASA/Ames/JPL-Caltech",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "249.6",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "magB",
+            "value": "11.5",
+            "attributes": {}
+          },
+          {
+            "key": "magR",
+            "value": "11.70",
+            "attributes": {
+              "errorminus": "0.06",
+              "errorplus": "0.06"
+            }
+          },
+          {
+            "key": "name",
+            "value": "Kepler-22",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GSC 03546-02301",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 10593626",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-87",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J19165219+4753040",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "UCAC3 276-148830",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2127941757262806656",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.97",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.979",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "G5",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "10.523",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "10.211",
+            "attributes": {
+              "errorminus": "0.017",
+              "errorplus": "0.017"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "10.152",
+            "attributes": {
+              "errorminus": "0.014",
+              "errorplus": "0.014"
+            }
+          },
+          {
+            "key": "temperature",
+            "value": "5510.0",
+            "attributes": {}
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "Kepler-22",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-87",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 10593626",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "19 16 52.1904",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+47 53 03.9475",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "180",
+            "attributes": {}
+          },
+          {
+            "key": "constellation",
+            "value": "Cygnus",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-kepler-62-b",
+      "name": "Kepler-62 b",
+      "kind": "planet",
+      "position": [
+        7320,
+        180,
+        -6870
+      ],
+      "radius": 8.356642,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "Kepler-62",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-62.xml",
+        "blob": "658f4656736194e3b6116149dc2f41ee688dfba4",
+        "sha256": "18fed7cd9a15c31d8b32ef98a7c17ff97d740f273609f514da9dcea520ab2967",
+        "planet": [
+          {
+            "key": "name",
+            "value": "Kepler-62 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701.02",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701 b",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408 b",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.1193806",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "750",
+            "attributes": {}
+          },
+          {
+            "key": "period",
+            "value": "5.714932",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.0553",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.2",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2455003.9189",
+            "attributes": {
+              "errorminus": "0.0009",
+              "errorplus": "0.0009",
+              "unit": "BJD"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "13/04/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2013",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "The Kepler-62 system has five planets. Two of them orbit in the habitable zone. Only the size, not the mass of planets in this system is known. Kepler-62 could be the Holy Grail of exoplanetology: a system with a rocky or water planet in the habitable zone.",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J18525105+4520595",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GPM 283.213142+45.350276",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.69",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.63",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "4925",
+            "attributes": {}
+          },
+          {
+            "key": "age",
+            "value": "7",
+            "attributes": {}
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.37",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "K2V",
+            "attributes": {}
+          },
+          {
+            "key": "magB",
+            "value": "14.4",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "13.8",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "12.256",
+            "attributes": {
+              "errorminus": "0.022",
+              "errorplus": "0.022"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "11.739",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "11.659",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC-9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "18 52 51.0518",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+45 20 59.4000",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "368",
+            "attributes": {}
+          },
+          {
+            "key": "constellation",
+            "value": "Lyra",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-kepler-62-c",
+      "name": "Kepler-62 c",
+      "kind": "planet",
+      "position": [
+        7465,
+        205,
+        -6800
+      ],
+      "radius": 7,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "Kepler-62",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-62.xml",
+        "blob": "658f4656736194e3b6116149dc2f41ee688dfba4",
+        "sha256": "18fed7cd9a15c31d8b32ef98a7c17ff97d740f273609f514da9dcea520ab2967",
+        "planet": [
+          {
+            "key": "name",
+            "value": "Kepler-62 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701.05",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701 c",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408 c",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.049210359",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "578",
+            "attributes": {}
+          },
+          {
+            "key": "period",
+            "value": "12.4417",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.0929",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.7",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2454967.651",
+            "attributes": {
+              "errorminus": "0.008",
+              "errorplus": "0.008",
+              "unit": "BJD"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "13/04/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2013",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "The Kepler-62 system has five planets. Two of them orbit in the habitable zone. Only the size, not the mass of planets in this system is known. Kepler-62 could be the Holy Grail of exoplanetology: a system with a rocky or water planet in the habitable zone.",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J18525105+4520595",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GPM 283.213142+45.350276",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.69",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.63",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "4925",
+            "attributes": {}
+          },
+          {
+            "key": "age",
+            "value": "7",
+            "attributes": {}
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.37",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "K2V",
+            "attributes": {}
+          },
+          {
+            "key": "magB",
+            "value": "14.4",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "13.8",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "12.256",
+            "attributes": {
+              "errorminus": "0.022",
+              "errorplus": "0.022"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "11.739",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "11.659",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC-9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "18 52 51.0518",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+45 20 59.4000",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "368",
+            "attributes": {}
+          },
+          {
+            "key": "constellation",
+            "value": "Lyra",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-kepler-62-d",
+      "name": "Kepler-62 d",
+      "kind": "planet",
+      "position": [
+        7610,
+        230,
+        -6730
+      ],
+      "radius": 12.43928,
+      "reward": 350,
+      "artifact": false,
+      "profile": "desert",
+      "system": "Kepler-62",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-62.xml",
+        "blob": "658f4656736194e3b6116149dc2f41ee688dfba4",
+        "sha256": "18fed7cd9a15c31d8b32ef98a7c17ff97d740f273609f514da9dcea520ab2967",
+        "planet": [
+          {
+            "key": "name",
+            "value": "Kepler-62 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701.01",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701 d",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408 d",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.1777040",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "510",
+            "attributes": {}
+          },
+          {
+            "key": "period",
+            "value": "18.16406",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.120",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.7",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2455013.8117",
+            "attributes": {
+              "errorminus": "0.0008",
+              "errorplus": "0.0008",
+              "unit": "BJD"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "13/04/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2013",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "The Kepler-62 system has five planets. Two of them orbit in the habitable zone. Only the size, not the mass of planets in this system is known. Kepler-62 could be the Holy Grail of exoplanetology: a system with a rocky or water planet in the habitable zone.",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J18525105+4520595",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GPM 283.213142+45.350276",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.69",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.63",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "4925",
+            "attributes": {}
+          },
+          {
+            "key": "age",
+            "value": "7",
+            "attributes": {}
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.37",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "K2V",
+            "attributes": {}
+          },
+          {
+            "key": "magB",
+            "value": "14.4",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "13.8",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "12.256",
+            "attributes": {
+              "errorminus": "0.022",
+              "errorplus": "0.022"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "11.739",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "11.659",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC-9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "18 52 51.0518",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+45 20 59.4000",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "368",
+            "attributes": {}
+          },
+          {
+            "key": "constellation",
+            "value": "Lyra",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Artist-created terrestrial terrain; actual surface conditions unknown.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-kepler-62-e",
+      "name": "Kepler-62 e",
+      "kind": "planet",
+      "position": [
+        7755,
+        255,
+        -6660
+      ],
+      "radius": 10.2703839,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "Kepler-62",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-62.xml",
+        "blob": "658f4656736194e3b6116149dc2f41ee688dfba4",
+        "sha256": "18fed7cd9a15c31d8b32ef98a7c17ff97d740f273609f514da9dcea520ab2967",
+        "planet": [
+          {
+            "key": "name",
+            "value": "Kepler-62 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701.03",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701 e",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408 e",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.14671977",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "270",
+            "attributes": {}
+          },
+          {
+            "key": "period",
+            "value": "122.3874",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.427",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.98",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2454983.404",
+            "attributes": {
+              "errorminus": "0.003",
+              "errorplus": "0.003",
+              "unit": "BJD"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "13/04/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2013",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "The Kepler-62 system has five planets. Two of them orbit in the habitable zone. Kepler-62 e is one of them.  Only the size, not the mass of planets in this system is known. Kepler-62 could be the Holy Grail of exoplanetology: a system with a rocky or water planet in the habitable zone.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "Kepler62e",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of Kepler-62 e. \n\nCredit: NASA/JPL-Caltech/T. Pyle",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J18525105+4520595",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GPM 283.213142+45.350276",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.69",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.63",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "4925",
+            "attributes": {}
+          },
+          {
+            "key": "age",
+            "value": "7",
+            "attributes": {}
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.37",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "K2V",
+            "attributes": {}
+          },
+          {
+            "key": "magB",
+            "value": "14.4",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "13.8",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "12.256",
+            "attributes": {
+              "errorminus": "0.022",
+              "errorplus": "0.022"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "11.739",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "11.659",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC-9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "18 52 51.0518",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+45 20 59.4000",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "368",
+            "attributes": {}
+          },
+          {
+            "key": "constellation",
+            "value": "Lyra",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    },
+    {
+      "id": "oec-kepler-62-f",
+      "name": "Kepler-62 f",
+      "kind": "planet",
+      "position": [
+        7900,
+        280,
+        -6590
+      ],
+      "radius": 8.9945597,
+      "reward": 350,
+      "artifact": false,
+      "profile": "ocean",
+      "system": "Kepler-62",
+      "lore": "Cataloged exoplanet. Surface, weather, oceans, ecology, and compressed navigation coordinates are fictional visualizations, not resolved observations.",
+      "science": {
+        "source": "https://github.com/OpenExoplanetCatalogue/open_exoplanet_catalogue/blob/fd375cc7e9102f2978e23b7788697926ca9f41ff/systems/Kepler-62.xml",
+        "blob": "658f4656736194e3b6116149dc2f41ee688dfba4",
+        "sha256": "18fed7cd9a15c31d8b32ef98a7c17ff97d740f273609f514da9dcea520ab2967",
+        "planet": [
+          {
+            "key": "name",
+            "value": "Kepler-62 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701.04",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701 f",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408 f",
+            "attributes": {}
+          },
+          {
+            "key": "list",
+            "value": "Confirmed planets",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.12849371",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "208",
+            "attributes": {}
+          },
+          {
+            "key": "period",
+            "value": "267.291",
+            "attributes": {}
+          },
+          {
+            "key": "semimajoraxis",
+            "value": "0.718",
+            "attributes": {}
+          },
+          {
+            "key": "inclination",
+            "value": "89.90",
+            "attributes": {}
+          },
+          {
+            "key": "transittime",
+            "value": "2455422.71",
+            "attributes": {
+              "errorminus": "0.006",
+              "errorplus": "0.006",
+              "unit": "BJD"
+            }
+          },
+          {
+            "key": "discoverymethod",
+            "value": "transit",
+            "attributes": {}
+          },
+          {
+            "key": "lastupdate",
+            "value": "13/04/18",
+            "attributes": {}
+          },
+          {
+            "key": "discoveryyear",
+            "value": "2013",
+            "attributes": {}
+          },
+          {
+            "key": "description",
+            "value": "The Kepler-62 system has five planets. Two of them orbit in the habitable zone. Kepler-62 f is one of them. Only the size, not the mass of planets in this system is known. Kepler-62 could be the Holy Grail of exoplanetology: a system with a rocky or water planet in the habitable zone.",
+            "attributes": {}
+          },
+          {
+            "key": "image",
+            "value": "Kepler62f",
+            "attributes": {}
+          },
+          {
+            "key": "imagedescription",
+            "value": "Artist's impression of Kepler-62 f. \n\nCredit: NASA/JPL-Caltech/T. Pyle",
+            "attributes": {}
+          },
+          {
+            "key": "istransiting",
+            "value": "1",
+            "attributes": {}
+          }
+        ],
+        "star": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "2MASS J18525105+4520595",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "GPM 283.213142+45.350276",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "Gaia DR2 2107001283431633408",
+            "attributes": {}
+          },
+          {
+            "key": "mass",
+            "value": "0.69",
+            "attributes": {}
+          },
+          {
+            "key": "radius",
+            "value": "0.63",
+            "attributes": {}
+          },
+          {
+            "key": "temperature",
+            "value": "4925",
+            "attributes": {}
+          },
+          {
+            "key": "age",
+            "value": "7",
+            "attributes": {}
+          },
+          {
+            "key": "metallicity",
+            "value": "-0.37",
+            "attributes": {}
+          },
+          {
+            "key": "spectraltype",
+            "value": "K2V",
+            "attributes": {}
+          },
+          {
+            "key": "magB",
+            "value": "14.4",
+            "attributes": {}
+          },
+          {
+            "key": "magV",
+            "value": "13.8",
+            "attributes": {}
+          },
+          {
+            "key": "magJ",
+            "value": "12.256",
+            "attributes": {
+              "errorminus": "0.022",
+              "errorplus": "0.022"
+            }
+          },
+          {
+            "key": "magH",
+            "value": "11.739",
+            "attributes": {
+              "errorminus": "0.019",
+              "errorplus": "0.019"
+            }
+          },
+          {
+            "key": "magK",
+            "value": "11.659",
+            "attributes": {
+              "errorminus": "0.021",
+              "errorplus": "0.021"
+            }
+          }
+        ],
+        "system": [
+          {
+            "key": "name",
+            "value": "Kepler-62",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC-9002278",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KOI-701",
+            "attributes": {}
+          },
+          {
+            "key": "name",
+            "value": "KIC 9002278",
+            "attributes": {}
+          },
+          {
+            "key": "rightascension",
+            "value": "18 52 51.0518",
+            "attributes": {}
+          },
+          {
+            "key": "declination",
+            "value": "+45 20 59.4000",
+            "attributes": {}
+          },
+          {
+            "key": "distance",
+            "value": "368",
+            "attributes": {}
+          },
+          {
+            "key": "constellation",
+            "value": "Lyra",
+            "attributes": {}
+          }
+        ],
+        "visualization": "Hypothetical ocean world; liquid water and habitability NOT confirmed.",
+        "estimates": [
+          "Catalog values are literature estimates with uncertainties; a confirmed planet is not a confirmed habitable world.",
+          "Catalog temperature may be equilibrium/model temperature, NOT measured surface temperature."
+        ],
+        "unknown": [
+          "Resolved surface maps",
+          "Ocean coverage",
+          "Life",
+          "Breathable air"
+        ]
+      }
+    }
+  ]
+}

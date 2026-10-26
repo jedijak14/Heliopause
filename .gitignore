@@ -20,3 +20,6 @@ site/
 
 # Reproducible editor-import derivatives (source WebPs are tracked).
 Content/ThirdParty/PlanetMaps/Unreal/
+
+.venv/
+Content/ThirdParty/Streaming/Unreal/

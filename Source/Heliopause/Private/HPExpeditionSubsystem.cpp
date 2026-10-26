@@ -12,15 +12,15 @@ bool UHPExpeditionSubsystem::Save(){
     S->CampaignStarted=CampaignStarted;S->CampaignStep=CampaignStep;S->CampaignAltitude=CampaignAltitude;
     S->Position=FVector(State.position[0],State.position[1],State.position[2]);S->Yaw=State.yaw;S->Pitch=State.pitch;S->Roll=State.roll;S->Orientation=FQuat(State.orientation[0],State.orientation[1],State.orientation[2],State.orientation[3]);S->HasOrientation=true;S->Travel=State.totalTravel;
     S->Target=State.target;S->Docked=State.docked;S->Credits=State.credits;S->EngineLevel=State.engine;S->SensorLevel=State.sensor;
-    S->Scanned=State.scanned;S->Recovered=State.recovered;S->Sold=State.sold;S->ArtifactSold=State.artifactSold;S->Visited=State.visited;
+    S->ScannedWide=State.scanned;S->RecoveredWide=State.recovered;S->SoldWide=State.sold;S->ArtifactSoldWide=State.artifactSold;S->VisitedWide=State.visited;
     if(auto* Ship=AShipManager::GetShipManager(this)){S->LandedPlanet=Ship->bLanded?Ship->LandedPlanet:-1;for(const auto& H:Ship->Habitats)S->HabitatDeployment.Add(H.Name,H.State.phase==HPHabitat::Phase::Deployed);for(FName Name:Ship->GetRoomNames())S->RoomLights.Add(Name,Ship->IsRoomOn(Name));for(ACurtainWindow* W:Ship->GetWindows())if(W)S->WindowStates.Add(W->WindowName,W->IsOpen());for(TActorIterator<AHandprintDoor> D(GetWorld());D;++D)S->DoorAccess.Add(D->DoorName,D->bAccessGranted);for(int I=0;I<4;++I){S->Pressure.Add(Ship->Pressure[I]);S->Temperature.Add(Ship->Temperature[I]);S->Breaches.Add(Ship->Breach[I]);S->Vents.Add(Ship->Venting[I]);}}
     bSaveFailed=!UGameplayStatics::SaveGameToSlot(S,TEXT("Heliopause_Expedition_v1"),0);return !bSaveFailed;
 }
 bool UHPExpeditionSubsystem::Load(){
-    auto* S=Cast<UHPExpeditionSave>(UGameplayStatics::LoadGameFromSlot(TEXT("Heliopause_Expedition_v1"),0));if(!S||(S->Version!=1&&S->Version!=2))return false;
+    auto* S=Cast<UHPExpeditionSave>(UGameplayStatics::LoadGameFromSlot(TEXT("Heliopause_Expedition_v1"),0));if(!S||(S->Version<1||S->Version>3))return false;
     HelioExplore::State Candidate;Candidate.position={S->Position.X,S->Position.Y,S->Position.Z};Candidate.yaw=S->Yaw;Candidate.pitch=S->Pitch;Candidate.roll=S->Roll;Candidate.orientation=S->HasOrientation?HPFlight::Quat{S->Orientation.X,S->Orientation.Y,S->Orientation.Z,S->Orientation.W}:HPFlight::euler(S->Yaw,S->Pitch);Candidate.totalTravel=S->Travel;
     Candidate.target=S->Target;Candidate.docked=S->Docked;Candidate.credits=S->Credits;Candidate.engine=S->EngineLevel;Candidate.sensor=S->SensorLevel;
-    Candidate.scanned=S->Scanned;Candidate.recovered=S->Recovered;Candidate.sold=S->Sold;Candidate.artifactSold=S->ArtifactSold;Candidate.visited=S->Visited;
+    Candidate.scanned=S->Version>=3?S->ScannedWide:uint32(S->Scanned);Candidate.recovered=S->Version>=3?S->RecoveredWide:uint32(S->Recovered);Candidate.sold=S->Version>=3?S->SoldWide:uint32(S->Sold);Candidate.artifactSold=S->Version>=3?S->ArtifactSoldWide:uint32(S->ArtifactSold);Candidate.visited=S->Version>=3?S->VisitedWide:uint32(S->Visited);
     if(!Candidate.valid())return false;
     Candidate.pitch=std::clamp(Candidate.pitch,-1.5707963267948966,1.5707963267948966);Candidate.complete=true;
     for(int i=0;i<int(HelioExplore::Sites.size());++i)if(HelioExplore::Sites[i].reward>0&&!(Candidate.sold&HelioExplore::bit(i)))Candidate.complete=false;
