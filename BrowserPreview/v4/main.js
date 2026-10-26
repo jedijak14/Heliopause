@@ -695,6 +695,8 @@ function updateFlight(dt){if(surface||grounded||habitats.locked){if(habitats.loc
  if(flight.ap!=="hold"&&flight.ap!=="none")flight.A=clamp(flight.A+flight.v*Math.sin(flight.pitch*PI/180)/1000*dt*flight.warp,55,40000);
  if(flight.A<=61)game.surveyed=true;if(flight.sharedWorld){const e=voyage.expedition,n=norm(e.position.map((v,i)=>v-sites[KEPLER].position[i]));e.position=sites[KEPLER].position.map((v,i)=>v+n[i]*(sites[KEPLER].radius+flight.A));e.orientation=fromEuler(flight.yaw||0,flight.pitch*PI/180,flight.roll||0);e.velocity=rotate(e.orientation,[0,0,-flight.v/1000]);}
  const ht=Math.min(1,dens*Math.pow(flight.v/7640,2)*1.5);flight.heat+=(ht-flight.heat)*Math.min(1,dt*.6);
+}
+function updateThermalShades(dt){if(grounded||surface||habitats.locked||warp.phase!=='idle')flight.heat*=Math.exp(-dt*.6);
  if(flight.heat>.35&&!game.autoShaded){game.autoShaded=true;game.shadeMemo=windows.map(w=>w.open);windows.forEach(w=>setWindow(w,false,true));say("eva_shades");SFX.alarm();if(game.tab)renderTab();}
  if(flight.heat<.15&&game.autoShaded){game.autoShaded=false;windows.forEach((w,i)=>setWindow(w,game.shadeMemo[i],true));say("eva_shades_up");if(game.tab)renderTab();}
 }
@@ -754,7 +756,7 @@ function frame(now){const dt=Math.min((now-last)/1000,.1);last=now;renderDT=dt;
   premium.earthScene(t,VW,VH,dt,voicePlayer.active?.who==='HALE');$('prompt').textContent=premium.earthReady?'EARTH · BEFORE THE JOURNEY · SPACE TO SKIP':'PREPARING CREW MODELS…';
   if(t>=CUT_LEN&&!voicePlayer.busy)endCutscene();
  } else if(game.mode==="scene"){sceneTime+=dt;const station=voyage.expedition.onStation;const e=station?[0,2.2,95]:sceneCamera===1?[-1.1,1.65,-4.1]:[0,2,-8];render(e,station?[0,1.6,82]:[0,1.6,-30],!station&&sceneCamera!==1,65);if(sceneTime>1&&!voicePlayer.busy)finishScene();}else {
-  updateFlight(dt);updatePlayer(dt);
+  updateFlight(dt);updateThermalShades(dt);updatePlayer(dt);
   const shake=flight.heat>.2?(flight.heat-.2)*.02:0,sx=(Math.random()-.5)*shake,sy2=(Math.random()-.5)*shake;
   if(surface){renderSurface();}else if(game.cam===0){const e=[pl.x+sx,pl.y+sy2,pl.z],f=fwd();render(e,[e[0]+f[0],e[1]+f[1],e[2]+f[2]],false,voyage.pilot?Math.max(72,Math.atan(Math.tan(52*PI/180)/(VW/VH))*360/PI):72);}
   else if(game.cam===4){const r=orbit.distance,c=Math.cos(orbit.pitch);render([Math.sin(orbit.yaw)*r*c,3+Math.sin(orbit.pitch)*r,8+Math.cos(orbit.yaw)*r*c],[0,1.3,8],true,62);}
