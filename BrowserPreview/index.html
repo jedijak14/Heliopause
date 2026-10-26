@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>HELIOPAUSE</title>
 <style>
 *{box-sizing:border-box}
@@ -65,7 +65,21 @@ body.cine #skip{display:block}
 
 #tnav{overflow-y:auto}#tbody{min-width:0}#pilotHUD,#surfaceHUD{position:fixed;top:100px;left:50%;transform:translateX(-50%);z-index:14;max-width:90vw;width:max-content;padding:10px 15px;background:#05141de8;border:1px solid #397386;border-radius:6px;font:12px Consolas,monospace;color:#bce8ef;text-align:center}#pilotHUD[hidden],#surfaceHUD[hidden]{display:none}.pilotButtons{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:8px}.pilotButtons button{padding:8px;background:#153240;color:#c5eff2;border:1px solid #3c6a7a;cursor:pointer;font:11px Consolas,monospace}button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:700px){#pilotHUD,#surfaceHUD{top:110px;font-size:10px;width:90vw}.pilotButtons button{font-size:10px;padding:7px}#tnav{max-height:125px}#tbody{flex:1}}
 #targetMarker{position:fixed;z-index:10;transform:translate(-50%,-50%);max-width:150px;text-align:center;font:10px Consolas,monospace;color:#ffe4a0;text-shadow:0 1px 3px #000;pointer-events:none}#targetMarker[hidden]{display:none}
-.science-data .row{display:block;overflow-wrap:anywhere}.science-data strong{display:block;color:#71cbbf;margin-bottom:6px}.science-data span{font-size:12px;line-height:1.7}</style>
+.science-data .row{display:block;overflow-wrap:anywhere}.science-data strong{display:block;color:#71cbbf;margin-bottom:6px}.science-data span{font-size:12px;line-height:1.7}/* Resolution scales only WebGL, never the touch interface or readable text. */
+#gl{touch-action:none}button svg{width:22px;height:22px;flex:0 0 auto;vertical-align:middle}button svg,button span{pointer-events:none}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #f2c77c;outline-offset:3px}
+#menu{overflow-y:auto;display:block;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom))}#menu .in{margin:auto;width:min(720px,100%)}#menu canvas{position:fixed;pointer-events:none}#menu .sub{margin-bottom:16px}#menu .ft{margin-top:14px}
+#displayOptions{margin:12px auto 20px;padding:14px 18px;max-width:530px;text-align:left;border:1px solid #315469;background:#061621e8;border-radius:10px;display:grid;grid-template-columns:130px 1fr;gap:10px 12px;font-size:12px;letter-spacing:.3px}#displayOptions legend{color:#d6c195;font-size:11px;letter-spacing:1.5px;padding:0 8px}#displayOptions label{align-self:center;color:#b9d9e4}#displayOptions select{margin:0;min-height:44px;font:inherit;border-radius:5px;min-width:0}#displayOptions input{width:100%;min-height:44px;accent-color:#7cd7cb}#displayOptions p{grid-column:1/-1;color:#91aebc;font-size:11px;line-height:1.6;margin:0}
+#mobileControls{position:fixed;inset:0;pointer-events:none;z-index:15}#mobileControls[hidden],#touchSkip[hidden]{display:none!important}.move-pad,.trim-pad{position:absolute;bottom:calc(72px + env(safe-area-inset-bottom));display:grid;gap:5px;pointer-events:auto}.move-pad{left:max(10px,env(safe-area-inset-left));grid-template-columns:repeat(3,50px)}.move-pad button:first-child{grid-column:2}.move-pad button:nth-child(2){grid-column:1}.trim-pad{right:max(10px,env(safe-area-inset-right));grid-template-columns:repeat(3,50px)}
+#mobileControls button{width:50px;height:50px;padding:4px 2px;border-radius:9px;border:1px solid #578293;background:#09202ee8;color:#d4eeef;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}#mobileControls button span{font:9px system-ui,sans-serif;white-space:nowrap}#mobileControls button.pressed{background:#306a72;border-color:#b0fff0;color:#fff;box-shadow:0 0 16px #56b2bb55}#mobileControls [data-hold="KeyB"]{color:#ffd297;border-color:#b79660}
+#touchSkip{position:fixed;top:max(15px,env(safe-area-inset-top));right:max(15px,env(safe-area-inset-right));z-index:25;min-height:48px;padding:8px 14px;background:#102b3a;border:1px solid #719baa;border-radius:8px;color:#e1f4f4;display:flex;align-items:center;gap:8px}
+body.touch-ui #quick{bottom:max(10px,env(safe-area-inset-bottom));width:auto;max-width:95vw;gap:8px}body.touch-ui #quick button{min-height:48px;min-width:78px;padding:8px 12px;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:6px;font:11px system-ui,sans-serif;letter-spacing:0;touch-action:manipulation}body.touch-ui:not(.touch-playing) #quick{display:none}body.touch-ui.touch-panel #quickPilot,body.touch-ui.touch-panel #quickInteract{display:none}body.touch-ui #hint,body.touch-ui #tl,body.touch-ui #skip{display:none}body.touch-ui #tr{font-size:9px}body.touch-ui #obj{font-size:10px;max-width:60vw}body.touch-ui #sub{bottom:calc(290px + env(safe-area-inset-bottom));width:min(800px,90vw)}body.touch-ui.cine #sub{bottom:13vh}body.touch-ui #sub .tx{font-size:14px}body.touch-ui #notice{bottom:calc(285px + env(safe-area-inset-bottom));font-size:12px}
+body.touch-ui .pilotButtons button[hidden]{display:none!important}body.touch-ui #pilotHUD,body.touch-ui #surfaceHUD{top:max(85px,env(safe-area-inset-top));font-size:10px;max-width:94vw}body.touch-ui .pilotButtons button{min-height:44px;min-width:62px;display:inline-flex;align-items:center;justify-content:center;gap:4px}body.touch-ui #tab{height:calc(100dvh - 130px);max-height:calc(100dvh - 130px)}body.touch-ui #tab.up{bottom:72px}body.touch-ui #tbody button{min-height:44px}body.touch-ui #tnav div{min-height:44px}
+@media(max-width:540px){#displayOptions{grid-template-columns:1fr;gap:5px;padding:12px}#displayOptions select{margin-bottom:7px}#menu h1{font-size:38px;letter-spacing:7px}#menu .ft{font-size:9px}#menu button{max-width:100%}body.touch-ui #pilotHUD,body.touch-ui #surfaceHUD{top:80px;width:94vw}body.touch-ui #sub .tx{font-size:12px;line-height:1.4}}
+@media(pointer:coarse) and (min-width:900px){.move-pad,.trim-pad{gap:8px;grid-template-columns:repeat(3,58px)}#mobileControls button{width:58px;height:58px}#mobileControls button span{font-size:10px}#mobileControls button svg{width:26px;height:26px}}
+@media(max-height:500px){body.touch-ui #obj{font-size:9px;max-width:33vw}body.touch-ui #tr{display:none}body.touch-ui #pilotHUD,body.touch-ui #surfaceHUD{top:10px;max-width:60vw;padding:5px}body.touch-ui #sub{bottom:74px;width:45vw}body.touch-ui.cine #sub{bottom:12vh}.move-pad,.trim-pad{bottom:65px}body.touch-ui #notice{bottom:auto;top:90px}body.touch-ui #tab{height:calc(100dvh - 95px);max-height:calc(100dvh - 95px)}body.touch-ui #tab.up{bottom:60px}}
+
+</style>
 </head>
 <body>
 <canvas id="gl" tabindex="0"></canvas>
@@ -92,6 +106,12 @@ body.cine #skip{display:block}
  <div class="in">
   <h1>HELIOPAUSE</h1>
   <div class="sub">SV-7 LONGHAUL · A LONG WAY HOME</div>
+  <fieldset id="displayOptions"><legend>DISPLAY & TOUCH · BEFORE YOU START</legend>
+   <label for="displayQuality">3D resolution</label><select id="displayQuality"><option value="0.2">Minimum · 20% · older devices</option><option value="0.35">Battery saver · 35%</option><option value="0.4">Efficient · 40%</option><option value="0.55">Tablet · 55% (recommended for touch)</option><option value="0.75">Balanced · 75%</option><option value="1">High · 100%</option></select>
+   <label for="touchPreference">On-screen controls</label><select id="touchPreference"><option value="auto">Automatic · phones, iPads & tablets</option><option value="on">Always show</option><option value="off">Keyboard & mouse</option></select>
+   <label for="lookSensitivity">Look sensitivity</label><input id="lookSensitivity" type="range" min="0.4" max="1.6" step="0.1" value="0.8">
+   <p>Lower resolution reduces GPU load; text stays sharp. Settings are saved on this device. Drag the view to look; hold the icon buttons to move. Pinch to zoom the orbit camera.</p>
+  </fieldset>
   <button id="bStory">STORY</button>
   <button id="bContinue">CONTINUE</button>
   <button id="bFree">FREE FLIGHT</button>
@@ -102,7 +122,7 @@ body.cine #skip{display:block}
   </div>
  </div>
 </div>
-<div id="err"></div><div id="notice" role="status" aria-live="polite"></div><div id="signal-loss">SIGNAL LOST<br>RETURNING TO CREW</div><div id="quick"><button id="quickTablet">T · TABLET</button><button id="quickPilot">P · PILOT</button><button id="quickInteract">E · INTERACT</button></div><div id="touchMove"><button data-key="KeyW">W</button><button data-key="KeyA">A</button><button data-key="KeyS">S</button><button data-key="KeyD">D</button><button data-key="KeyQ">Q ↶</button><button data-key="KeyE">E ↷</button><button data-key="ShiftLeft">↑</button><button data-key="ControlLeft">↓</button><button data-key="KeyR">R ↑</button><button data-key="KeyF">F ↓</button><button data-key="KeyB">BRAKE</button></div>
+<div id="err"></div><div id="notice" role="status" aria-live="polite"></div><div id="signal-loss">SIGNAL LOST<br>RETURNING TO CREW</div><div id="quick"><button id="quickTablet">T · TABLET</button><button id="quickPilot">P · PILOT</button><button id="quickInteract">E · INTERACT</button></div>
 
 <script type="module" src="/v4/main.js"></script>
 </body>
