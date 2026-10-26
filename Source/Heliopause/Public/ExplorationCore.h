@@ -1,5 +1,6 @@
 #pragma once
 #include "SectorCatalog.h"
+#include "FlightDynamics.h"
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
@@ -12,6 +13,8 @@ inline uint32_t bit(int i){return uint32_t(1)<<i;}
 enum class Command { Undock, Navigate, Brake, Dock, Board, Return, Scan, Recover, Sell, Engine, Sensor };
 struct State {
     Vec position{0,0,.56},velocity{0,0,0};
+    HPFlight::Quat orientation{0,0,0,1};
+    double roll=0;
     double yaw=0,pitch=0,scanProgress=0,totalTravel=0;
     int target=3,docked=0,credits=0,engine=0,sensor=0;
     uint32_t scanned=0,recovered=0,sold=0,artifactSold=0,visited=1;
@@ -60,22 +63,24 @@ struct State {
         }
         return false;
     }
-    void step(double dt,double throttle=0,double turn=0,double pitchInput=0){
+    void step(double dt,double throttle=0,double turn=0,double pitchInput=0,double rollInput=0,double vertical=0,double lateral=0,bool terrainFlight=false){
         dt=std::clamp(std::isfinite(dt)?dt:0.0,0.0,.1);
         if(docked>=0||onStation){velocity={0,0,0};return;}
-        if(turn||pitchInput){autopilot=false;yaw+=turn*dt*.65;pitch=std::clamp(pitch+pitchInput*dt*.5,-1.3,1.3);}
+        if(turn||pitchInput||rollInput||vertical||lateral||throttle)autopilot=false;
         Vec desired{};
         if(autopilot){const auto& s=Sites[target];const Vec delta=minus(s.position,position);const double d=length(delta),stop=s.radius+(s.kind==Kind::Station?.42:1.3);
             if(d<stop+.04){velocity={0,0,0};autopilot=false;message=std::string("Arrived at ")+s.name;return;}
             const double rate=std::min(maxSpeed(),std::max(.1,(d-stop)*.8));for(int i=0;i<3;++i)desired[i]=delta[i]/d*rate;
             yaw=std::atan2(-delta[0],-delta[2]);pitch=std::asin(std::clamp(delta[1]/d,-1.0,1.0));
-        }else{double c=std::cos(pitch),power=maxSpeed()*std::clamp(throttle,0.0,1.0);desired={-std::sin(yaw)*c*power,std::sin(pitch)*power,-std::cos(yaw)*c*power};}
-        Vec next=position;const double alpha=std::min(1.0,dt*(autopilot?3:1.5));for(int i=0;i<3;++i){velocity[i]+=(desired[i]-velocity[i])*alpha;next[i]+=velocity[i]*dt;}
-        for(const auto& body:Sites)if(body.kind==Kind::Planet||body.kind==Kind::Moon){const Vec segment=minus(next,position),offset=minus(position,body.position);double len2=0,dot=0;for(int i=0;i<3;++i){len2+=segment[i]*segment[i];dot+=offset[i]*segment[i];}const double t=len2?std::clamp(-dot/len2,0.0,1.0):0;Vec closest=offset;for(int i=0;i<3;++i)closest[i]+=t*segment[i];if(length(closest)<body.radius+.15){velocity={0,0,0};autopilot=false;message="Proximity brake. Steer around the celestial body.";return;}}
+        orientation=HPFlight::euler(yaw,pitch);roll=0;
+        }else{HPFlight::integrate(orientation,velocity,dt,throttle,turn,pitchInput,rollInput,vertical,lateral,maxSpeed());const auto f=HPFlight::rotate(orientation,{0,0,-1}),r=HPFlight::rotate(orientation,{1,0,0}),u=HPFlight::rotate(orientation,{0,1,0});yaw=std::atan2(-f[0],-f[2]);pitch=std::asin(std::clamp(f[1],-1.,1.));roll=std::atan2(r[1],u[1]);}
+        Vec next=position;const double alpha=std::min(1.0,dt*(autopilot?3:1.5));for(int i=0;i<3;++i){if(autopilot)velocity[i]+=(desired[i]-velocity[i])*alpha;next[i]+=velocity[i]*dt;}
+        for(const auto& body:Sites)if(body.kind==Kind::Planet||body.kind==Kind::Moon){const Vec segment=minus(next,position),offset=minus(position,body.position);double len2=0,dot=0;for(int i=0;i<3;++i){len2+=segment[i]*segment[i];dot+=offset[i]*segment[i];}const double t=len2?std::clamp(-dot/len2,0.0,1.0):0;Vec closest=offset;for(int i=0;i<3;++i)closest[i]+=t*segment[i];if(!(terrainFlight && &body!=&Sites[13])&&length(closest)<body.radius+.15){velocity={0,0,0};autopilot=false;message="Proximity brake. Steer around the celestial body.";return;}}
         totalTravel+=length(minus(next,position));position=next;
         if(scanning){if(distance(target)>scanRange()||speed()>.35){scanning=false;scanProgress=0;message="Survey interrupted. Hold inside scanner range.";}else{scanProgress+=dt/(6-sensor);if(scanProgress>=1){scanning=false;scanProgress=1;scanned|=bit(target);message=std::string("Discovery recorded: ")+Sites[target].name;}}}
     }
     bool valid() const {
+        if(!HPFlight::valid(orientation)||!std::isfinite(roll))return false;
         for(double v:position)if(!std::isfinite(v)||std::abs(v)>=1e6)return false;
         if(!std::isfinite(yaw)||!std::isfinite(pitch)||!std::isfinite(totalTravel)||totalTravel<0)return false;
         if(target<0||target>=int(Sites.size())||docked< -1||docked>=int(Sites.size()))return false;

@@ -7,7 +7,7 @@ on:
       tag:
         description: Existing source-preview release tag
         required: true
-        default: v0.6.0-source-preview
+        default: v0.7.0-source-preview
 permissions:
   contents: write
 jobs:

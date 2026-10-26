@@ -1,51 +1,32 @@
-# v0.6.0 / ship refit and planetary surfaces
+# v0.7.0 validation — 2026-10-26
 
-Active renderer: the user's supplied v4 HTML/WebGL2 base. UE 5.4 is source-only.
+Active renderer: supplied-v4 HTML/WebGL2. Unreal 5.8 is **uncompiled source only**.
 
-## Executed checks
+## Executed locally
 
-- 27 portable JS tests: continuous expanded story travel, all 17 discovery destinations, pilot authority/undock guards, tablet controls surviving simulation updates, deterministic terrain on all eight solid bodies, globe seams/poles/circumnavigation, skimmer/recall, surface save validation, recorded-voice serialization.
-- Offline systems browser test: real keyboard flight/brake, fixed sensors, 17 targets, recorded EVA/Commander playback, maintenance, invisible microbot takeover/loss and 390px tablet layout.
-- Offline story browser test: original prologue lights, both original physical handprint scans and doorway walks, curtain, entry. Saved endgame fixture then tests station walking, exchange and preserved ending. Mid-campaign travel is covered continuously by rules, not an uninterrupted browser playthrough.
-- Offline refit browser test: land on Kepler using the real UI, walk and use the skimmer far enough to stream terrain, collect samples, save/reload on the surface, recall/reboard; scan and physically walk through the three new aft doorways; P with tablet open; actual thrust/pitch/yaw tablet controls; Eidolon and Solis land/return from explicit arrival fixtures; mobile flight panel. No external HTTP requests or runtime errors in successful runs.
-- Five Python checks, six companion voice tests, 24 preserved asset hashes, generated catalog synchronization, portable C++ ASan/UBSan suites.
-- Inspected cockpit displays at full screenshot resolution and planetary terrain. Software Chromium uses reduced resolution by default; selected screenshots explicitly switch to high quality. This is not GPU/FPS certification.
+- **56 JavaScript rule/asset tests**: flight authority, travel/story/economy, rooms, terrain, saves, voice queue, integrity-checked asset streaming; continuous manual sector movement, swept terrain touchdown, high-speed contact, liftoff clearance, camera continuity across 3 km and across terrain rebuild anchors, ship orientation and pickup pose synchronization.
+- **Portable native checks:** preserved audio hashes, five Python project checks, six voice tests, synchronized catalogs, ASan/UBSan simulation/exploration/habitat/planetary kernels. Quaternion flight matched JS for 8,000 mixed-axis steps within 1e-10. This does not compile any Unreal translation unit.
+- **Baseline browser:** real keyboard flight/brake, hull sensors, destinations, recorded EVA/Commander queue, maintenance, microbot loss, mobile tablet. Offline, no runtime errors.
+- **Story browser:** opening, lights, physical handprint scans/doorway walks, curtain and entry controls; saved endgame fixture covers station walking, exchange and ending. Not an uninterrupted playthrough of every campaign leg.
+- **Refit browser:** physical surface walking/skimmer, samples, save/reload, pickup/reboard, aft doorways, pilot/tablet controls, three solid worlds and mobile layout. Arrival fixtures establish position/velocity; production contact performs touchdown. No terminal descent state is injected.
+- **Habitat browser:** six room deployment, moving-ship refusal, transition locks, room entry, occupancy refusal, flight lock, orbit/zoom camera, room screenshots, GPU unload, persistence, hatch/disembark/reboard and manual liftoff.
+- **Planetary browser:** production motion crosses the former 3 km boundary without a transit scene or autopilot; a separate near-ground fixture exercises soft contact and manual liftoff. Loaded NASA mesh verified at 23,232 triangles. No JS/GL errors. This is not a single uninterrupted descent from 400 km.
+- **Rendering/integration browser:** six planet styles, six flight axes/reverse/coasting, gas-giant guard, Cinder terrain contact, hazard damage and suit save.
+- **Asset browser:** routed HTTPS real downloads/hash verification, HD cache/offline switch, all five embedded map decodes, file mode with zero HTTP requests. Uses a hermetic routed origin, not a claim that a particular deployment was tested.
 
-## Boundaries and remaining validation
+Software-rendered screenshots were inspected. They demonstrate functional, stylized scenes—not photorealism or GPU/FPS certification. Earlier suites are rerun when related code changes; the CI workflow runs all seven browser suites on committed builds.
 
-- No Unreal build/cook/runtime validation. Native uses HeliopauseCore and the shared 17-site catalog but does not mirror the new surface renderer, ship refit or latest browser campaign. No native executable is supplied.
-- Bounded sector and compressed, deterministic procedural globes. Not an astronomical-scale simulation, infinite universe, photorealistic reconstruction, or seamless ship-to-ground flight: landing is a scene transition to a separate lander.
-- Every solid body's terrain is mathematically available worldwide; globe sampling/seams/poles are tested. Browser traversal has sampled local regions, not walked every coordinate. Near terrain streams in discrete patches; distant tessellation and prop appearance can be visible. Decorative vegetation/rocks have no general rigid-body collision. Lander proximity is blocked.
-- The surface skimmer changes travel speed/camera height; it is not a separately steerable animated vehicle model. Water traversal is simplified. Vesper has no solid landing surface.
-- Surfaces use original stylized procedural terrain/props, not photographic assets. Specimens are a persistent research collection, not a new exchange currency. Cargo archives retain their existing trading flow.
-- Six visible rooms map to four atmosphere/service zones; the refit does not claim six independent pressure simulations. Microbot props are removed; optics/repair autonomy remain.
-- AI-generated dialogue and optional synthetic breathing; all 20 recordings are preserved. User voice overrides remain session-local. Storage failures are surfaced.
-- The starfield does not rotate with sector heading; modeled bodies and destinations do. No universal frame-rate, pixel-perfect or native parity claim.
+## Explicit remaining limits
 
-## Historical validation (earlier renderer, not current website)
+- **No native build/runtime validation or full parity certification.** Native prologue retains its older survey flight path; native contact/terrain is integrated with expedition flight. Native surface encounters, recall, detailed art and online streaming are not fully equivalent to the browser. Imported `.uasset` materials/meshes have not been generated here.
+- Manual browser descent uses one flight state. The optional opening survey autopilot and explicitly requested surface pickup still have authored behaviors. Neither is the removed 3 km landing program.
+- Collision uses swept ship-centre terrain contact, not full rigidbody/hull-footprint collision. Landing alignment uses radial up rather than a fitted ground plane. No gravity/orbital-mechanics solver. Worlds are compressed and bounded in an authored sector.
+- The terrain is deterministic procedural terrain, **not elevation reconstructed from the photographic maps**. Near-patch LOD, map/biome disagreement, prop appearance, visible seams and cloud banding can occur. Decorative vegetation/furniture does not have universal rigidbody collision.
+- Six habitat interiors are modeled and functional but stylized. General PBR glTF materials, production-quality character animation and a complete high-quality model replacement are unfinished.
+- The fetched NASA Moon GLB is the **color-map-only** variant; it is not the topography variant. Browser keeps its topology but applies Solar System Scope lunar maps/tints. Native import retains the original atlas. These are fictional-world adaptations, not measured exoplanets.
+- HD assets may be 8K on disk but GPU textures are capped at 4K; one HD planet surface is resident. Clouds remain the embedded 2K map. Streaming requires HTTPS; embedded assets remain available offline.
+- Saves preserve progress, stable habitats, landed/surface state, samples and ship settings. Motion/scans stop on reload and interrupted pickup is recovered safely, not replayed frame-for-frame. Storage restrictions are reported.
 
+## Historical results
 
-## Executed checks
-
-- 17 browser rule tests: atmosphere, interlocks, routing, drone health/control, save rejection, sector collision, trading/upgrades and campaign progression.
-- The full campaign **simulation** test travels continuously from the orbital prologue to Kestrel, Pilgrim and Anchorage, archives both artifacts, triggers the ending and resumes exploration. It does not teleport between those destinations.
-- Offline standalone Chromium systems smoke: pilot/cruise, fixed sensor input/culling, all four compartments, breach/interlock/repair, drone takeover/destruction/static, intrusion/security, local voice import/clear, quality, dialogs and 390px layout. Zero external HTTP requests or JS/shader errors in the run.
-- Offline campaign UI test: begin/skip, tablet, lights, handprint, curtain, entry authorization; then a documented saved endgame fixture tests real station walking, exchange and ending. **This UI test does not play every mid-campaign travel leg**; the separate rule test covers that continuous route.
-- Five Python source/asset checks, six local voice-queue tests, asset hash verification, shared-catalog synchronization, portable C++ simulation and exploration tests under ASan/UBSan.
-- Browser scene screenshots inspected for opening, quarters, entry, engine, station, hull and mobile layout. Headless software rendering is not a GPU performance benchmark.
-
-## Not verified
-
-No Unreal Editor, UHT, UBT or UAT is installed here. Native source has **not been compiled, cooked, launched or profiled**. The included Unreal automation test is a future engine-side gate, not an executed test. Engine materials, input capture, packaged audio staging, runtime meshes and Canvas/UMG behavior all need native validation.
-
-## Deliberate scope / limitations
-
-- A bounded authored sector with three station interiors, not an infinite procedural universe, planetary surface game, multiplayer game or production-scale campaign.
-- Flight uses simplified steering and braking. The atmospheric prologue uses a separate altitude/pitch/heat model; it is not a scientific orbital or six-degree-of-freedom rigidbody simulation.
-- Navigation brakes for obstacles but has no general obstacle-avoidance planner. If a route is blocked, steer around the body manually before re-engaging navigation.
-- Interior art and crowds are original stylized procedural geometry, not photogrammetry or motion-captured humans. Native and browser art differ.
-- The deck selector is an inspection shortcut; ordinary walking respects doors/interlocks. Remote repair commands are intentionally available to avoid forcing entry into an unsafe compartment.
-- Ten EVA recordings are AI-generated. Sentence subtitle timing is estimated from word counts and measured duration, **not forced alignment**. Custom voice overrides may not exactly match authored scene timing.
-- Breathing is quiet optional synthesized foley, not a human breath recording. User audio may override EVA scenes; default sound can be muted.
-- Save storage can be blocked/full/private; failure is surfaced. Ship motion/scans stop on reload. Prologue recovery reconstructs safe objective state rather than every animation/temperature frame.
-- No universal frame-rate, pixel-perfect rendering or native feature-parity claim.
+The v0.6.0 release used scene-based surface entry and a separate lander. Those limitations do **not** describe the current manual-descent implementation. Historical test logs/screenshots in ignored `Artifacts/` are not substituted for current checks.

@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ProjectTests(unittest.TestCase):
     def test_descriptor(self):
         p = json.loads((ROOT / 'Heliopause.uproject').read_text())
-        self.assertEqual(p['EngineAssociation'], '5.4')
+        self.assertEqual(p['EngineAssociation'], '5.8')
         self.assertEqual(p['Modules'][0]['Name'], 'Heliopause')
         self.assertTrue(p['Plugins'][0]['Enabled'])
         for path in ['Source/Heliopause.Target.cs', 'Source/HeliopauseEditor.Target.cs', 'Source/Heliopause/Heliopause.Build.cs']:

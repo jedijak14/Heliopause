@@ -15,3 +15,6 @@ fs.writeFileSync(path.join(output, 'index.html'), html);
 fs.writeFileSync(path.join(output, 'heliopause.html'), html);
 for (const file of ['heliopause.html.sha256', 'THIRD_PARTY_NOTICES.txt']) fs.copyFileSync(path.join(preview, file), path.join(output, file));
 console.log(`Verified and published HELIOPAUSE HTML (${html.length} bytes). SHA-256: ${actual}`);
+
+// Only curated public HD files are published; source assets and user files stay private.
+fs.cpSync(path.join(preview, "public", "hd"), path.join(output, "hd"), {recursive:true});

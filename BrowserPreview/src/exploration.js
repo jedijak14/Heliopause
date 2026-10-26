@@ -1,3 +1,4 @@
+import {integrate,fromEuler,validOrientation} from '../v4/flight-dynamics.js';
 import {planRoute} from './route-planner.js';
 import {freshCampaign,validateCampaign} from './campaign.js';
 import catalog from '../../Shared/sector.json' with { type: 'json' };
@@ -5,7 +6,7 @@ export const sites=catalog.sites;
 export const SAVE_KEY='heliopause-expedition-v1';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const length=v=>Math.hypot(...v);
-export function freshExpedition(){return {version:1,position:[0,0,.56],velocity:[0,0,0],yaw:0,pitch:0,target:3,docked:0,onStation:false,autopilot:false,scanning:false,scanProgress:0,scanned:[],recovered:[],sold:[],artifactSold:[],campaign:freshCampaign(),credits:0,engine:0,sensor:0,totalTravel:0,visits:[0],message:'Welcome to the Reach. Undock, survey Glasswake, then return to the exchange.',complete:false};}
+export function freshExpedition(){return {version:1,position:[0,0,.56],velocity:[0,0,0],yaw:0,pitch:0,roll:0,orientation:[0,0,0,1],target:3,docked:0,onStation:false,autopilot:false,scanning:false,scanProgress:0,scanned:[],recovered:[],sold:[],artifactSold:[],campaign:freshCampaign(),credits:0,engine:0,sensor:0,totalTravel:0,visits:[0],message:'Welcome to the Reach. Undock, survey Glasswake, then return to the exchange.',complete:false};}
 export function distance(e,index=e.target){const s=sites[index];return s?Math.max(0,length(e.position.map((v,i)=>v-s.position[i]))-s.radius):Infinity;}
 export const scanRange=e=>2.5+e.sensor*2;
 export const maxSpeed=e=>8+e.engine*4;
@@ -28,19 +29,19 @@ export function action(e,type){
 }
 export function stepExpedition(e,dt,input={}){
  dt=clamp(Number.isFinite(dt)?dt:0,0,.1);if(e.docked>=0||e.onStation){e.velocity=[0,0,0];return;}
- const turn=(input.turn||0),pitch=(input.pitch||0);
- if(turn||pitch){e.autopilot=false;e.yaw+=turn*dt*.65;e.pitch=clamp(e.pitch+pitch*dt*.5,-1.3,1.3);}
+ if(['turn','pitch','roll','vertical','lateral','throttle'].some(k=>Math.abs(input[k]||0)>0))e.autopilot=false;
  let desired;
  if(e.autopilot){const target=sites[e.target];let goal=e.path?.[0];if(!goal){const delta=e.position.map((x,i)=>x-target.position[i]),len=length(delta)||1;goal=target.position.map((x,i)=>x+delta[i]/len*(target.radius+(target.kind==='station'?.42:1.3)));}let delta=goal.map((x,i)=>x-e.position[i]),d=length(delta);
    if(d<.035){if(e.path?.length>1){e.path.shift();goal=e.path[0];delta=goal.map((x,i)=>x-e.position[i]);d=length(delta);}else{e.velocity=[0,0,0];e.autopilot=false;e.message=`Arrived at ${target.name}. ${target.kind==='station'?'Docking available.':'Ready to survey.'}`;return;}}
    const rate=Math.min(maxSpeed(e),Math.max(.06,d*.8));desired=delta.map(x=>x/Math.max(d,.001)*rate);e.yaw=Math.atan2(-delta[0],-delta[2]);e.pitch=Math.asin(clamp(delta[1]/Math.max(d,.001),-1,1));
- }else{const thrust=clamp(input.throttle||0,0,1),c=Math.cos(e.pitch);desired=[-Math.sin(e.yaw)*c,Math.sin(e.pitch),-Math.cos(e.yaw)*c].map(v=>v*maxSpeed(e)*thrust);}
- const alpha=Math.min(1,dt*(e.autopilot?3:1.5));e.velocity=e.velocity.map((v,i)=>v+(desired[i]-v)*alpha);
+ e.orientation=fromEuler(e.yaw,e.pitch);e.roll=0;
+ }else integrate(e,dt,input,maxSpeed(e));
+ if(e.autopilot){const alpha=Math.min(1,dt*3);e.velocity=e.velocity.map((v,i)=>v+(desired[i]-v)*alpha);}
  const old=[...e.position],next=old.map((v,i)=>v+e.velocity[i]*dt);
  // Swept sphere interception prevents tunnelling through celestial bodies at high speed.
  for(const body of sites.filter(s=>s.kind==='planet'||s.kind==='moon')){
    const segment=next.map((v,i)=>v-old[i]),offset=old.map((v,i)=>v-body.position[i]);const len2=segment.reduce((sum,v)=>sum+v*v,0);const t=len2?clamp(-offset.reduce((sum,v,i)=>sum+v*segment[i],0)/len2,0,1):0;
-   if(length(offset.map((v,i)=>v+t*segment[i]))<body.radius+.15){e.velocity=[0,0,0];e.autopilot=false;e.message='Proximity brake: celestial body ahead. Steer around it.';return;}
+   if(!(input.terrainFlight&&body.kind!=='station'&&body!==sites[13])&&length(offset.map((v,i)=>v+t*segment[i]))<body.radius+.15){e.velocity=[0,0,0];e.autopilot=false;e.message='Proximity brake: celestial body ahead. Steer around it.';return;}
  }
  e.position=next;e.totalTravel+=length(next.map((v,i)=>v-old[i]));
  if(e.scanning){if(distance(e)>scanRange(e)||speed(e)>.35){e.scanning=false;e.scanProgress=0;e.message='Survey interrupted: hold position inside scanner range.';}else{e.scanProgress+=dt/(6-e.sensor);if(e.scanProgress>=1){e.scanning=false;e.scanProgress=1;if(!e.scanned.includes(e.target))e.scanned.push(e.target);e.message=`Discovery recorded: ${sites[e.target].name}. ${sites[e.target].artifact?'Recovery signal available.':'Return data to a station for credits.'}`;}}}
@@ -48,6 +49,7 @@ export function stepExpedition(e,dt,input={}){
 function validIndices(v){return Array.isArray(v)&&v.every(i=>Number.isInteger(i)&&i>=0&&i<sites.length)&&new Set(v).size===v.length;}
 export function restoreExpedition(raw){
  try{const e=typeof raw==='string'?JSON.parse(raw):raw;if(!e||e.version!==1)return null;
+ if(e.orientation!==undefined&&!validOrientation(e.orientation))return null;if(e.roll!==undefined&&!Number.isFinite(e.roll))return null;
  if(!Array.isArray(e.position)||e.position.length!==3||!e.position.every(v=>Number.isFinite(v)&&Math.abs(v)<1e6))return null;
  for(const k of ['scanned','recovered','sold','visits'])if(!validIndices(e[k]))return null;
  for(const k of ['yaw','pitch','credits','engine','sensor','totalTravel'])if(!Number.isFinite(e[k]))return null;
@@ -56,7 +58,7 @@ export function restoreExpedition(raw){
  if(e.credits<0||e.credits>1e7||e.totalTravel<0||e.engine<0||e.engine>3||e.sensor<0||e.sensor>3||!Number.isInteger(e.engine)||!Number.isInteger(e.sensor))return null;
  if(e.sold.some(i=>!e.scanned.includes(i))||e.recovered.some(i=>!e.scanned.includes(i)||!sites[i].artifact))return null;
  if(e.artifactSold!==undefined&&(!validIndices(e.artifactSold)||e.artifactSold.some(i=>!e.recovered.includes(i))))return null;
- return {...freshExpedition(),...e,campaign:validateCampaign(e.campaign),artifactSold:e.artifactSold||e.recovered.filter(i=>e.sold.includes(i)),position:[...e.position],velocity:[0,0,0],autopilot:false,scanning:false,scanProgress:0,onStation:false,pitch:clamp(e.pitch,-1.3,1.3),complete:sites.filter(s=>s.reward>0).every(s=>e.sold.includes(sites.indexOf(s)))};
+ return {...freshExpedition(),...e,campaign:validateCampaign(e.campaign),artifactSold:e.artifactSold||e.recovered.filter(i=>e.sold.includes(i)),position:[...e.position],velocity:[0,0,0],autopilot:false,scanning:false,scanProgress:0,onStation:false,orientation:e.orientation||fromEuler(e.yaw,e.pitch,e.roll||0),roll:e.roll||0,pitch:clamp(e.pitch,-Math.PI/2,Math.PI/2),complete:sites.filter(s=>s.reward>0).every(s=>e.sold.includes(sites.indexOf(s)))};
  }catch{return null;}
 }
 export function saveExpedition(e,storage){try{(storage??globalThis.localStorage).setItem(SAVE_KEY,JSON.stringify(e));return true;}catch{return false;}}

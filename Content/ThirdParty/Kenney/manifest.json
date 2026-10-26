@@ -1,0 +1,203 @@
+{
+  "author": "Kenney",
+  "license": "CC0-1.0",
+  "mirror": "https://github.com/shorepine/kenney",
+  "revision": "3694c6879e487c108f55677be7dd2ca75b07cc3b",
+  "originals": [
+    "https://kenney.nl/assets/furniture-kit",
+    "https://kenney.nl/assets/space-station-kit",
+    "https://kenney.nl/assets/space-kit"
+  ],
+  "assets": [
+    {
+      "path": "furniture/kitchenStove.glb",
+      "sha256": "3239edb36295dfca9530a9b9a6ad0aff98ce62e7cf8d13ca2a5a1a6b2a904656",
+      "bytes": 54324
+    },
+    {
+      "path": "furniture/kitchenSink.glb",
+      "sha256": "7b9610277d71f00dcf1bba49cf4d98d77ce5177e84bf76c7da2f8893e542f743",
+      "bytes": 23480
+    },
+    {
+      "path": "furniture/kitchenFridgeLarge.glb",
+      "sha256": "5851cc59c7e12f6f34a01a2ea93d5b9540be4078c1b703f517239fcede98fb32",
+      "bytes": 30632
+    },
+    {
+      "path": "furniture/kitchenCabinetDrawer.glb",
+      "sha256": "6f784807e3cadb15b4d2d3db726d93357ea5e6c4f2b6e4c9c064048a2d1d9cfc",
+      "bytes": 15384
+    },
+    {
+      "path": "furniture/kitchenCabinetUpper.glb",
+      "sha256": "8f2496feed85a745ffb6e554075b8450d647f8f68b01d6a010fcac1510fc173a",
+      "bytes": 8168
+    },
+    {
+      "path": "furniture/kitchenCoffeeMachine.glb",
+      "sha256": "063f582c6fa0f00a9f24e3393dac2295491c4becdaf5513c893ab1a2826b6ec3",
+      "bytes": 13332
+    },
+    {
+      "path": "furniture/loungeSofaLong.glb",
+      "sha256": "452df1c862f97781615e2c1c832913b48cf6c6f011d3260dc023ff3f117cc9d1",
+      "bytes": 13112
+    },
+    {
+      "path": "furniture/loungeChairRelax.glb",
+      "sha256": "def698179e44de6cd17f4cfc2730273da54dd25458a29b079fbf4468abe5d98e",
+      "bytes": 13904
+    },
+    {
+      "path": "furniture/tableCoffee.glb",
+      "sha256": "e38bea760fbd514efbb75528d09b4752c91af44677bbb97e6d4386c263525179",
+      "bytes": 8256
+    },
+    {
+      "path": "furniture/televisionModern.glb",
+      "sha256": "d89519ad0a5f28b5b0dccb0d83209dccf610cda959578238dd21bbf9e219cfc6",
+      "bytes": 6368
+    },
+    {
+      "path": "furniture/pottedPlant.glb",
+      "sha256": "5b760eda2766f75fda36b2c5df652a1662f82981ef64cd8fa7fe7bcd386b3a15",
+      "bytes": 7576
+    },
+    {
+      "path": "furniture/books.glb",
+      "sha256": "b8dc56e5d29f6fc1f4727fccb1b9642627fee9942c48060a00034e98df02701c",
+      "bytes": 6864
+    },
+    {
+      "path": "furniture/shower.glb",
+      "sha256": "25c1cebad681fe369dc04839a8f08f5da2ccbd99b3a70aa83fe2e4d1590c6951",
+      "bytes": 52020
+    },
+    {
+      "path": "furniture/toilet.glb",
+      "sha256": "16165cfd03c56c2cb443b800570810a22ef770f65e7a468f6761d9dc14eaaeae",
+      "bytes": 18112
+    },
+    {
+      "path": "furniture/bathroomSink.glb",
+      "sha256": "39d4f19608cab7e0fed52303b2c689f5f51fae1bad9b6913cb53d838875e797e",
+      "bytes": 22536
+    },
+    {
+      "path": "furniture/bathroomMirror.glb",
+      "sha256": "940b986894101ea59b50541554b6dc608a22b133057975849259009012984175",
+      "bytes": 6792
+    },
+    {
+      "path": "furniture/bathroomCabinet.glb",
+      "sha256": "9db540227acaaedbbadc6a085f4a00460b73944e608afaad4770e53238a3b7f8",
+      "bytes": 7216
+    },
+    {
+      "path": "furniture/bathtub.glb",
+      "sha256": "54c405c7035aab63dc41e709dc3c50fc5bcfbc4cddc91ffc54188075a6d25d01",
+      "bytes": 35500
+    },
+    {
+      "path": "furniture/tableRound.glb",
+      "sha256": "f8daea9124a542a00b7bdacfddac82dc468573d43e44d7b54dd6316e9695754b",
+      "bytes": 6444
+    },
+    {
+      "path": "furniture/chairCushion.glb",
+      "sha256": "33544228984857f2cb502b58452fed72157335f9b1caf29e96da5c9094c53fdc",
+      "bytes": 12588
+    },
+    {
+      "path": "furniture/lampRoundFloor.glb",
+      "sha256": "50fe1b5b588edf15bfa9cc880f71a02a4fda6036350b24733d0ef4de5cc5e908",
+      "bytes": 6600
+    },
+    {
+      "path": "space-station/wall-detail.glb",
+      "sha256": "7cee7abe1ea412acdf182da770bd3920bf023ecd165d5c9b3db3a60a0d7ae7d8",
+      "bytes": 15096
+    },
+    {
+      "path": "space-station/wall-window-banner.glb",
+      "sha256": "330d4b2653bf5224149e91acaef2d493e2085e984e25315610d4afa11bd7bcfe",
+      "bytes": 10532
+    },
+    {
+      "path": "space-station/structure.glb",
+      "sha256": "ef12f1eaec019116ece1aebb0c512ce19a5cbc385f7a393c62d9f32f129cf088",
+      "bytes": 29828
+    },
+    {
+      "path": "space-station/table-display-planet.glb",
+      "sha256": "55f4055020546163a7bc4b025d150b128917a046f903def087a9cc52767fa68a",
+      "bytes": 16740
+    },
+    {
+      "path": "space-station/computer-wide.glb",
+      "sha256": "62420ce928f288f91ce85e2245e80e6c9efbee9b6e91b7ea9b83d0289fa647c4",
+      "bytes": 17136
+    },
+    {
+      "path": "space-station/chair-armrest-headrest.glb",
+      "sha256": "5f177776c26aac0cad6f90a128332e190f23958159ea6f62f78cdac54e4acd84",
+      "bytes": 14308
+    },
+    {
+      "path": "space-station/container-tall.glb",
+      "sha256": "e790f12cdab2e50d266d54e1bbb8a05a1cd77629a065254be3734a67b6053358",
+      "bytes": 13052
+    },
+    {
+      "path": "space-station/floor-detail.glb",
+      "sha256": "68e95e80989494e7a28407ddecfa4a45cd22cb269772a29e72c07676d00ce92c",
+      "bytes": 5452
+    },
+    {
+      "path": "space-station/pipe-ring-colored.glb",
+      "sha256": "037a65be81225b9a59d4bc51fb53e047b336d710ef2d5c950b9e3768f072eb45",
+      "bytes": 5368
+    },
+    {
+      "path": "space/hangar_largeA.glb",
+      "sha256": "cae233b3e53aa5004bc8d7d43bd00763a919064af6b5249f354a71cae5fbf29a",
+      "bytes": 25304
+    },
+    {
+      "path": "space/corridor_window.glb",
+      "sha256": "53a97fe47cd6c04436531ce1046cd97464c3ed4fe8936d7c73ac09f7f0cdb221",
+      "bytes": 12884
+    },
+    {
+      "path": "space/corridor_cross.glb",
+      "sha256": "90240853cd0011cd1be261cca6080d72001d101f3bcd17ef37a21d3cdfc52d7e",
+      "bytes": 12444
+    },
+    {
+      "path": "space/satelliteDish_detailed.glb",
+      "sha256": "143dd36b2c427e3201110967a18fd836bc7aa8002dbf3e44efa42c75fbb44ae5",
+      "bytes": 26044
+    },
+    {
+      "path": "space/craft_cargoA.glb",
+      "sha256": "b9676e838c605699e164c4c1779262bf47db1562a1504ceb29764828cbaa80c2",
+      "bytes": 18964
+    },
+    {
+      "path": "space/machine_generatorLarge.glb",
+      "sha256": "bbfa33a2e7c7eff7d9ee12f64255249b7e2f5d4b2ada2d681aa35cf38ba599bc",
+      "bytes": 10220
+    },
+    {
+      "path": "space/supports_high.glb",
+      "sha256": "48a8aa7818e0f3731aa7bd825f2030089bc16340fcebdf2a4bf60ef4a933a4da",
+      "bytes": 20544
+    },
+    {
+      "path": "space-station/Textures/colormap.png",
+      "sha256": "6ca023be9f12e8c2358fcf94320c8a894b4c05a3dd0bad1f5c268312053caca1",
+      "bytes": 7440
+    }
+  ]
+}

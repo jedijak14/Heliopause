@@ -1,10 +1,14 @@
-## v0.6 refit / surface extension
+## v0.7.0 asset and flight update
+
+The active browser embeds licensed Kenney geometry, Solar System Scope 2K maps and a fetched NASA lunar mesh, with optional verified HTTPS HD maps. `planetary-flight.js` resolves manual flight against deterministic globe terrain; `habitat.js` loads/unloads six room interiors. `HPHabitat.cpp` and `HPPlanetaryWorld.cpp` extend the existing native Core; they are uncompiled. See the root README and Docs/VALIDATION.md for current behavior and explicit parity gaps.
+
+## Historical v0.6 refit / surface extension
 
 The active v4 browser now uses `flight-controls.js` for authoritative pilot commands, `ship-refit.js` for the aft deck/exterior, `terrain.js` for deterministic unit-sphere terrain/movement and `surface-renderer.js` for streamed terrain and orbital globe meshes. Geometry and shaders are original procedural source, embedded offline; no downloaded placeholder images or visible drone models are used. All existing audio masters remain unchanged. The shared catalog has 17 sites. This is browser functionality, not verified native parity.
 
 # Architecture — replacement framework
 
-## Native UE 5.4
+## Native UE 5.8
 
 `Source/Heliopause/Public/HeliopauseCore.h` is the reflected umbrella header; `Private/HeliopauseCore.cpp` owns the sole primary game module and the supplied framework's implementations. Supporting translation units are not a competing actor framework:
 
@@ -22,7 +26,7 @@ No legacy `HelioWorld`, `HelioPawn`, `HelioHUD`, `HelioGameMode` or `HelioAudioS
 
 ## Shared data and portable rules
 
-`Shared/sector.json` is the canonical ten-site catalog; `Tools/generate_sector.py` produces `SectorCatalog.h`. `Shared/story.json` holds original dialogue, scene names, measured audio durations and approximate sentence timings; `Tools/generate_story.py` produces `StoryCatalog.h`. Both generators support `--check`.
+`Shared/sector.json` is the canonical 17-site catalog; `Tools/generate_sector.py` produces `SectorCatalog.h`. `Shared/story.json` holds original dialogue, scene names, measured audio durations and approximate sentence timings; `Tools/generate_story.py` produces `StoryCatalog.h`. Both generators support `--check`.
 
 `SimulationCore.h` contains engine-independent room routing, atmosphere, drone and WAV rules. `ExplorationCore.h` contains sector flight, braking/collision, docking, scans, artifacts, trade and upgrade rules. Portable tests exercise these without Unreal. Survey sales and artifact sales have separate accounting so a data-first sale cannot strand an artifact objective.
 

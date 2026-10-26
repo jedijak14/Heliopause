@@ -1,3 +1,13 @@
+# v0.7.0-source-preview
+
+Playable HTML: manual terrain-contact descent/liftoff, six expandable rooms, exterior airlocks/orbit camera, licensed models and verified optional HD map streaming. Original recordings/saves retained. Fetched NASA Moon GLB and browser geometry derivative included.
+
+Unreal target: **5.8**, extending the supplied Core. Habitat/model loading and expedition planetary contact/terrain/airlock source is present, with portable tests. **No UHT/UBT/editor/import/cook/runtime validation; no native executable and no claim of full native parity.** The art remains partly stylized and the requested all-model quality pass is not complete. See VALIDATION.md.
+
+# Unreleased — Unreal target correction
+
+The current project targets Unreal Engine **5.8**, as requested. Earlier release entries below retain their historical engine versions. Retargeting is not an engine build certificate; UHT/UBT/editor/cook validation remains required.
+
 # v0.6.0 — pilot repairs, ship refit and planetary expeditions
 
 - Fix stale tablet flight writes, P while tablet open, thrust while docked, and clipped/wrong-aspect cockpit screens. Add visible pilot controls and live readouts.

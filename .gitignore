@@ -17,3 +17,6 @@ BrowserPreview/build/
 
 site/
 .vercel/
+
+# Reproducible editor-import derivatives (source WebPs are tracked).
+Content/ThirdParty/PlanetMaps/Unreal/

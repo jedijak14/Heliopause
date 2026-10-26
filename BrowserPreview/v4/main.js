@@ -1,9 +1,20 @@
+import {nearestWorld,atmosphericForces,resolveTerrainContact,surfaceOffset,localFlightView,syncSurfaceFlight} from './planetary-flight.js';
+import {requestPickup,stepPickup} from './pickup.js';
+import {createHabitats} from './habitat.js';
+import {placeModel} from './model-library.js';
+import {createEntryEffects} from './entry-effects.js';
+import {stationGeometry,alienGeometry} from './world-detail.js';
+import {features,stepEncounter,surveyRelay} from './encounters.js';
+import {createAlienAudio} from './alien-audio.js';
+import {createCelestialRenderer} from './celestial-renderer.js';
+import {dispatchRepair} from './maintenance.js';
+import {integrate,fromEuler,rotate,toBody,attitude} from './flight-dynamics.js';
 import {refitShip} from './ship-refit.js';
 import {createSurfaceRenderer} from './surface-renderer.js';
-import {KEPLER,profile,surfaceState,sampleTerrain,walkSurface,coordinates,arcDistance,colors,norm,basis,dot} from './terrain.js';
+import {KEPLER,profile,surfaceState,sampleTerrain,walkSurface,coordinates,arcDistance,colors,norm,basis,dot,moveOnGlobe} from './terrain.js';
 import {pilotCommand} from './flight-controls.js';
 import {freshVoyage,launchVoyage,stepVoyage,command,saveVoyage,loadVoyage,sites,distance,speed,objectives} from './voyage.js';
-import {selectTarget,pendingCredits} from '../src/exploration.js';
+import {stepExpedition,selectTarget,pendingCredits} from '../src/exploration.js';
 import {createVoicePlayer} from './voice-player.js';
 import oldDialogue from '../../Shared/story.json' with {type:'json'};
 import extraDialogue from '../../Shared/commander.json' with {type:'json'};
@@ -124,7 +135,7 @@ const PBR_FS=`#version 300 es
 precision highp float;
 in vec3 vW; in vec3 vN; in vec2 vUv; in float vAo; out vec4 o;
 uniform vec3 uCam; uniform float uTime;
-uniform int uMat; uniform vec3 uAlb; uniform float uMet,uRgh; uniform vec3 uEm; uniform float uUvS; uniform vec4 uAux;
+uniform float uOpacity; uniform int uMat; uniform vec3 uAlb; uniform float uMet,uRgh; uniform vec3 uEm; uniform float uUvS; uniform vec4 uAux;
 uniform sampler2D uMap;
 uniform vec3 uSunDir,uSunCol; uniform float uSunK; uniform vec3 uAmb;
 uniform int uNL; uniform vec3 uLP[6]; uniform vec3 uLC[6]; uniform float uLR[6];
@@ -174,7 +185,9 @@ void main(){
   em=base*(ring*1.2+hand*.55*(.5+uAux.w*.6))+base*scan*3.;alb=vec3(.015);met=0.;rg=.15;}
  else if(uMat==11){vec2 pf=panel(uv,1.5);float st=fbm2(vec2(uv.x*6.,uv.y*.5));
   alb*=(.8+.28*st)*(1.-pf.x*.5);alb=mix(alb,alb*1.4,pf.y*.5);rg=clamp(rg+st*.2-pf.y*.2,.1,1.);cav=1.-pf.x*.5;}
- else if(uMat==12){alb*=.72+.28*(.5+.5*sin(uv.x*55.));rg=.88;met=0.;cav=.8+.2*(.5+.5*sin(uv.x*55.));}
+ else if(uMat==12){float weave=sin(uv.x*300.)*sin(uv.y*300.);alb*=.96+.025*weave;rg=.82;met=0.;}
+ else if(uMat==13){N=normalize(N+vec3(sin(vW.z*8.+uTime*1.3)*.09,0.,cos(vW.x*9.-uTime)*.09));rg=.09;met=.3;em+=vec3(.01,.07,.09)*(1.+.4*sin(vW.x*5.+uTime));}
+ else if(uMat==14){float grain=fbm2(vec2(vW.x*15.,vW.z*.7));alb*=.78+.4*grain;rg=.58;met=0.;}
  float ao=vAo*cav;
  vec3 col=brdf(N,V,uSunDir,uSunCol,alb,met,rg)*uSunK;
  for(int i=0;i<6;i++){if(i>=uNL)break;vec3 d=uLP[i]-vW;float d2=max(dot(d,d),.004),dist=sqrt(d2);
@@ -189,7 +202,7 @@ void main(){
  col+=pow(1.-max(dot(N,V),0.),5.)*uAmb*1.2*(1.-rg*.7)*ao;
  col+=em;
  col=aces(col*uExp);
- o=vec4(pow(col,vec3(.4545)),1.);
+ o=vec4(pow(col,vec3(.4545)),uOpacity);
 }`;
 
 const pSky=prog(QVS,SKY_FS,"sky"),pPBR=prog(PBR_VS,PBR_FS,"pbr");
@@ -409,16 +422,16 @@ function makeDoor(zc,zWall,name){const b=new B();b.box([0,1.05,zc],[.6,1.05,.025
  doors.push(d);return d;}
 const inter=[];
 makeDoor(-2.87,-2.95,"COCKPIT");makeDoor(.975,1.05,"QUARTERS");
-function useDoor(d){if((d.systems||[0,1]).some(i=>voyage.systems.faults[i])){notice("Safety interlock. Repair the compartment using SYSTEMS.");return;}if(d.scan>=0)return;if(d.target){d.target=0;SFX.whoosh();return;}d.scan=0;SFX.scan();}
+function useDoor(d){if(d.locked){notice("Connecting door locked. Deploy the habitat and wait for pressure seals.");return;}if(d.airlock&&!airlockAllowed(d))return;if((d.systems||[0,1]).some(i=>voyage.systems.faults[i])){notice("Safety interlock. Repair the compartment using SYSTEMS.");return;}if(d.scan>=0)return;if(d.target){d.target=0;SFX.whoosh();return;}d.scan=0;SFX.scan();}
 
 /* ---- windows & curtains ---- */
 const windows=[];
-function makeWindow(name,build,modelFn,box){const b=new B();build(b);const m=add(b.build(),MAT.CURT,[.16,.2,.26],0,.85,{uv:3});
+function makeWindow(name,build,modelFn,box){const b=new B();build(b);const m=add(b.build(),MAT.CURT,[.62,.55,.38],0,.85,{uv:3});
  const w={name,mesh:m,open:true,k:0,modelFn};windows.push(w);
- inter.push({label:()=>(w.open?"CLOSE ":"OPEN ")+name+" CURTAIN",box,act:()=>setWindow(w,!w.open)});return w;}
-makeWindow("COCKPIT SHADE",b=>b.box([0,0,0],[2.44,.72,.015],1),k=>M.T(0,lerp(3.06,1.6,k),-6.97),{min:[-2.4,.9,-7.06],max:[2.4,2.3,-6.85]});
-makeWindow("CORRIDOR",b=>b.box([0,0,1],[.02,.62,1],1),k=>M.mul(M.T(1.13,1.53,-2),M.S(1,1,Math.max(k,.07))),{min:[1.0,.95,-2],max:[1.26,2.05,0]});
-makeWindow("QUARTERS",b=>b.box([0,0,1],[.02,.62,1],1),k=>M.mul(M.T(-2.43,1.53,2),M.S(1,1,Math.max(k,.07))),{min:[-2.56,.95,2],max:[-2.3,2.05,4]});
+ inter.push({label:()=>(w.open?"CLOSE ":"OPEN ")+name+" SHADE",box,act:()=>setWindow(w,!w.open)});return w;}
+makeWindow("COCKPIT SHADE",b=>b.box([0,-.72,0],[2.44,.72,.008],1),k=>M.mul(M.T(0,2.32,-6.97),M.S(1,Math.max(.001,k),1)),{min:[-2.4,.9,-7.06],max:[2.4,2.3,-6.85]});
+makeWindow("CORRIDOR",b=>b.box([0,-.62,0],[.008,.62,1],1),k=>M.mul(M.T(1.13,2.15,-1),M.S(1,Math.max(.001,k),1)),{min:[1.0,.95,-2],max:[1.26,2.05,0]});
+makeWindow("QUARTERS",b=>b.box([0,-.62,0],[.008,.62,1],1),k=>M.mul(M.T(-2.43,2.15,3),M.S(1,Math.max(.001,k),1)),{min:[-2.56,.95,2],max:[-2.3,2.05,4]});
 function setWindow(w,open,force=false){if(game.autoShaded&&!force)return;if(w.open===open)return;w.open=open;SFX.motor();}
 
 /* ---- exterior hull ---- */
@@ -438,11 +451,11 @@ const navR=add((()=>{const b=new B();b.box([6.36,.75,1.6],[.02,.06,.06]);return 
 
 /* ============================ GAME STATE ============================ */
 const R_PLANET=6371,AR_PLANET=R_PLANET+140;
-const SUN=nrm([-.5,.35,-.8]);
+const SUN=nrm([-.5,.35,.8]);
 let voyage=freshVoyage();let atExchange=false,sceneTime=0,sceneCamera=0,saveClock=0;
 const game={mode:"menu",story:true,cam:0,tab:false,flash:false,step:0,time:0,cutT:0,autoShaded:false,shadeMemo:[]};
 const pl={x:-1.1,y:1.65,z:-4.1,yaw:0,pitch:-.05,vx:0,vz:0,bob:0,crouch:0};
-const orbit={yaw:.8,pitch:.25};
+const orbit={yaw:.8,pitch:.3,distance:53};
 const flight={v:7640,pitch:0,tp:0,A:400,heat:0,ap:"none",warp:1};
 const keys={};
 
@@ -455,21 +468,22 @@ addEventListener("mouseup",()=>{if(dragging&&dragMoved<4&&game.mode==="play"&&ga
 addEventListener("mousemove",e=>{if(!(locked||dragging)||game.mode!=="play")return;dragMoved+=Math.abs(e.movementX)+Math.abs(e.movementY);
  const k=locked?.0022:.004;
  if(game.cam===0){pl.yaw-=e.movementX*k;pl.pitch=clamp(pl.pitch-e.movementY*k,-1.5,1.5);}
- // Hull cameras are fixed to the vessel; no orbital chase camera.
+ if(game.cam===4){orbit.yaw-=e.movementX*k;orbit.pitch=clamp(orbit.pitch+e.movementY*k,-.15,1.35);}
 });
-addEventListener("keydown",e=>{keys[e.code]=true;
+addEventListener("keydown",e=>{keys[e.code]=true;if(voyage.pilot&&!game.tab&&["KeyW","KeyS","KeyA","KeyD","KeyR","KeyF","KeyQ","KeyE","KeyB","KeyZ","KeyX","ShiftLeft","ControlLeft"].includes(e.code))e.preventDefault();
  if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.code))e.preventDefault();
+
  if(game.mode==="scene"&&(e.code==="Space"||e.code==="Enter")){finishScene();return;}
  if(game.mode==="cut"&&(e.code==="Space"||e.code==="Enter")){endCutscene();return;}
  if(game.mode!=="play"||e.repeat||["INPUT","SELECT","TEXTAREA"].includes(e.target.tagName))return;
  if(e.code==="KeyT")toggleTab();
  if(e.code==="KeyP"){togglePilot();return;}
  if(game.tab)return;
- if(e.code==="KeyE")interact();
+ if(e.code==="KeyE"&&!voyage.pilot)interact();
  if(e.code==="KeyR"&&surface){surface.rover=!surface.rover;notice(surface.rover?"SURFACE SKIMMER · 32 M/S":"EXPLORING ON FOOT");}
- if(e.code==="KeyB"&&voyage.pilot){command(voyage,"brake");}
+ if(e.code==="KeyB"&&voyage.pilot){issuePilot("brake");}
  if(e.code==="KeyF"&&!voyage.pilot){game.flash=!game.flash;SFX.tap();}
- if(e.code==="KeyV"){setCam((game.cam+1)%4);}
+ if(e.code==="KeyV"){setCam((game.cam+1)%5);}
 });
 addEventListener("keyup",e=>{keys[e.code]=false;});
 addEventListener("blur",()=>{for(const k in keys)keys[k]=false;});
@@ -478,7 +492,7 @@ function fwd(){const c=Math.cos(pl.pitch);return[-Math.sin(pl.yaw)*c,Math.sin(pl
 function rayBox(o,d,mn,mx){let t0=0,t1=1e9;for(let i=0;i<3;i++){const iv=1/(Math.abs(d[i])<1e-9?1e-9:d[i]);let a=(mn[i]-o[i])*iv,b=(mx[i]-o[i])*iv;if(a>b){const s=a;a=b;b=s;}t0=Math.max(t0,a);t1=Math.min(t1,b);if(t1<t0)return -1;}return t0;}
 function pick(){if(voyage.expedition.onStation||voyage.pilot||game.cam!==0||game.mode!=="play")return null;const o=[pl.x,pl.y,pl.z],d=fwd();let best=null,bt=2.4;
  for(const it of inter){const t=rayBox(o,d,it.box.min,it.box.max);if(t>=0&&t<bt){bt=t;best=it;}}return best;}
-function interact(){if(surface){surfaceInteract();return;}if(voyage.expedition.onStation){if(atExchange){page='NAVIGATION';if(!game.tab)toggleTab();else renderTab();}else if(pl.z>94)returnFromStation();return;}if(voyage.controlled>=0){repairRoom(voyage.drones[voyage.controlled].room);return;}if(voyage.pilot){togglePilot();return;}const h=pick();if(h)h.act();else if(pl.z< -3.5)togglePilot();}
+function interact(){if(surface){surfaceInteract();return;}if(voyage.expedition.onStation){if(atExchange){page='NAVIGATION';if(!game.tab)toggleTab();else renderTab();}else if(pl.z>94)returnFromStation();return;}if(voyage.controlled>=0){repairRoom(voyage.drones[voyage.controlled].room);return;}if(voyage.pilot)return;const h=pick();if(h)h.act();else if(pl.z< -3.5)togglePilot();}
 function setCam(c){if(surface)return;if(voyage.expedition.onStation&&c!==0)return;game.cam=c;SFX.tap();if(c!==0)game.flash=false;}
 
 /* ---- collision ---- */
@@ -487,13 +501,13 @@ const DOORAREAS=[{a:[-.3,-3.45],b:[.3,-2.55],d:0},{a:[-.3,.55],b:[.3,1.45],d:1}]
 const OBST=[{a:[-2.45,-6.95],b:[2.45,-5.85]},{a:[-.4,-5.45],b:[.4,-4.7]},{a:[-.3,-5.75],b:[.3,-5.35]},{a:[.78,2.48],b:[2.45,4.72]},{a:[-2.02,4.4],b:[-1,5.0]}];
 function walkable(x,z){if(voyage.expedition.onStation)return x> -5.5&&x<5.5&&z>80.5&&z<99;if(voyage.controlled>=0)return Math.abs(x)<1&&z> -6&&z<22;const r=.28;let inside=false;
  for(const A_ of AREAS)if(x>=A_.a[0]&&x<=A_.b[0]&&z>=A_.a[1]&&z<=A_.b[1]){inside=true;break;}
- if(!inside)for(const D of DOORAREAS)if(doors[D.d].open>.85&&x>=D.a[0]&&x<=D.b[0]&&z>=D.a[1]&&z<=D.b[1]){inside=true;break;}
+ if(!inside)for(const D of DOORAREAS)if(!doors[D.d].locked&&doors[D.d].open>.85&&x>=D.a[0]&&x<=D.b[0]&&z>=D.a[1]&&z<=D.b[1]){inside=true;break;}
  if(!inside)return false;
  for(const o of OBST)if(x>o.a[0]-r&&x<o.b[0]+r&&z>o.a[1]-r&&z<o.b[1]+r)return false;
  return true;}
 
 /* ============================ TABLET ============================ */
-const PAGES=["NAVIGATION","SURFACE","STORAGE","SYSTEMS","DRONES","STATUS","LIGHTS","WINDOWS","CAMERAS","FLIGHT","VOICE","AUDIO"];
+const PAGES=["HABITAT","NAVIGATION","SURFACE","STORAGE","SYSTEMS","DRONES","STATUS","LIGHTS","WINDOWS","CAMERAS","FLIGHT","VOICE","AUDIO"];
 let page="STATUS";
 const tnav=$("tnav"),tbody=$("tbody");
 function toggleTab(){game.tab=!game.tab;$("tab").classList.toggle("up",game.tab);SFX.tap();
@@ -504,7 +518,7 @@ function renderTab(){
  tnav.innerHTML=PAGES.map(p=>`<div class="${p===page?"sel":""}" data-page="${p}">${p}</div>`).join("");
  let h="";
  if(page==="NAVIGATION")h=navigationHTML();if(page==="SURFACE")h=surfacePanelHTML();if(page==="STORAGE")h=storageHTML();
- if(page==="SYSTEMS")h=systemsHTML();
+ if(page==="SYSTEMS")h=systemsHTML();if(page==="HABITAT")h=habitats.html();
  if(page==="DRONES")h=dronesHTML();
  if(page==="STATUS"){h=`<h3>STATUS</h3><div class="hint">SV-7 LONGHAUL · EVA ONLINE</div>
   <div class="clock" data-live="clock"></div><div class="hint" data-live="date"></div>
@@ -515,11 +529,11 @@ function renderTab(){
  if(page==="LIGHTS"){h=`<h3>LIGHTING</h3><div class="hint">WIRELESS ROOM CONTROL</div>`+
   rooms.map((r,i)=>`<div class="row"><div>${r.name}<small>${r.on?"ON":"OFF"}</small></div><button class="${onoff(r.on)}" data-act="light:${i}">${r.on?"TURN OFF":"TURN ON"}</button></div>`).join("")+
   `<div class="grid2"><button data-act="lightall:1">ALL ON</button><button data-act="lightall:0">ALL OFF</button></div>`;}
- if(page==="WINDOWS"){h=`<h3>WINDOWS</h3><div class="hint">CURTAINS & THERMAL SHADES${game.autoShaded?" · EVA THERMAL LOCK ACTIVE":""}</div>`+
+ if(page==="WINDOWS"){h=`<h3>WINDOWS</h3><div class="hint">RECESSED ROLLER SHADES${game.autoShaded?" · EVA THERMAL LOCK ACTIVE":""}</div>`+
   windows.map((w,i)=>`<div class="row"><div>${w.name}<small>${w.open?"OPEN":"CLOSED"}</small></div><button ${game.autoShaded?"disabled":""} data-act="win:${i}">${w.open?"CLOSE":"OPEN"}</button></div>`).join("")+
   `<div class="grid2"><button ${game.autoShaded?"disabled":""} data-act="winall:1">OPEN ALL</button><button ${game.autoShaded?"disabled":""} data-act="winall:0">CLOSE ALL</button></div>`;}
- if(page==="CAMERAS"){h=`<h3>CAMERAS</h3><div class="hint">V CYCLES FIXED HULL SENSORS · NO CHASE CAMERA</div>`+
-  ["FIRST PERSON","PORT HULL","STARBOARD HULL","FORWARD HULL"].map((n,i)=>`<div class="row"><div>${n}</div><button class="${onoff(game.cam===i)}" data-act="cam:${i}">${game.cam===i?"ACTIVE":"VIEW"}</button></div>`).join("")+
+ if(page==="CAMERAS"){h=`<h3>CAMERAS</h3><div class="hint">V CYCLES VIEWS · THIRD PERSON: DRAG TO ORBIT, SCROLL TO ZOOM</div>`+
+  ["FIRST PERSON","PORT HULL","STARBOARD HULL","FORWARD HULL","THIRD PERSON / ORBIT"].map((n,i)=>`<div class="row"><div>${n}</div><button class="${onoff(game.cam===i)}" data-act="cam:${i}">${game.cam===i?"ACTIVE":"VIEW"}</button></div>`).join("")+
   `<div class="row"><div>FLASHLIGHT<small>F KEY · FIRST PERSON ONLY</small></div><button class="${onoff(game.flash)}" data-act="flash">${game.flash?"ON":"OFF"}</button></div>`;}
  if(page==="FLIGHT"&&voyage.active){h=pilotPanelHTML();}
  if(page==="FLIGHT"&&!voyage.active){const ap=flight.ap;h=`<h3>FLIGHT · PILOT AUTHORITY</h3><button data-act="pilot">${voyage.pilot?"LEAVE PILOT SEAT":"TAKE PILOT SEAT"}</button><div class="hint">VERTICAL SPEED = VELOCITY × SIN(PITCH)</div>
@@ -533,11 +547,11 @@ function renderTab(){
   <input type="file" id="vfiles" accept="audio/*" multiple>
   <div class="row"><div>BROWSER SPEECH FALLBACK<small>USED WHEN NO RECORDING IS LOADED</small></div><button class="${onoff(VOICE.tts)}" data-act="tts">${VOICE.tts?"ON":"OFF"}</button></div>`+
   `<button data-act="stopvoice">STOP PLAYBACK</button>`+Object.keys(LINES).map(id=>`<div class="row"><div>${id}<small>${VOICE.files[id]?"RECORDING LOADED":"NO RECORDING"} · ${LINES[id].who}</small></div><button data-act="play:${id}">PLAY</button></div>`).join("");}
- if(page==="AUDIO"){h=`<h3>AUDIO & DISPLAY</h3><div class="grid2"><button data-act="quality:1">HIGH RESOLUTION</button><button data-act="quality:0.4">EFFICIENT RENDERING</button></div><button data-act="mute">${A.muted?"UNMUTE ALL AUDIO":"MUTE ALL AUDIO"}</button><div class="hint">PROCEDURAL SCORE · RECORDED DIALOGUE · OPTIONAL SYNTHETIC BREATHING</div>
+ if(page==="AUDIO"){h=`<h3>AUDIO & DISPLAY</h3><div class="row"><div>PLANET ASSETS<small data-asset-status></small></div><button data-act="stream">${celestialRenderer.textures.stream.enabled?"USE OFFLINE ONLY":"ENABLE ONLINE HD"}</button></div><button data-act="assetclear">CLEAR DOWNLOADED HD CACHE</button><div class="hint">Embedded 2K planet maps always available. Online: hash-verified native-resolution sources, GPU detail capped at 4K; one HD surface resident at a time. Solar System Scope · CC BY 4.0. Fictional worlds use artist-tinted reference maps. Nacre/Borealis use NASA Goddard’s 23,232-triangle Moon model (color-map-only, public domain), adapted with these maps. Interiors include Kenney CC0 assets.</div><div class="grid2"><button data-act="quality:1">HIGH RESOLUTION</button><button data-act="quality:0.4">EFFICIENT RENDERING</button></div><button data-act="mute">${A.muted?"UNMUTE ALL AUDIO":"MUTE ALL AUDIO"}</button><div class="hint">PROCEDURAL SCORE · RECORDED DIALOGUE · OPTIONAL SYNTHETIC BREATHING</div>
   <div class="row"><div>MUSIC VOLUME<small data-live="mvol"></small></div><div><button data-act="mus:-1">−</button> <button data-act="mus:1">+</button></div></div>
   <div class="row"><div>BREATHING<small>FIRST PERSON</small></div><button class="${onoff(A.breath)}" data-act="breath">${A.breath?"ON":"OFF"}</button></div>`;}
  tbody.innerHTML=h;liveTab();updatePilotHUD();}
-function liveTab(){if(!game.tab)return;const now=new Date(),vs=flight.v*Math.sin(flight.pitch*PI/180);
+function liveTab(){if(!game.tab)return;const assetStatus=tbody.querySelector("[data-asset-status]");if(assetStatus)assetStatus.textContent=celestialRenderer.textures.stream.status;if(page==='SURFACE'){const b=tbody.querySelector('[data-act="hatch"]');if(b)b.textContent=outerHatch.target?'CLOSE EXTERIOR HATCH':'OPEN EXTERIOR HATCH';}const now=new Date(),vs=flight.v*Math.sin(flight.pitch*PI/180);
  const L={clock:now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"}),date:now.toDateString().toUpperCase()+" · SHIP TIME",
   heatTxt:Math.round(flight.heat*100)+" %",alt:flight.A.toFixed(1)+" KM",vel:flight.v.toFixed(0)+" M/S",pit:(flight.pitch>=0?"+":"")+flight.pitch.toFixed(1)+"°",
   vs:(vs>=0?"+":"")+vs.toFixed(0)+" M/S",ap:flight.ap.toUpperCase(),shade:game.autoShaded?"THERMAL LOCK":"MANUAL",mvol:Math.round(A.musicVol*100)+" %"};
@@ -553,7 +567,7 @@ tbody.addEventListener("click",e=>{const a=e.target.dataset.act;if(!a)return;SFX
  if(k==="cam")setCam(+v);
  if(k==="flash")game.flash=!game.flash;
  if(k==="ap"&&voyage.active){issuePilot(v==="none"?"manual":v);renderTab();return;}
- if(k==="ap"){if(game.story&&game.step<7&&((v==="entry"&&game.step!==4)||(v==="climb"&&game.step!==6))){notice("Follow the current survey objective first.");return;}flight.ap=v;if(v==="none"){flight.warp=1;}}
+ if(k==="ap"){if(v!=="none"&&!flightReady())return;if(game.story&&game.step<7&&((v==="entry"&&game.step!==4)||(v==="climb"&&game.step!==6))){notice("Follow the current survey objective first.");return;}flight.ap=v;if(v==="none"){flight.warp=1;}}
  if(k==="pitch")issuePilot("pitch",Number(v)*Math.PI/180);
  if(k==="thr")issuePilot("thrust",Number(v)*.05);
  if(k==="tts")VOICE.tts=!VOICE.tts;
@@ -570,8 +584,8 @@ const STEPS=[
  {d:"Turn on the QUARTERS lights from the tablet (LIGHTS page).",done:()=>rooms[2].on,line:"eva_obj_room"},
  {d:"Go to your quarters. Scan your handprint at each door.",done:()=>pl.z>1.5&&doors.slice(0,2).every(d=>d.verified),line:"eva_obj_window"},
  {d:"Open the quarters curtain (look at the window and press E).",done:()=>windows[2].open&&pl.z>1.5,line:"eva_obj_entry"},
- {d:"Return to the cockpit. Tablet → FLIGHT → ENTRY SURVEY.",done:()=>flight.ap==="entry",line:null},
- {d:"Ride out the entry heat. EVA will deploy the thermal shades.",done:()=>flight.ap==="hold",line:null},
+ {d:"Return to the cockpit. Tablet → FLIGHT → ENTRY SURVEY.",done:()=>flight.ap==="entry"||flight.A<350,line:null},
+ {d:"Ride out the entry heat. EVA will deploy the thermal shades.",done:()=>flight.A<=61,line:null},
  {d:"Climb back to orbit (FLIGHT → CLIMB TO ORBIT).",done:()=>flight.A>=399&&flight.ap==="none"&&game.surveyed,line:null},
  {d:"Orbital survey complete. Open NAVIGATION for the Kestrel signal.",done:()=>false,line:null}];
 function advance(){const s=STEPS[game.step];if(s&&s.line)say(s.line);game.step=Math.min(game.step+1,STEPS.length-1);}
@@ -583,7 +597,7 @@ const CUT_LEN=19+LINES.eva_intro_1.duration+LINES.eva_intro_2.duration;
 const cutEvents=[[6.5,()=>say("hale_1")],[13.6,()=>{$("fade").style.opacity=1;}],[15.2,()=>{$("fade").style.opacity=0;}],[16,()=>say("eva_intro_1")],[20.2,()=>say("eva_intro_2")]];
 let cutNext=0;
 function startCutscene(){game.mode="cut";game.cutT=0;cutNext=0;document.body.classList.add("cine");flight.A=40000;}
-function endCutscene(){if(game.mode!=="cut")return;document.body.classList.remove("cine");$("fade").style.opacity=0;game.mode="play";flight.A=400;
+function endCutscene(){if(game.mode!=="cut")return;document.body.classList.remove("cine");$("fade").style.opacity=0;game.mode="play";flight.A=400;initializeOrbitalWorld();
  pl.x=-1.1;pl.z=-4.1;pl.yaw=0;pl.pitch=-.05;voicePlayer.stop();$("sub").style.opacity=0;
  if(game.story){game.step=0;}$("prompt").textContent="";canvas.focus();}
 function cutCam(t){
@@ -600,17 +614,21 @@ let VW=2,VH=2;
 function resize(){const dpr=Math.min(window.devicePixelRatio||1,1.5)*renderScale;VW=Math.max(2,Math.floor(innerWidth*dpr));VH=Math.max(2,Math.floor(innerHeight*dpr));canvas.width=VW;canvas.height=VH;}
 addEventListener("resize",resize);resize();
 const lP=new Float32Array(18),lC=new Float32Array(18),lR=new Float32Array(6);
-function planetCenter(){if(voyage.active)return bodyPosition(primaryPlanet());const d0=nrm([0,-.6,-1]),a=-flight.pitch*PI/180,c=Math.cos(a),s=Math.sin(a);
+function planetCenter(){if(flight.sharedWorld&&!voyage.active)return bodyPosition(KEPLER);if(voyage.active)return bodyPosition(primaryPlanet());const d0=nrm([0,-.6,-1]),a=-flight.pitch*PI/180,c=Math.cos(a),s=Math.sin(a);
  const d=[d0[0],d0[1]*c-d0[2]*s,d0[1]*s+d0[2]*c];const r=R_PLANET+flight.A,cy=Math.cos(flight.yaw||0),sy=Math.sin(flight.yaw||0);return[(d[0]*cy-d[2]*sy)*r,d[1]*r,(d[0]*sy+d[2]*cy)*r];}
 function render(eye,tgt,ext,fov){
  const P=M.persp(fov*PI/180,VW/VH,.05,500),V=M.look(eye,tgt,[0,1,0]),VP=M.mul(P,V),iVP=M.inv(VP);
+ if(typeof targetMarker!=='undefined'){targetMarker.hidden=!voyage.pilot||!voyage.active||game.tab||game.mode!=='play'||game.cam!==0;if(!targetMarker.hidden){const p=bodyPosition(voyage.expedition.target),clip=[0,1,2,3].map(j=>VP[j]*p[0]+VP[4+j]*p[1]+VP[8+j]*p[2]+VP[12+j]);targetMarker.style.left=clamp((clip[0]/Math.max(.01,clip[3])*.5+.5)*innerWidth,90,innerWidth-90)+'px';targetMarker.style.top=clamp((.5-clip[1]/Math.max(.01,clip[3])*.5)*innerHeight,190,Math.max(200,innerHeight*.4))+'px';targetMarker.textContent=(clip[3]<0?'↶ ':'◇ ')+sites[voyage.expedition.target].name+' · '+distance(voyage.expedition).toFixed(1)+' KM';}}
+ const nearby=(voyage.active||flight.sharedWorld)?nearestWorld(voyage.expedition,sites):null;
+ if(nearby&&!nearby.gas&&nearby.altitude<20000&&!voyage.expedition.onStation){const e=voyage.expedition,world=grounded||{planet:nearby.planet,radius:nearby.radius,n:nearby.n,lander:nearby.n,origin:nearby.n,walked:0,samples:[],recall:0};world.n=nearby.n;celestialRenderer.textures.focus(nearby.planet);terrainRenderer.render(world,0,0,VW,VH,game.time,{orbital:true,camera:anchor=>localFlightView(e,nearby,eye,tgt,anchor),altitude:nearby.altitude,fov,drawShip:false,globe:(vp,cam,model,axes)=>celestialRenderer.draw(nearby.planet,model,vp,cam,game.time,[dot(SUN,axes.east),dot(SUN,axes.up),dot(SUN,axes.south)])});gl.clear(gl.DEPTH_BUFFER_BIT);}else if(grounded){terrainRenderer.render(grounded,0,0,VW,VH,game.time,{cameraEye:eye,cameraTarget:tgt,fov,drawShip:false});gl.clear(gl.DEPTH_BUFFER_BIT);}else{
  gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,VW,VH);gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
  gl.disable(gl.DEPTH_TEST);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);
  gl.useProgram(pSky.p);gl.uniformMatrix4fv(U(pSky,"uInvVP"),false,iVP);gl.uniform3fv(U(pSky,"uCam"),eye);gl.uniform3fv(U(pSky,"uSun"),SUN);
  gl.uniform3fv(U(pSky,"uPC"),planetCenter());const radius=voyage.active?sites[primaryPlanet()].radius*120:R_PLANET;gl.uniform1f(U(pSky,"uPR"),0);gl.uniform1f(U(pSky,"uAR"),.001);gl.uniform3fv(U(pSky,"uTint"),[1,1,1]);gl.uniform1i(U(pSky,"uBodyCount"),0);gl.uniform1f(U(pSky,"uTime"),game.time);
  gl.bindVertexArray(quad);gl.drawArrays(gl.TRIANGLES,0,3);
  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.depthMask(true);
- renderGlobeBodies(VP,eye);
+ renderGlobeBodies(M.mul(M.persp(fov*PI/180,VW/VH,.1,1e8),V),eye);gl.clear(gl.DEPTH_BUFFER_BIT);
+ }
  gl.useProgram(pPBR.p);gl.uniformMatrix4fv(U(pPBR,"uVP"),false,VP);gl.uniform3fv(U(pPBR,"uCam"),eye);gl.uniform1f(U(pPBR,"uTime"),game.time);
  gl.uniform3fv(U(pPBR,"uSunDir"),SUN);gl.uniform3f(U(pPBR,"uSunCol"),4.2,3.95,3.6);
  const open=windows.reduce((s,w,i)=>s+(1-w.k)*(i===0?.6:.2),0);
@@ -621,9 +639,10 @@ function render(eye,tgt,ext,fov){
   gl.uniform3fv(U(pPBR,"uLP[0]"),lP);gl.uniform3fv(U(pPBR,"uLC[0]"),lC);gl.uniform1fv(U(pPBR,"uLR[0]"),lR);gl.uniform1i(U(pPBR,"uNL"),6);
   const f=fwd();gl.uniform4f(U(pPBR,"uFl"),game.flash&&game.mode==="play"?1:0,.9,14,0);
   gl.uniform3f(U(pPBR,"uFlP"),eye[0]+Math.cos(pl.yaw)*.18,eye[1]-.15,eye[2]-Math.sin(pl.yaw)*.18);gl.uniform3fv(U(pPBR,"uFlD"),f);gl.uniform1f(U(pPBR,"uExp"),1.35);}
+ if(ext&&voyage.active){const station=sites.map((s,i)=>({s,i})).filter(x=>x.s.kind==='station').sort((a,b)=>distance(voyage.expedition,a.i)-distance(voyage.expedition,b.i))[0];if(station&&distance(voyage.expedition,station.i)<10){const p=bodyPosition(station.i),factor=Math.min(1,340/Math.max(1,Math.hypot(...p)));for(let k=0;k<2;k++){lP.set(p.map((x,j)=>(x+(j===0?(k?15:-15):0))*factor),k*3);lC.set([15,19,24].map(x=>x*(.9+.1*Math.sin(game.time*2+k))),k*3);lR[k]=70;}gl.uniform3fv(U(pPBR,'uLP[0]'),lP);gl.uniform3fv(U(pPBR,'uLC[0]'),lC);gl.uniform1fv(U(pPBR,'uLR[0]'),lR);gl.uniform1i(U(pPBR,'uNL'),2);}}
  gl.activeTexture(gl.TEXTURE0);gl.uniform1i(U(pPBR,"uMap"),0);
- for(const m of meshes){if(m.hidden)continue;if(m.zone==='station'){if(!voyage.expedition.onStation)continue;}else if(m.space){if(!voyage.active||voyage.expedition.onStation)continue;}else{if(voyage.expedition.onStation||m.ext!==ext)continue;}
-  gl.uniformMatrix4fv(U(pPBR,"uModel"),false,m.model);gl.uniform1i(U(pPBR,"uMat"),m.mat);gl.uniform3fv(U(pPBR,"uAlb"),m.col);
+ for(const m of [...meshes.filter(m=>!(m.alpha<1)&&m.mat!==13),...meshes.filter(m=>m.alpha<1||m.mat===13)]){if(m.hidden)continue;if(m.zone==='station'){if(!voyage.expedition.onStation)continue;}else if(m.space){if(!voyage.active||voyage.expedition.onStation)continue;}else{if(voyage.expedition.onStation||m.ext!==ext)continue;}
+  const alpha=m.mat===13?.76:(m.alpha??1);gl.uniform1f(U(pPBR,"uOpacity"),alpha);if(alpha<1){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);}else gl.disable(gl.BLEND);gl.uniformMatrix4fv(U(pPBR,"uModel"),false,m.model);gl.uniform1i(U(pPBR,"uMat"),m.mat);gl.uniform3fv(U(pPBR,"uAlb"),m.col);
   gl.uniform1f(U(pPBR,"uMet"),m.met);gl.uniform1f(U(pPBR,"uRgh"),m.rgh);gl.uniform3fv(U(pPBR,"uEm"),m.em);gl.uniform1f(U(pPBR,"uUvS"),m.uv);gl.uniform4fv(U(pPBR,"uAux"),m.aux);
   gl.bindTexture(gl.TEXTURE_2D,m.tex||white);gl.bindVertexArray(m.geo.vao);gl.drawElements(gl.TRIANGLES,m.geo.count,gl.UNSIGNED_INT,0);}
  if(!ext&&!voyage.expedition.onStation){gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.depthMask(false);gl.uniform1i(U(pPBR,"uMat"),9);gl.uniformMatrix4fv(U(pPBR,"uModel"),false,M.id());
@@ -634,15 +653,15 @@ function render(eye,tgt,ext,fov){
 /* ---- MFD drawing ---- */
 function drawScreens(){const t=game.time,vs=flight.v*Math.sin(flight.pitch*PI/180);
  {const s=S1,x=s.x;chrome(s,"SHIP · ROOMS","#49c8ff");x.font="14px Consolas,monospace";
-  rooms.forEach((r,i)=>{const y=65+i*27;x.fillStyle="rgba(50,150,200,.12)";x.fillRect(16,y-18,s.w-32,26);x.fillStyle="#8fd8f5";x.textAlign="left";x.fillText(r.name,26,y);
+  rooms.slice(0,6).forEach((r,i)=>{const y=65+i*27;x.fillStyle="rgba(50,150,200,.12)";x.fillRect(16,y-18,s.w-32,26);x.fillStyle="#8fd8f5";x.textAlign="left";x.fillText(r.name,26,y);
    x.textAlign="right";x.fillStyle=r.on?"#7dffb0":"#46708a";x.fillText(r.on?"LIGHTS ON":"LIGHTS OFF",s.w-26,y);});
   x.fillStyle="#8fd8f5";x.textAlign="left";x.fillText("BULKHEADS "+doors.filter(d=>d.open>.5).length+" / "+doors.length+" OPEN",26,238);
   x.textAlign="left";x.fillStyle=flight.heat>.35?"#ff7a6b":"#8fd8f5";x.fillText("HULL TEMP "+Math.round(flight.heat*100)+"%",26,262);upload(s.t,s.cv);}
  {const s=S2,x=s.x,acc="#7dffb0";chrome(s,"ATTITUDE","#7dffb0");const cx=s.w/2,cy=170,R=100,ppd=4;
-  x.save();x.beginPath();x.arc(cx,cy,R,0,PI*2);x.clip();x.fillStyle="#06243a";x.fillRect(cx-R,cy-R,2*R,2*R);x.fillStyle="#2a1a0c";x.fillRect(cx-R,cy+flight.pitch*ppd,2*R,2*R);
+  x.save();x.beginPath();x.arc(cx,cy,R,0,PI*2);x.clip();x.translate(cx,cy);x.rotate(-(flight.roll||0));x.translate(-cx,-cy);x.fillStyle="#06243a";x.fillRect(cx-R,cy-R,2*R,2*R);x.fillStyle="#2a1a0c";x.fillRect(cx-R,cy+flight.pitch*ppd,2*R,2*R);
   x.strokeStyle=acc;x.lineWidth=2;x.beginPath();x.moveTo(cx-R,cy+flight.pitch*ppd);x.lineTo(cx+R,cy+flight.pitch*ppd);x.stroke();
   x.font="11px Consolas,monospace";x.textAlign="center";for(let d=-30;d<=30;d+=5){if(!d)continue;const y=cy+flight.pitch*ppd-d*ppd;x.strokeStyle="rgba(125,255,176,.7)";x.lineWidth=1;x.beginPath();x.moveTo(cx-30,y);x.lineTo(cx+30,y);x.stroke();x.fillStyle="#b6ffd6";x.fillText(d,cx+44,y+4);}
-  x.restore();x.strokeStyle=acc;x.beginPath();x.arc(cx,cy,R,0,PI*2);x.stroke();x.strokeStyle="#ffcb6b";x.lineWidth=3;x.beginPath();x.moveTo(cx-44,cy);x.lineTo(cx-12,cy);x.moveTo(cx+12,cy);x.lineTo(cx+44,cy);x.stroke();
+  x.restore();const raw=voyage.active?voyage.expedition:flight.body;const vv=raw?toBody(raw,raw.velocity):[0,0,-1],den=Math.max(.1,Math.abs(vv[2])),vx=cx+clamp(vv[0]/den*65,-75,75),vy=cy-clamp(vv[1]/den*65,-75,75);x.strokeStyle='#fff4b0';x.lineWidth=2;x.beginPath();x.arc(vx,vy,7,0,PI*2);x.moveTo(vx-16,vy);x.lineTo(vx-7,vy);x.moveTo(vx+7,vy);x.lineTo(vx+16,vy);x.stroke();x.strokeStyle=acc;x.beginPath();x.arc(cx,cy,R,0,PI*2);x.stroke();x.strokeStyle="#ffcb6b";x.lineWidth=3;x.beginPath();x.moveTo(cx-44,cy);x.lineTo(cx-12,cy);x.moveTo(cx+12,cy);x.lineTo(cx+44,cy);x.stroke();
   x.font="14px Consolas,monospace";x.fillStyle="#9fe8c4";x.textAlign="left";x.fillText("VEL "+flight.v.toFixed(0)+" m/s",16,290);x.textAlign="right";x.fillText("V/S "+(vs>=0?"+":"")+vs.toFixed(0)+" m/s",s.w-16,290);
   x.textAlign="left";x.fillText("PCH "+flight.pitch.toFixed(1)+"°",16,64);x.textAlign="right";x.fillText("ALT "+flight.A.toFixed(1)+" km",s.w-16,64);upload(s.t,s.cv);}
  {const s=S3,x=s.x,acc="#ffb86b";chrome(s,voyage.active?"NAV · "+sites[voyage.expedition.target].name.toUpperCase():"NAV · KEPLER-442b","#ffb86b");const cx=150,cy=170;
@@ -653,16 +672,18 @@ function drawScreens(){const t=game.time,vs=flight.v*Math.sin(flight.pitch*PI/18
   x.fillText("ALT   "+flight.A.toFixed(0)+" km",300,152);x.fillText("HEAT  "+Math.round(flight.heat*100)+"%",300,178);upload(s.t,s.cv);}}
 
 /* ============================ UPDATE ============================ */
-function updateFlight(dt){if(surface)return;if(voyage.active){updateNavigation(dt);return;}
- if(voyage.pilot&&!game.tab){const thrust=Number(!!keys.KeyW)-Number(!!keys.KeyS),pitch=Number(!!keys.KeyR)-Number(!!keys.KeyF),yaw=Number(!!keys.KeyA)-Number(!!keys.KeyD);if(thrust||pitch||yaw){issuePilot('manual');if(thrust)issuePilot('thrust',thrust*dt*.3);if(pitch)issuePilot('pitch',pitch*dt*.12);if(yaw)issuePilot('yaw',yaw*dt*.25);}if(keys.KeyB)issuePilot('brake');}
+function updateFlight(dt){if(surface||grounded||habitats.locked){if(habitats.locked){flight.v=0;flight.ap="none";if(flight.body)flight.body.velocity=[0,0,0];voyage.expedition.velocity=[0,0,0];voyage.expedition.autopilot=false;voyage.throttle=0;}stepVoyage(voyage,dt,{},game.story,true);return;}if(voyage.active||(flight.sharedWorld&&flight.ap==="none")){updateNavigation(dt);return;}
+ const input=flightInput(),manualInput=Object.values(input).some(x=>x!==0);if(manualInput&&flight.ap!=='none'){flight.ap='none';flight.body=null;}if(voyage.pilot&&!game.tab&&keys.KeyB)issuePilot('brake');
+ if(flight.ap==='none'){if(!flight.body)flight.body={orientation:fromEuler(flight.yaw||0,flight.pitch*PI/180,flight.roll||0),velocity:rotate(fromEuler(flight.yaw||0,flight.pitch*PI/180,flight.roll||0),[0,0,-flight.v/1000])};integrate(flight.body,dt,input,9);flight.pitch=flight.body.pitch*180/PI;flight.tp=flight.pitch;flight.yaw=flight.body.yaw;flight.roll=flight.body.roll;flight.v=Math.hypot(...flight.body.velocity)*1000;flight.A=clamp(flight.A+flight.body.velocity[1]*dt,55,40000);flight.warp=1;}else flight.body=null;
  if(flight.ap==="entry"){flight.tp=-6;flight.warp=12;if(flight.A<=60.5){flight.ap="hold";flight.A=60;game.surveyed=true;say("eva_hold");}}
  else if(flight.ap==="climb"){flight.tp=8;flight.warp=12;flight.v=Math.min(7640,flight.v+dt*flight.warp*40);if(flight.A>=400){flight.A=400;flight.ap="none";flight.tp=0;flight.warp=1;}}
  else if(flight.ap==="hold"){flight.tp=0;flight.warp=4;}
  else flight.warp=1;
- flight.pitch+=(flight.tp-flight.pitch)*Math.min(1,dt*.9);
+ if(flight.ap!=="none")flight.pitch+=(flight.tp-flight.pitch)*Math.min(1,dt*.9);
  const dens=flight.A<140?Math.exp(-(flight.A-60)/25):0;
- if(flight.ap!=="climb")flight.v=Math.max(1800,flight.v-dens*flight.v*.012*dt*flight.warp);
- if(flight.ap!=="hold")flight.A=clamp(flight.A+flight.v*Math.sin(flight.pitch*PI/180)/1000*dt*flight.warp,55,40000);
+ if(flight.ap!=="climb"&&flight.ap!=="none")flight.v=Math.max(1800,flight.v-dens*flight.v*.012*dt*flight.warp);
+ if(flight.ap!=="hold"&&flight.ap!=="none")flight.A=clamp(flight.A+flight.v*Math.sin(flight.pitch*PI/180)/1000*dt*flight.warp,55,40000);
+ if(flight.A<=61)game.surveyed=true;if(flight.sharedWorld){const e=voyage.expedition,n=norm(e.position.map((v,i)=>v-sites[KEPLER].position[i]));e.position=sites[KEPLER].position.map((v,i)=>v+n[i]*(sites[KEPLER].radius+flight.A));e.orientation=fromEuler(flight.yaw||0,flight.pitch*PI/180,flight.roll||0);e.velocity=rotate(e.orientation,[0,0,-flight.v/1000]);}
  const ht=Math.min(1,dens*Math.pow(flight.v/7640,2)*1.5);flight.heat+=(ht-flight.heat)*Math.min(1,dt*.6);
  if(flight.heat>.35&&!game.autoShaded){game.autoShaded=true;game.shadeMemo=windows.map(w=>w.open);windows.forEach(w=>setWindow(w,false,true));say("eva_shades");SFX.alarm();if(game.tab)renderTab();}
  if(flight.heat<.15&&game.autoShaded){game.autoShaded=false;windows.forEach((w,i)=>setWindow(w,game.shadeMemo[i],true));say("eva_shades_up");if(game.tab)renderTab();}
@@ -670,13 +691,14 @@ function updateFlight(dt){if(surface)return;if(voyage.active){updateNavigation(d
 function updateShip(dt){
  rooms.forEach(r=>{r.t+=dt;const lv=roomLevel(r);r.fix.em=[1.5*lv,1.85*lv,2.3*lv];});
  rooms[2].fix.em=rooms[2].fix.em.map((v,i)=>v*[1.1,.9,.7][i]);
- windows.forEach(w=>{const tgt=w.open?0:1;w.k+=(tgt-w.k)*Math.min(1,dt*2.2);w.mesh.model=w.modelFn(w.k);});
+ windows.forEach(w=>{const tgt=w.open?0:1;w.k+=(tgt-w.k)*Math.min(1,dt*2.2);w.mesh.model=w.modelFn(w.k);w.mesh.hidden=w.k<.005;});
  doors.forEach(d=>{
+  if(d.locked){d.scan=-1;d.target=0;}
   if(d.scan>=0){d.scan+=dt;if(d.scan>=1.3){d.verified=true;d.scan=-1;d.granted=1;d.target=1;d.idle=0;SFX.grant();SFX.whoosh();if(!d.saidOnce){say("eva_grant");d.saidOnce=true;}}}
-  const near=Math.abs(pl.z-d.z)<1.6&&Math.abs(pl.x)<1.4;
+  const near=d.side?Math.abs(pl.x-d.x)<1.6&&Math.abs(pl.z-d.z)<1.3:Math.abs(pl.z-d.z)<1.6&&Math.abs(pl.x)<1.4;
   if(d.target&&!near){d.idle+=dt;if(d.idle>4){d.target=0;SFX.whoosh();}}else d.idle=0;
   d.open+=(d.target-d.open)*Math.min(1,dt*3.2);if(!d.target)d.granted=Math.max(0,d.granted-dt);
-  d.mesh.model=M.T(0,d.open*2.15,0);
+  d.mesh.model=M.T(0,d.open*2.15,0);if(d.exterior)d.exterior.model=M.mul(M.T(0,d.open*2.1,0),M.S(1,Math.max(.001,1-d.open),1));
   const aux=[d.scan>=0?1-d.scan/1.3:-1,d.scan>=0?1:0,d.granted,.6+.4*Math.sin(game.time*2)];d.pads.forEach(p=>p.aux=aux);});
  const open=1-windows[0].k;canopyGlow.em=[.15+.3*roomLevel(rooms[0]),.25+.45*roomLevel(rooms[0]),.4+.6*roomLevel(rooms[0])].map(v=>v*(.3+.7*open));
  winGlow.em=[.3,.4,.6].map(v=>v*Math.max(roomLevel(rooms[1]),roomLevel(rooms[2])));
@@ -694,11 +716,11 @@ function updatePlayer(dt){
  if(walkable(nx,pl.z))pl.x=nx;else pl.vx=0;if(walkable(pl.x,nz))pl.z=nz;else pl.vz=0;
  pl.crouch+=((keys.KeyC?1:0)-pl.crouch)*Math.min(1,dt*9);
  const spd=Math.hypot(pl.vx,pl.vz);pl.bob+=spd*dt*6.2;stepAcc+=spd*dt;if(stepAcc>.75){stepAcc=0;SFX.step();}
- pl.y=1.65-pl.crouch*.55+Math.sin(pl.bob)*.02*Math.min(spd/2,1);}
+ pl.y=(habitats.swimming(pl)?.55:1.65)-pl.crouch*.55+Math.sin(pl.bob)*.02*Math.min(spd/2,1);}
 
 /* ============================ HUD ============================ */
-function hud(){if(surface){$('objd').textContent='Explore '+sites[surface.planet].name+' · R skimmer · E sample / reboard';$('tl').innerHTML=`SURFACE / ${sampleTerrain(surface.planet,surface.n).biome.toUpperCase()}<br>EXPLORED ${Math.round(surface.walked)} M<br>SPECIMENS ${(voyage.samples||[]).length}`;$('tr').textContent='EVA · SURFACE LINK ONLINE';$('prompt').textContent=arcDistance(surface.n,surface.lander,surface.radius)<12?'E · REBOARD LANDER':'E · COLLECT SPECIMEN';return;}atExchange=voyage.expedition.onStation&&pl.z<83;const vs=flight.v*Math.sin(flight.pitch*PI/180);
- $("tl").innerHTML=`VEL <b>${flight.v.toFixed(0)}</b> M/S &nbsp; ALT <b>${flight.A.toFixed(1)}</b> KM<br>PITCH <b>${(flight.pitch>=0?"+":"")+flight.pitch.toFixed(1)}°</b> &nbsp; V/S <b>${(vs>=0?"+":"")+vs.toFixed(0)}</b> M/S<br>CAM <b>${["FIRST PERSON","PORT HULL","STARBOARD HULL","FORWARD HULL"][game.cam]}</b>${game.flash?" · <b>LIGHT</b>":""}`;
+function hud(){if(surface){$('objd').textContent='Explore '+sites[surface.planet].name+' · R skimmer · E sample / reboard';$('tl').innerHTML=`SURFACE / ${sampleTerrain(surface.planet,surface.n).biome.toUpperCase()}<br>EXPLORED ${Math.round(surface.walked)} M<br>SPECIMENS ${(voyage.samples||[]).length}`;$('tr').textContent='EVA · SURFACE LINK ONLINE';$('prompt').textContent=hatchDistance()<6?'E · REBOARD SV-7':'E · COLLECT SPECIMEN';return;}atExchange=voyage.expedition.onStation&&pl.z<83;const vs=voyage.active?voyage.expedition.velocity[1]*1000:(flight.body?.velocity[1]*1000||flight.v*Math.sin(flight.pitch*PI/180));
+ $("tl").innerHTML=`VEL <b>${flight.v.toFixed(0)}</b> M/S &nbsp; ALT <b>${flight.A.toFixed(1)}</b> KM<br>PITCH <b>${(flight.pitch>=0?"+":"")+flight.pitch.toFixed(1)}°</b> &nbsp; V/S <b>${(vs>=0?"+":"")+vs.toFixed(0)}</b> M/S<br>CAM <b>${["FIRST PERSON","PORT HULL","STARBOARD HULL","FORWARD HULL","THIRD PERSON / ORBIT"][game.cam]}</b>${game.flash?" · <b>LIGHT</b>":""}`;
  const now=new Date();$("tr").innerHTML=`${now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}<br>AP <b>${flight.ap.toUpperCase()}</b>${flight.warp>1?" · ×"+flight.warp:""}<br>HEAT <b style="color:${flight.heat>.35?"#ff7a6b":"#eaf6ff"}">${Math.round(flight.heat*100)}%</b>`;
  $("heat").style.opacity=(flight.heat*.9*(game.cam===0?(1-windows[0].k*.85):1)).toFixed(3);
  if(voyage.active)$("tl").innerHTML+=`<br>SECTOR ${speed(voyage.expedition).toFixed(2)} KM/S · THRUST ${Math.round(voyage.throttle*100)}%<br>${sites[voyage.expedition.target].name.toUpperCase()} · ${distance(voyage.expedition).toFixed(2)} KM${voyage.pilot?" · PILOT":""}`;
@@ -710,9 +732,9 @@ let last=performance.now(),scrAcc=0,hudAcc=0;
 function frame(now){const dt=Math.min((now-last)/1000,.1);last=now;
  if(game.mode==="menu"){requestAnimationFrame(loop);return;}
  if(document.hidden){requestAnimationFrame(loop);return;}
- game.time+=dt;voicePlayer.tick(dt);updateExtras(dt);
+ game.time+=dt;voicePlayer.tick(dt);updateAmbience(dt);updateExtras(dt);
 
- updateShip(dt);
+ habitats.update(dt);updateShip(dt);
  scrAcc+=dt;if(scrAcc>.2){scrAcc=0;drawScreens();}
  if(A.amb){const target=(game.mode==="play"&&game.cam===0)||(game.mode==="cut"&&game.cutT>14.5)?.9:.25;A.amb.gain.value+=(target-A.amb.gain.value)*Math.min(1,dt*2);}
  if(game.mode==="cut"){
@@ -725,7 +747,9 @@ function frame(now){const dt=Math.min((now-last)/1000,.1);last=now;
   updateFlight(dt);updatePlayer(dt);
   const shake=flight.heat>.2?(flight.heat-.2)*.02:0,sx=(Math.random()-.5)*shake,sy2=(Math.random()-.5)*shake;
   if(surface){renderSurface();}else if(game.cam===0){const e=[pl.x+sx,pl.y+sy2,pl.z],f=fwd();render(e,[e[0]+f[0],e[1]+f[1],e[2]+f[2]],false,voyage.pilot?Math.max(72,Math.atan(Math.tan(52*PI/180)/(VW/VH))*360/PI):72);}
-  else{const poses=[null,[[-8.4,3.3,25],[-2,1,-9]],[[8.4,3.3,25],[2,1,-9]],[[0,2,-8],[0,2,-30]]];const c=poses[game.cam];render(c[0],c[1],true,65);}
+  else if(game.cam===4){const r=orbit.distance,c=Math.cos(orbit.pitch);render([Math.sin(orbit.yaw)*r*c,3+Math.sin(orbit.pitch)*r,8+Math.cos(orbit.yaw)*r*c],[0,1.3,8],true,62);}
+  else{const poses=[null,[[-8.4,3.3,25],[-2,1,-9]],[[8.4,3.3,25],[2,1,-9]],[[0,1.6,-10.7],[0,1.6,-30]]];const c=poses[game.cam];render(c[0],c[1],true,65);}
+  if(!surface)entryEffects.render(flight.heat*.6,game.time);
   hudAcc+=dt;if(hudAcc>.1){hudAcc=0;hud();storyTick();liveTab();}
  }
  requestAnimationFrame(loop);}
@@ -751,47 +775,51 @@ requestAnimationFrame(loop);
    Sector movement is simulated in km; geometry is rendered in ship coordinates.
 */
 function notice(text){$('notice').textContent=text;$('notice').classList.add('show');clearTimeout(notice.timer);notice.timer=setTimeout(()=>$('notice').classList.remove('show'),4200);}
-function togglePilot(){if(surface)return;if(game.mode!=='play'||voyage.expedition.onStation)return;if(voyage.controlled>=0)releaseDrone();voyage.pilot=!voyage.pilot;setCam(0);pl.x=0;pl.z=voyage.pilot?-4.95:-4.1;pl.y=voyage.pilot?1.58:1.65;pl.yaw=0;pl.pitch=voyage.pilot?-.2:-.05;pl.vx=pl.vz=0;if(voyage.pilot&&game.tab){game.tab=false;$("tab").classList.remove("up");canvas.focus();}notice(voyage.pilot?'PILOT LINK — W/S thrust · A/D yaw · R/F pitch · B brake. T opens navigation.':'Pilot link released.');}
-function updateNavigation(dt){const e=voyage.expedition;let turn=0,pitch=0;if(voyage.pilot&&keys.KeyB)command(voyage,'brake');if(voyage.pilot&&!game.tab){turn=Number(!!keys.KeyA)-Number(!!keys.KeyD);pitch=Number(!!keys.KeyR)-Number(!!keys.KeyF);const thrust=Number(!!keys.KeyW)-Number(!!keys.KeyS);if(thrust&&e.docked<0)issuePilot('thrust',thrust*dt*.24);}
- stepVoyage(voyage,dt,{turn,pitch},game.story);flight.v=speed(e)*1000;flight.pitch=e.pitch*180/PI;flight.tp=flight.pitch;flight.ap=e.autopilot?'navigation':'none';flight.heat=Math.max(0,flight.heat-dt*.04);
- if(e.onStation)return;const near=primaryPlanet();flight.A=distance(e,near);
-}
-function startScene(ids){if(!ids.length)return;voicePlayer.stop();game.mode='scene';sceneTime=0;sceneCamera=voyage.phase===7?1:0;game.tab=false;$('tab').classList.remove('up');document.exitPointerLock?.();document.body.classList.add('cine');ids.forEach(say);}
+function togglePilot(){if(surface)return;if(game.mode!=='play'||voyage.expedition.onStation)return;if(!voyage.pilot&&(pl.z> -3.3||pl.z< -6.8||Math.abs(pl.x)>2.7)){notice('Walk to the cockpit to take the pilot seat.');return;}if(voyage.controlled>=0)releaseDrone();voyage.pilot=!voyage.pilot;setCam(0);pl.x=0;pl.z=voyage.pilot?-4.95:-4.1;pl.y=voyage.pilot?1.58:1.65;pl.yaw=0;pl.pitch=voyage.pilot?-.2:-.05;pl.vx=pl.vz=0;if(voyage.pilot&&game.tab){game.tab=false;$("tab").classList.remove("up");canvas.focus();}notice(voyage.pilot?'PILOT LINK — W/S forward/reverse · AD yaw · RF pitch · QE roll · Shift/Ctrl vertical · B brake. T navigation.':'Pilot link released.');}
+function flightInput(){if(game.tab||!voyage.pilot||habitats.locked||grounded)return {};return {throttle:Number(!!keys.KeyW)-Number(!!keys.KeyS),turn:Number(!!keys.KeyA)-Number(!!keys.KeyD),pitch:Number(!!keys.KeyR)-Number(!!keys.KeyF),roll:Number(!!keys.KeyQ)-Number(!!keys.KeyE),vertical:Number(!!(keys.ShiftLeft||keys.ShiftRight))-Number(!!(keys.ControlLeft||keys.ControlRight)),lateral:Number(!!keys.KeyX)-Number(!!keys.KeyZ)};}
+function updateNavigation(dt){const e=voyage.expedition,input=flightInput();input.throttle=input.throttle||voyage.throttle;const old=[...e.position],world=nearestWorld(e,sites);if(voyage.pilot&&!game.tab&&keys.KeyB)issuePilot('brake');
+ // Low-altitude RCS precision affects acceleration, not attitude or existing momentum.
+ if(world&&world.altitude<500){for(const key of ['throttle','vertical','lateral'])if(input[key])input[key]*=.01+.99*clamp(world.altitude/500,0,1);}
+ const heat=atmosphericForces(e,world,dt);if(!voyage.active)stepExpedition(e,dt,{...input,throttle:input.throttle||voyage.throttle,terrainFlight:true});stepVoyage(voyage,dt,{...input,throttle:input.throttle||voyage.throttle,terrainFlight:!e.autopilot},game.story);const contact=resolveTerrainContact(e,old,sites);
+ if(contact){voyage.throttle=0;if(contact.soft){grounded={planet:contact.planet,radius:sites[contact.planet].radius*1000,n:[...contact.n],lander:[...contact.n],origin:[...contact.n],orientation:[...e.orientation],walked:0,samples:[],recall:0};notice('TOUCHDOWN · Flight state retained. Open the stern airlock to explore.');saveGame();}else{voyage.systems.faults[3]=true;notice('HARD CONTACT · Engines isolated. Repair, level the ship and approach below 12 m/s.');}}
+ flight.v=speed(e)*1000;flight.pitch=e.pitch*180/PI;flight.roll=e.roll||0;flight.tp=flight.pitch;flight.ap=e.autopilot?'navigation':'none';flight.heat+=(heat-flight.heat)*Math.min(1,dt*2);if(e.onStation)return;flight.A=(nearestWorld(e,sites)?.altitude||0)/1000;}
+
+function startScene(ids){if(!ids.length)return;game.mode='scene';sceneTime=0;sceneCamera=voyage.phase===7?1:0;game.tab=false;$('tab').classList.remove('up');document.exitPointerLock?.();document.body.classList.add('cine');ids.forEach(say);}
 function finishScene(){voicePlayer.stop();game.mode='play';document.body.classList.remove('cine');sceneTime=0;canvas.focus();}
-function saveGame(){voyage.surface=surface;const ok=saveVoyage(voyage,{step:game.step,altitude:flight.A,story:game.story});if(!ok)notice('Save unavailable. Browser storage may be blocked or full.');return ok;}
+function saveGame(){voyage.habitats=habitats.save();voyage.grounded=grounded;voyage.shipState={lights:rooms.map(r=>r.on),doors:doors.map(d=>!!d.verified),windows:windows.map(w=>w.open)};voyage.surface=surface;const ok=saveVoyage(voyage,{step:game.step,altitude:flight.A,story:game.story});if(!ok)notice('Save unavailable. Browser storage may be blocked or full.');return ok;}
 function boardStation(){if(!command(voyage,'board')){notice(voyage.expedition.message);return;}voyage.pilot=false;voyage.controlled=-1;setCam(0);pl.x=0;pl.z=97;pl.y=1.65;pl.yaw=0;pl.pitch=0;game.tab=false;$('tab').classList.remove('up');notice('Exchange ahead. Return through the rear airlock to reboard.');}
 function returnFromStation(){if(!voyage.expedition.onStation||pl.z<94){notice('Walk back to the rear airlock first.');return;}command(voyage,'return');pl.x=0;pl.z=-4.1;pl.yaw=0;pl.pitch=0;setCam(0);atExchange=false;saveGame();}
 const roomLabels=['COCKPIT','CORRIDOR / QUARTERS','STORAGE / SCIENCE','ENGINEERING'];
-function systemsHTML(){return '<h3>ATMOSPHERE & MAINTENANCE</h3><div class="hint">REMOTE REPAIR / SAFE COMPARTMENT ISOLATION</div>'+roomLabels.map((n,i)=>`<div class="row"><div>${n}<small>${voyage.systems.pressure[i].toFixed(0)}% · ${voyage.systems.temperature[i].toFixed(0)}°C · ${voyage.systems.faults[i]?'ISOLATED':'STABLE'}</small></div><div><button data-act="fault:${i}">TEST FAULT</button> <button data-act="repair:${i}">REPAIR</button></div></div>`).join('')+`<div class="row"><span>INTRUDERS ${voyage.systems.intruders}</span><button data-act="intrusion">TEST INTRUSION</button><button data-act="security">SECURITY PULSE</button></div>`;}
-function dronesHTML(){return '<h3>MICROBOT SERVICE SWARM</h3>'+voyage.drones.map((d,i)=>`<div class="row"><div>${d.name}<small>${d.hp.toFixed(0)}% · ${roomLabels[d.room]}</small></div><div><button data-act="drone:${i}" ${d.hp<=0?'disabled':''}>${voyage.controlled===i?'RELEASE':'CONTROL'}</button> <button data-act="hit:${i}">TEST HIT</button></div></div>`).join('')+'<div class="hint">Invisible microbots / remote optical link. WASD and mouse: link motion. E repairs the current compartment. Destroyed links return to crew.</div>';}
+function systemsHTML(){return '<h3>ATMOSPHERE & MAINTENANCE</h3><div class="hint">REMOTE REPAIR / SAFE COMPARTMENT ISOLATION</div>'+roomLabels.map((n,i)=>`<div class="row"><div>${n}<small>${voyage.systems.pressure[i].toFixed(0)}% · ${voyage.systems.temperature[i].toFixed(0)}°C · ${voyage.systems.faults[i]?'ISOLATED':'STABLE'}</small></div><div><button data-act="repair:${i}">REPAIR</button></div></div>`).join('')+`<div class="row"><span>INTRUDERS ${voyage.systems.intruders}</span><button data-act="security">SECURITY PULSE</button></div>`;}
+function dronesHTML(){return '<h3>MICROBOT SERVICE SWARM</h3>'+voyage.drones.map((d,i)=>`<div class="row"><div>${d.name}<small>${d.hp.toFixed(0)}% · ${roomLabels[d.room]}</small></div><div><button data-act="drone:${i}" ${d.hp<=0?'disabled':''}>${voyage.controlled===i?'RELEASE':'CONTROL'}</button></div></div>`).join('')+'<div class="hint">Invisible microbots / remote optical link. WASD and mouse: link motion. E repairs the current compartment. Destroyed links return to crew.</div>';}
 function navigationHTML(){const e=voyage.expedition;return `<h3>ASTERION REACH / ${sites.length} DESTINATIONS</h3><div class="hint">${game.story?objectives[voyage.phase]:'FREE EXPLORATION — SPACE & STATIONS'}</div><button data-act="pilot">${voyage.pilot?'LEAVE PILOT SEAT':'TAKE PILOT SEAT'}</button><div class="row"><div>${e.credits} CR<small>DRIVE ${e.engine}/3 · SCANNER ${e.sensor}/3</small></div><button data-act="save">SAVE</button></div><label for="target">DESTINATION</label><select id="target">${sites.map((s,i)=>`<option value="${i}" ${e.target===i?'selected':''}>${s.name} · ${s.kind}</option>`).join('')}</select><div class="row"><div>${sites[e.target].name}<small data-nav="range">${distance(e).toFixed(2)} KM · ${speed(e).toFixed(2)} KM/S</small></div><div data-nav="course">${e.autopilot?'AUTO':e.docked>=0?'DOCKED':'MANUAL'}</div></div><div class="hint" data-nav="message">${e.message}</div>
- ${e.onStation?`<div class="hint" data-nav="exchange">${atExchange?'EXCHANGE CONNECTED':'WALK FORWARD TO THE EXCHANGE'}</div><div class="grid2"><button data-act="nav:sell">ARCHIVE · ${pendingCredits(e)} CR</button><button data-act="nav:engine">DRIVE UPGRADE</button><button data-act="nav:sensor">SCANNER UPGRADE</button><button data-act="return">RETURN TO SHIP</button></div>`:`<div class="grid2">${e.docked>=0?'<button data-act="nav:undock">UNDOCK</button><button data-act="board">ENTER STATION</button>':'<button data-act="nav:navigate">ENGAGE / CANCEL COURSE</button><button data-act="nav:brake">BRAKE / HOLD</button><button data-act="nav:scan">SURVEY</button><button data-act="nav:recover">RECOVER ARTIFACT</button><button data-act="nav:dock">DOCK</button>'}</div><div class="row"><span>THRUST <b id="thrust-value">${Math.round(voyage.throttle*100)}%</b></span><input id="thrust" type="range" min="0" max="100" value="${voyage.throttle*100}" aria-label="Ship thrust"></div>`}
+ ${e.onStation?`<div class="hint" data-nav="exchange">${atExchange?'EXCHANGE CONNECTED':'WALK FORWARD TO THE EXCHANGE'}</div><div class="grid2"><button data-act="nav:sell">ARCHIVE · ${pendingCredits(e)} CR</button><button data-act="nav:engine">DRIVE UPGRADE</button><button data-act="nav:sensor">SCANNER UPGRADE</button><button data-act="return">RETURN TO SHIP</button></div>`:`<div class="grid2">${e.docked>=0?'<button data-act="nav:undock">UNDOCK</button><button data-act="board">ENTER STATION</button>':'<button data-act="nav:navigate">ENGAGE / CANCEL COURSE</button><button data-act="nav:brake">BRAKE / HOLD</button><button data-act="nav:scan">SURVEY</button><button data-act="nav:recover">RECOVER ARTIFACT</button><button data-act="nav:dock">DOCK</button>'}</div><div class="row"><span>THRUST <b id="thrust-value">${Math.round(voyage.throttle*100)}%</b></span><input id="thrust" type="range" min="-100" max="100" value="${voyage.throttle*100}" aria-label="Ship thrust"></div>`}
  <details><summary>DISCOVERY JOURNAL / ${e.scanned.length}</summary>${e.scanned.map(i=>`<h4>${sites[i].name}</h4><p>${sites[i].lore}</p>`).join('')||'<p>Survey a destination to begin your journal.</p>'}</details>`;}
-function repairRoom(i){if(i<0||i>3)return;voyage.systems.faults[i]=false;notice(roomLabels[i]+': fault sealed. Atmosphere recovering.');}
+function repairRoom(i){if(i<0||i>3)return;const r=dispatchRepair(voyage,i);notice(r.message);}
 let crewPose=null;
 function releaseDrone(){voyage.controlled=-1;if(crewPose)Object.assign(pl,crewPose);crewPose=null;setCam(0);}
-function handleExtra(k,v){if(k==='pilotcmd'){issuePilot(v);return true;}else if(k==='yaw'){issuePilot('yaw',+v);return true;}else if(k==='rover'){if(surface)surface.rover=!surface.rover;return true;}else if(k==='sample'){collectSample();return true;}else if(k==='surface'){landOnPlanet();}else if(k==='ascend'){leaveSurface();}else if(k==='recall'){recallLander();}else if(k==='quality'){renderScale=Number(v);resize();}else if(k==='mute'){A.muted=!A.muted;voicePlayer.setMuted(A.muted);if(A.master)A.master.gain.value=A.muted?0:.9;}else if(k==='pilot')togglePilot();else if(k==='save'){if(saveGame())notice('Expedition saved on this device.');}else if(k==='nav'){if(surface){notice('Return to orbit before issuing ship commands.');return true;}command(voyage,v,atExchange);notice(voyage.expedition.message);saveGame();}else if(k==='board')boardStation();else if(k==='return')returnFromStation();else if(k==='fault')voyage.systems.faults[+v]=true;else if(k==='repair')repairRoom(+v);else if(k==='intrusion')voyage.systems.intruders=Math.min(4,voyage.systems.intruders+1);else if(k==='security')voyage.systems.intruders=Math.max(0,voyage.systems.intruders-1);else if(k==='drone'){if(surface||voyage.expedition.onStation){notice('Return to the ship before linking microbot optics.');return true;}if(voyage.controlled===+v)releaseDrone();else if(voyage.drones[+v]?.hp>0){if(!crewPose)crewPose={x:pl.x,y:pl.y,z:pl.z,yaw:pl.yaw,pitch:pl.pitch};voyage.controlled=+v;voyage.pilot=false;pl.x=0;pl.y=1.2;pl.z=[-4,-1,8,14][voyage.drones[+v].room];setCam(0);if(game.tab)toggleTab();}}else if(k==='hit'){const d=voyage.drones[+v];if(d)d.hp=Math.max(0,d.hp-50);}else if(k==='stopvoice')voicePlayer.stop();else return false;return true;}
+function handleExtra(k,v){if(k==='stream'){celestialRenderer.textures.setEnabled(!celestialRenderer.textures.stream.enabled);return true;}if(k==='assetclear'){celestialRenderer.textures.clear();return true;}if(k==='habdeploy'||k==='habstow'){habitats.request(v,k==='habdeploy');return true;}if(k==='disembark'){if(outerHatch.open>.85)disembark();else notice('Open the exterior hatch first.');return true;}if(k==='takeoff'){takeoff();return true;}if(k==='hatch'){useDoor(outerHatch);return true;}if(k==='pilotcmd'){issuePilot(v);return true;}else if(k==='yaw'||k==='roll'){issuePilot(k,+v);return true;}else if(k==='rover'){if(surface)surface.rover=!surface.rover;return true;}else if(k==='sample'){collectSample();return true;}else if(k==='surface'){landOnPlanet();}else if(k==='ascend'){leaveSurface();}else if(k==='recall'){recallLander();}else if(k==='quality'){renderScale=Number(v);resize();}else if(k==='mute'){A.muted=!A.muted;voicePlayer.setMuted(A.muted);if(A.master)A.master.gain.value=A.muted?0:.9;}else if(k==='pilot')togglePilot();else if(k==='save'){if(saveGame())notice('Expedition saved on this device.');}else if(k==='nav'){if(['navigate','undock'].includes(v)&&!flightReady())return true;if(surface){notice('Return to orbit before issuing ship commands.');return true;}command(voyage,v,atExchange);notice(voyage.expedition.message);saveGame();}else if(k==='board')boardStation();else if(k==='return')returnFromStation();else if(k==='repair')repairRoom(+v);else if(k==='security')voyage.systems.intruders=Math.max(0,voyage.systems.intruders-1);else if(k==='drone'){if(surface||voyage.expedition.onStation){notice('Return to the ship before linking microbot optics.');return true;}if(voyage.controlled===+v)releaseDrone();else if(voyage.drones[+v]?.hp>0){if(!crewPose)crewPose={x:pl.x,y:pl.y,z:pl.z,yaw:pl.yaw,pitch:pl.pitch};voyage.controlled=+v;voyage.pilot=false;pl.x=0;pl.y=1.2;pl.z=[-4,-1,8,14][voyage.drones[+v].room];setCam(0);if(game.tab)toggleTab();}}else if(k==='stopvoice')voicePlayer.stop();else return false;return true;}
 tbody.addEventListener('change',e=>{if(e.target.id==='target'){selectTarget(voyage.expedition,+e.target.value);renderTab();}});
 tbody.addEventListener('input',e=>{if(e.target.id==='thrust'){if(!voyage.pilot){e.target.value=0;notice('Take the pilot seat first.');return;}issuePilot('thrust',+e.target.value/100-voyage.throttle);e.target.value=voyage.throttle*100;$('thrust-value').textContent=Math.round(voyage.throttle*100)+'%';}});
 const breathAudio=new Audio(breathURL);breathAudio.loop=true;breathAudio.volume=.16;
-function updateExtras(dt){if(game.mode==='play'){if(!voyage.active)stepVoyage(voyage,dt,{},false);if(game.story&&voyage.pending.length)startScene(voyage.pending.splice(0));saveClock+=dt;if(saveClock>15){saveClock=0;saveGame();}if(voyage.controlled>=0&&voyage.drones[voyage.controlled].hp<=0){releaseDrone();$('signal-loss').classList.add('show');setTimeout(()=>$('signal-loss').classList.remove('show'),2000);}}
+function updateExtras(dt){if(game.mode==='play'&&voyage.active&&!surface&&voyage.expedition.target===8&&!voyage.expedition.scanned.includes(8)&&distance(voyage.expedition)<2&&speed(voyage.expedition)>.35){voyage.sentinelExposure=(voyage.sentinelExposure||0)+dt;if(voyage.sentinelExposure>6&&!voyage.sentinelWarned){voyage.sentinelWarned=true;voyage.systems.faults[2]=true;notice('Sentinel interdiction: cargo circuit isolated. Hold position and survey to establish a handshake.');}}if(flight.heat>.85){voyage.heatExposure=(voyage.heatExposure||0)+dt;if(voyage.heatExposure>8&&!voyage.heatFault){voyage.heatFault=true;voyage.systems.faults[3]=true;notice('Coolant overload. Dispatch a service swarm or reset the engineering breakers.');}}if(game.mode==='play'){if(!voyage.active)stepVoyage(voyage,dt,{},false);if(game.story&&voyage.pending.length&&!voicePlayer.busy){const cues=voyage.pending.splice(0);if(voyage.phase===7)startScene(cues);else cues.forEach(say);}saveClock+=dt;if(saveClock>15){saveClock=0;saveGame();}if(voyage.controlled>=0&&voyage.drones[voyage.controlled].hp<=0){releaseDrone();$('signal-loss').classList.add('show');setTimeout(()=>$('signal-loss').classList.remove('show'),2000);}}
  const breathe=A.breath&&!A.muted&&game.mode==='play'&&game.cam===0&&!voyage.pilot&&!voyage.expedition.onStation;if(breathe){if(breathAudio.paused)breathAudio.play().catch(()=>{});}else breathAudio.pause();
  updatePilotHUD();if(game.tab&&page==='NAVIGATION'){const e=voyage.expedition;const q=k=>tbody.querySelector(`[data-nav="${k}"]`);if(q('range'))q('range').textContent=`${distance(e).toFixed(2)} KM · ${speed(e).toFixed(2)} KM/S`;if(q('message'))q('message').textContent=e.message+(e.scanning?` / ${Math.round(e.scanProgress*100)}%`:'');if(q('exchange'))q('exchange').textContent=atExchange?'EXCHANGE CONNECTED':'WALK FORWARD TO THE EXCHANGE';if(q('course'))q('course').textContent=e.autopilot?'AUTOPILOT':e.docked>=0?'DOCKED':'MANUAL';}
  updateSpaceMeshes();updateStationCrowd();
 }
 document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden){voicePlayer.pause();breathAudio.pause();A.ctx?.suspend();}else{voicePlayer.resume();A.ctx?.resume();}});addEventListener('pagehide',()=>{if(game.mode!=='menu')saveGame();voicePlayer.stop();breathAudio.pause();});
-function restoreGame(){const saved=loadVoyage();if(!saved){notice('No valid save found on this device.');return;}audioInit();voyage=saved.voyage;game.story=saved.prologue.story;game.step=saved.prologue.step;game.mode='play';flight.A=saved.prologue.altitude;game.surveyed=game.step>=6;rooms[2].on=game.step>=2;doors.forEach(d=>d.verified=game.step>=3);if(game.step===5)flight.ap=flight.A<=61?'hold':'entry';if(game.step===6&&flight.A>=399)flight.A=60;pl.x=0;pl.z=-4.1;$('menu').style.display='none';$('objd').textContent=voyage.active?objectives[voyage.phase]:STEPS[game.step].d;if(voyage.surface){surface=voyage.surface;pl.yaw=0;pl.pitch=-.1;}canvas.focus();}
+function restoreGame(){const saved=loadVoyage();if(!saved){notice('No valid save found on this device.');return;}audioInit();voyage=saved.voyage;game.story=saved.prologue.story;game.step=saved.prologue.step;game.mode='play';flight.A=saved.prologue.altitude;game.surveyed=game.step>=6;rooms[2].on=game.step>=2;doors.forEach(d=>d.verified=game.step>=3);flight.ap='none';flight.v=0;if(!voyage.active){flight.sharedWorld=true;const radius=Math.hypot(...voyage.expedition.position.map((v,i)=>v-sites[KEPLER].position[i]));if(radius>1000||voyage.expedition.docked>=0)initializeOrbitalWorld();}if(game.step===6&&flight.A>=399)flight.A=60;pl.x=0;pl.z=-4.1;$('menu').style.display='none';$('objd').textContent=voyage.active?objectives[voyage.phase]:STEPS[game.step].d;if(voyage.shipState){rooms.forEach((r,i)=>{r.on=voyage.shipState.lights[i]??r.on;});doors.forEach((d,i)=>d.verified=voyage.shipState.doors[i]??d.verified);windows.forEach((w,i)=>w.open=voyage.shipState.windows[i]??w.open);}habitats.restore(voyage.habitats);grounded=voyage.grounded||null;if(voyage.surface){surface=voyage.surface;pl.yaw=0;pl.pitch=-.1;}canvas.focus();}
 $('bContinue').addEventListener('click',restoreGame);$('quickTablet').addEventListener('click',()=>{if(game.mode==='play')toggleTab();});$('quickPilot').addEventListener('click',togglePilot);$('quickInteract').addEventListener('click',()=>{if(game.mode==='play')interact();});$('quickSkip').addEventListener('click',()=>{if(game.mode==='cut')endCutscene();else if(game.mode==='scene')finishScene();});
 for(const button of document.querySelectorAll('[data-key]')){button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);keys[button.dataset.key]=true;});for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,()=>keys[button.dataset.key]=false);}
-let touch=null;canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&game.mode==='play'&&game.cam===0){touch=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);}});canvas.addEventListener('pointermove',e=>{if(touch&&e.pointerType==='touch'){pl.yaw-=(e.clientX-touch[0])*.004;pl.pitch=clamp(pl.pitch-(e.clientY-touch[1])*.004,-1.5,1.5);touch=[e.clientX,e.clientY];}});for(const ev of ['pointerup','pointercancel'])canvas.addEventListener(ev,()=>touch=null);
+let touch=null;canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&game.mode==='play'&&[0,4].includes(game.cam)){touch=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);}});canvas.addEventListener('pointermove',e=>{if(touch&&e.pointerType==='touch'){if(game.cam===4){orbit.yaw-=(e.clientX-touch[0])*.004;orbit.pitch=clamp(orbit.pitch+(e.clientY-touch[1])*.004,-.15,1.35);}else{pl.yaw-=(e.clientX-touch[0])*.004;pl.pitch=clamp(pl.pitch-(e.clientY-touch[1])*.004,-1.5,1.5);}touch=[e.clientX,e.clientY];}});for(const ev of ['pointerup','pointercancel'])canvas.addEventListener(ev,()=>touch=null);
 const celestial=sites.map((s,i)=>({s,i})).filter(({s})=>['planet','moon'].includes(s.kind));
 function primaryPlanet(){const e=voyage.expedition;if(['planet','moon'].includes(sites[e.target].kind))return e.target;return celestial.reduce((a,b)=>distance(e,a.i)<distance(e,b.i)?a:b).i;}
-function toLocal(v){const e=voyage.expedition,c=Math.cos(e.yaw),s=Math.sin(e.yaw),cp=Math.cos(e.pitch),sp=Math.sin(e.pitch);const x=v[0]*c-v[2]*s,z=v[0]*s+v[2]*c;return [x,v[1]*cp+z*sp,-v[1]*sp+z*cp];}
-function bodyPosition(i){return toLocal(sites[i].position.map((x,j)=>(x-voyage.expedition.position[j])*120));}
+function toLocal(v){return toBody(voyage.expedition,v);}
+function bodyPosition(i){const scale=['planet','moon'].includes(sites[i].kind)?1000:120;return toLocal(sites[i].position.map((x,j)=>(x-voyage.expedition.position[j])*scale));}
 const planetTints={6:[.65,1,.85],7:[.8,.85,.95],10:[1.7,.55,.22],11:[.12,.65,1.5],12:[1.1,1.45,1.7],13:[1.5,1,.55]};
 function setPlanetUniforms(){const p=voyage.active?primaryPlanet():6;gl.uniform3fv(U(pSky,'uTint'),voyage.active?(planetTints[p]||[1,1,1]):[1,1,1]);gl.uniform1f(U(pSky,'uStyle'),p===13?2:p===10?1:0);const others=voyage.active?celestial.filter(x=>x.i!==p).sort((a,b)=>distance(voyage.expedition,a.i)-distance(voyage.expedition,b.i)).slice(0,6):[];const b=new Float32Array(24),t=new Float32Array(18);others.forEach(({s,i},k)=>{b.set([...bodyPosition(i),s.radius*120],k*4);t.set(planetTints[i]||[.6,.7,.8],k*3);});gl.uniform1i(U(pSky,'uBodyCount'),others.length);gl.uniform4fv(U(pSky,'uBodies[0]'),b);gl.uniform3fv(U(pSky,'uTints[0]'),t);}
 const spaceObjects=[];
-for(let i=0;i<sites.length;i++){const site=sites[i];if(['planet','moon'].includes(site.kind))continue;const b=new B();if(site.kind==='station'){for(let k=0;k<16;k++){const a=k*PI/8;b.box([Math.cos(a)*14,Math.sin(a)*14,0],[1.8,1.5,2]);}b.cyl([0,0,-5],2.3,10,24,'z');for(const side of [-1,1]){b.box([side*22,0,0],[8,6,.2]);b.box([side*12,0,0],[12,.25,.25]);}}else if(site.kind==='field'){for(let k=0;k<36;k++){const a=k*2.399;b.box([Math.cos(a)*k*2,Math.sin(k*3.1)*20,Math.sin(a)*k*2],[1+k%4,1.5,2]);}}else if(site.kind==='derelict'){for(let k=0;k<6;k++){b.box([Math.sin(k)*2,0,k*4],[3,.8,1.9]);b.box([3,2,k*4],[.12,2,.12]);}}else{for(let k=0;k<8;k++){const a=k*PI/4;b.box([Math.cos(a)*6,Math.sin(a)*6,0],[.5,1.5,.8]);}b.cyl([0,0,-1],1.8,2,16,'z');}const m=add(b.build(),MAT.HULL,[.26,.34,.37],.65,.5);m.space=true;spaceObjects.push({m,i});}
+for(let i=0;i<sites.length;i++){const site=sites[i];if(['planet','moon'].includes(site.kind))continue;const b=new B();if(site.kind==='station'){const parts=stationGeometry(B);for(const [key,geo] of Object.entries(parts)){const m=add(geo.build(),key==='light'?MAT.GLOW:MAT.EXT,key==='body'?[.12,.19,.25]:[.5,.56,.57],.8,.33,{em:key==='light'?[.2,.8,1.5]:[0,0,0]});m.space=true;spaceObjects.push({m,i});}continue;}else if(site.kind==='field'){for(let k=0;k<36;k++){const a=k*2.399;b.box([Math.cos(a)*k*2,Math.sin(k*3.1)*20,Math.sin(a)*k*2],[1+k%4,1.5,2]);}}else if(site.kind==='derelict'){for(let k=0;k<6;k++){b.box([Math.sin(k)*2,0,k*4],[3,.8,1.9]);b.box([3,2,k*4],[.12,2,.12]);}}else{const parts=alienGeometry(B);for(const [key,geo] of Object.entries(parts)){const m=add(geo.build(),key==='glyphs'?MAT.GLOW:MAT.EXT,key==='glyphs'?[.08,.8,.65]:[.065,.08,.09],.8,.3,{em:key==='glyphs'?[.05,1.2,.8]:[0,0,0]});m.space=true;m.alien=key==='glyphs';spaceObjects.push({m,i});}continue;}const m=add(b.build(),MAT.HULL,[.26,.34,.37],.65,.5);m.space=true;spaceObjects.push({m,i});}
 const stationMeshes=[],citizens=[];
 function stationPiece(b,color,em=[0,0,0]){const m=add(b.build(),em.some(x=>x)?MAT.GLOW:MAT.HULL,color,.3,.55,{em});m.zone='station';stationMeshes.push(m);return m;}
 {const b=new B();b.box([0,-.1,90],[6,.1,10]);b.box([0,3.4,90],[6,.1,10]);for(const x of [-6,6])b.box([x,1.7,90],[.1,1.7,10]);for(const z of [80,100])b.box([0,1.7,z],[6,1.7,.1]);stationPiece(b,[.25,.35,.4]);}
@@ -801,33 +829,79 @@ function stationLabel(text,pos,size){const b=new B();b.plane(pos,[size,0,0],[0,-
 stationLabel('EXPLORATION EXCHANGE',[-2.6,2.8,80.2],5.2);stationLabel('SV-7 / DOCK AIRLOCK',[-2,2.8,99.8],4);
 for(let i=0;i<12;i++){const b=new B();b.box([0,1,0],[.17,.3,.12]);b.box([0,1.45,0],[.12,.15,.12]);for(const s of [-1,1]){b.box([s*.1,.4,0],[.065,.4,.075]);b.box([s*.23,1,0],[.06,.3,.08]);}const m=stationPiece(b,i%2?[.3,.4,.48]:[.5,.4,.28]);citizens.push(m);}
 const droneMeshes=[]; // Microbots are below visible scale. No floating drone props are rendered.
-function updateSpaceMeshes(){for(const {m,i} of spaceObjects){const p=bodyPosition(i),len=Math.hypot(...p),scale=Math.min(1,340/Math.max(len,1));m.hidden=!voyage.active||distance(voyage.expedition,i)>80;m.model=M.mul(M.T(...p.map(x=>x*scale)),M.S(scale,scale,scale));}droneMeshes.forEach((m,i)=>{const d=voyage.drones[i];m.hidden=d.hp<=0||voyage.controlled===i||voyage.expedition.onStation;m.model=M.T(Math.sin(game.time*.3+i)*.3,1.1+Math.sin(game.time+i)*.04,[-4,-1,3,3][d.room]);});}
+function updateSpaceMeshes(){for(const {m,i} of spaceObjects){if(m.alien)m.em=[.1,.9+.5*Math.sin(game.time*2),.7];const p=bodyPosition(i);if(m.sentinel!==undefined){const t=game.time*.25+m.sentinel*PI*2/3;p[0]+=Math.cos(t)*12;p[1]+=Math.sin(t*1.4)*4;p[2]+=Math.sin(t)*12;m.em=voyage.expedition.scanned.includes(8)?[.04,.35,.2]:[.7,.1,.03];}const len=Math.hypot(...p),scale=Math.min(1,340/Math.max(len,1));m.hidden=!voyage.active||distance(voyage.expedition,i)>80;m.model=M.mul(M.T(...p.map(x=>x*scale)),M.S(scale,scale,scale));}droneMeshes.forEach((m,i)=>{const d=voyage.drones[i];m.hidden=d.hp<=0||voyage.controlled===i||voyage.expedition.onStation;m.model=M.T(Math.sin(game.time*.3+i)*.3,1.1+Math.sin(game.time+i)*.04,[-4,-1,3,3][d.room]);});}
 function updateStationCrowd(){citizens.forEach((m,i)=>m.model=M.T((i%2?1:-1)*(2.7+i%3*.6),Math.sin(game.time*3+i)*.015,90+Math.sin(game.time*.12+i)*7));}
-window.heliopause={get surface(){return surface;},get terrainTriangles(){return terrainRenderer.triangleCount;},walkable,version:'0.6.0-v4',game,flight,player:pl,rooms,doors,windows,get voyage(){return voyage;},voice:voicePlayer,sites,gl,get camera(){return game.cam;}};
+window.heliopause={get transit(){return landingTransit;},get surface(){return surface;},get planetAssets(){return {lunarTriangles:(celestialRenderer.lunar.geometry?.count||0)/3,lunarError:celestialRenderer.lunar.error,loaded:celestialRenderer.textures.loaded,online:celestialRenderer.textures.stream.enabled,status:celestialRenderer.textures.stream.status};},get terrainTriangles(){return terrainRenderer.triangleCount;},walkable,get habitats(){return habitats.pods;},get orbit(){return orbit;},get meshes(){return meshes;},get grounded(){return grounded;},version:'0.7.0-source-preview',game,flight,player:pl,rooms,doors,windows,get voyage(){return voyage;},voice:voicePlayer,sites,gl,get camera(){return game.cam;}};
 
 /* ================== PILOT / SURFACE REFIT ================== */
-let surface=null;
+let surface=null,landingTransit=null,grounded=null;
+const entryEffects=createEntryEffects({gl,prog,U});
+const celestialRenderer=createCelestialRenderer({gl,B,M,prog,U});
 const terrainRenderer=createSurfaceRenderer({gl,B,M,prog,U});
 refitShip({B,M,MAT,add,meshes,rooms,LIGHTS,fixture,plac,label,makeDoor,AREAS,DOORAREAS,OBST,inter,openStorage:()=>{page='STORAGE';if(!game.tab)toggleTab();else renderTab();},openSystems:()=>{page='SYSTEMS';if(!game.tab)toggleTab();else renderTab();}});
-function issuePilot(type,amount=0){if(surface){notice('The ship is holding orbit. Return aboard to pilot.');return false;}const r=pilotCommand(voyage,flight,type,amount);if(!r.ok)notice(r.message);return r.ok;}
-function pilotPanelHTML(){const e=voyage.expedition;return `<h3>FLIGHT CONTROL / DIRECT LINK</h3><div class="hint">${voyage.pilot?'PILOT AUTHORITY ACTIVE':'PILOT SEAT REQUIRED'} · ${e.docked>=0?'DOCKING CLAMPS ENGAGED':e.autopilot?'AUTOPILOT':'MANUAL'}</div><button data-act="pilot">${voyage.pilot?'LEAVE PILOT SEAT':'TAKE PILOT SEAT'}</button><div class="row"><div>THRUST <b data-pilot="throttle"></b><small data-pilot="velocity"></small></div><div>PITCH <b data-pilot="pitch"></b><small data-pilot="yaw"></small></div></div><div class="grid2">${e.docked>=0?'<button data-act="nav:undock">UNDOCK</button>':''}<button data-act="pilotcmd:manual">MANUAL</button><button data-act="nav:navigate">AUTOPILOT TO TARGET</button><button data-act="pilotcmd:brake">BRAKE / ZERO THRUST</button><button data-act="thr:2">THRUST +10%</button><button data-act="thr:-2">THRUST −10%</button><button data-act="pitch:5">PITCH UP 5°</button><button data-act="pitch:-5">PITCH DOWN 5°</button><button data-act="yaw:0.0872665">YAW LEFT 5°</button><button data-act="yaw:-0.0872665">YAW RIGHT 5°</button></div><div class="hint">W/S: thrust · A/D: yaw · R/F: pitch · B: brake<br>Close tablet to fly with the keyboard. Buttons remain usable with the tablet open.</div>`;}
+function issuePilot(type,amount=0){if(flight.sharedWorld&&!voyage.active){const r=pilotCommand({...voyage,active:true},flight,type,amount);if(r.ok&&type==='thrust')voyage.throttle=clamp(voyage.throttle+amount,-1,1);if(r.ok&&type==='brake')voyage.throttle=0;if(r.ok)flight.ap='none';return r.ok;}if(!['brake','manual'].includes(type)&&!flightReady())return false;if(surface){notice('The ship is holding orbit. Return aboard to pilot.');return false;}const r=pilotCommand(voyage,flight,type,amount);if(!r.ok)notice(r.message);return r.ok;}
+function pilotPanelHTML(){const e=voyage.expedition;return `<h3>FLIGHT CONTROL / DIRECT LINK</h3><div class="hint">${voyage.pilot?'PILOT AUTHORITY ACTIVE':'PILOT SEAT REQUIRED'} · ${e.docked>=0?'DOCKING CLAMPS ENGAGED':e.autopilot?'AUTOPILOT':'MANUAL'}</div><button data-act="pilot">${voyage.pilot?'LEAVE PILOT SEAT':'TAKE PILOT SEAT'}</button><div class="row"><div>THRUST <b data-pilot="throttle"></b><small data-pilot="velocity"></small></div><div>PITCH <b data-pilot="pitch"></b><small data-pilot="yaw"></small></div></div><div class="grid2">${e.docked>=0?'<button data-act="nav:undock">UNDOCK</button>':''}<button data-act="pilotcmd:manual">MANUAL</button><button data-act="nav:navigate">AUTOPILOT TO TARGET</button><button data-act="pilotcmd:brake">BRAKE / ZERO THRUST</button><button data-act="thr:2">THRUST +10%</button><button data-act="thr:-2">THRUST −10%</button><button data-act="pitch:5">PITCH UP 5°</button><button data-act="pitch:-5">PITCH DOWN 5°</button><button data-act="roll:0.0872665">ROLL LEFT</button><button data-act="roll:-0.0872665">ROLL RIGHT</button><button data-act="yaw:0.0872665">YAW LEFT 5°</button><button data-act="yaw:-0.0872665">YAW RIGHT 5°</button></div><div class="hint">W/S: forward/reverse · A/D: yaw · R/F: pitch · Q/E: roll · Shift/Ctrl: vertical · Z/X: strafe · B: brake<br>Close tablet to fly with the keyboard. Buttons remain usable with the tablet open.</div>`;}
 const pilotHUD=document.createElement('section');pilotHUD.id='pilotHUD';pilotHUD.innerHTML='<div id="pilotReadout"></div><div class="pilotButtons"><button data-flight="manual">MANUAL</button><button data-flight="undock">UNDOCK</button><button data-flight="navigate">AUTOPILOT</button><button data-flight="brake">BRAKE</button></div>';document.body.append(pilotHUD);
-pilotHUD.addEventListener('click',e=>{const a=e.target.dataset.flight;if(!a)return;if(['undock','navigate'].includes(a)){command(voyage,a);notice(voyage.expedition.message);}else issuePilot(a);});
-const surfaceHUD=document.createElement('section');surfaceHUD.id='surfaceHUD';surfaceHUD.innerHTML='<div id="surfaceReadout"></div><div class="pilotButtons"><button data-surface="sample">COLLECT SAMPLE</button><button data-surface="rover">R · SKIMMER</button><button data-surface="recall">RECALL LANDER</button><button data-surface="ascend">RETURN TO ORBIT</button></div>';document.body.append(surfaceHUD);surfaceHUD.addEventListener('click',e=>{if(e.target.dataset.surface)handleExtra(e.target.dataset.surface);});
+pilotHUD.addEventListener('click',e=>{const a=e.target.dataset.flight;if(!a)return;if(['undock','navigate'].includes(a)){if(!flightReady())return;command(voyage,a);notice(voyage.expedition.message);}else issuePilot(a);});
+const surfaceHUD=document.createElement('section');surfaceHUD.id='surfaceHUD';surfaceHUD.innerHTML='<div id="surfaceReadout"></div><div class="pilotButtons"><button data-surface="sample">COLLECT SAMPLE</button><button data-surface="rover">R · SKIMMER</button><button data-surface="recall">REQUEST PICKUP</button><button data-surface="ascend">REBOARD SV-7</button></div>';document.body.append(surfaceHUD);surfaceHUD.addEventListener('click',e=>{if(e.target.dataset.surface)handleExtra(e.target.dataset.surface);});
 function updatePilotHUD(){pilotHUD.hidden=game.mode!=='play'||!voyage.pilot||game.tab||!!surface;surfaceHUD.hidden=game.mode!=='play'||!surface||game.tab;const e=voyage.expedition;
- if(!pilotHUD.hidden){$('pilotReadout').textContent=voyage.active?`${e.docked>=0?'DOCKED':e.autopilot?'AUTOPILOT':'MANUAL'} · THRUST ${Math.round(voyage.throttle*100)}% · ${(speed(e)*1000).toFixed(0)} M/S · PITCH ${(e.pitch*180/PI).toFixed(1)}°`:`KEPLER ORBIT · ${flight.ap.toUpperCase()} · ${flight.v.toFixed(0)} M/S · ${flight.A.toFixed(1)} KM`;pilotHUD.querySelector('[data-flight="undock"]').hidden=!voyage.active||e.docked<0;pilotHUD.querySelector('[data-flight="navigate"]').hidden=!voyage.active;}
+ if(!pilotHUD.hidden){$('pilotReadout').textContent=voyage.active?`${e.docked>=0?'DOCKED':e.autopilot?'AUTOPILOT':'MANUAL'} · THRUST ${Math.round(voyage.throttle*100)}% · ${(speed(e)*1000).toFixed(0)} M/S · PITCH ${(e.pitch*180/PI).toFixed(1)}° · ROLL ${((e.roll||0)*180/PI).toFixed(1)}°`:`KEPLER ORBIT · ${flight.ap.toUpperCase()} · ${flight.v.toFixed(0)} M/S · ${flight.A.toFixed(1)} KM`;const w=nearestWorld(e,sites);if(w&&!w.gas&&w.altitude<20000){const pitch=Math.asin(clamp(dot(rotate(e.orientation,[0,0,-1]),w.n),-1,1))*180/PI,roll=Math.atan2(dot(rotate(e.orientation,[1,0,0]),w.n),dot(rotate(e.orientation,[0,1,0]),w.n))*180/PI;$('pilotReadout').textContent+=` · AGL ${w.altitude.toFixed(1)} M · V/S ${(dot(e.velocity,w.n)*1000).toFixed(1)} M/S · LOCAL ${pitch.toFixed(1)}° / ${roll.toFixed(1)}°`;}pilotHUD.querySelector('[data-flight="undock"]').hidden=!voyage.active||e.docked<0;pilotHUD.querySelector('[data-flight="navigate"]').hidden=!voyage.active;}
  const vals={throttle:Math.round(voyage.throttle*100)+'%',velocity:(speed(e)*1000).toFixed(0)+' M/S',pitch:(e.pitch*180/PI).toFixed(1)+'°',yaw:'HEADING '+((e.yaw*180/PI%360+360)%360).toFixed(1)+'°'};tbody.querySelectorAll('[data-pilot]').forEach(n=>n.textContent=vals[n.dataset.pilot]);
- if(surface){const c=coordinates(surface.n);$('surfaceReadout').textContent=`${sites[surface.planet].name.toUpperCase()} · ${surface.rover?'SKIMMER':sampleTerrain(surface.planet,surface.n).height<0?'SWIMMING':'ON FOOT'} · ${c.latitude.toFixed(3)}°, ${c.longitude.toFixed(3)}° · LANDER ${surface.recall>0?'INBOUND':Math.round(arcDistance(surface.n,surface.lander,surface.radius))+' M'}`;$('surfaceHUD').querySelector('[data-surface="ascend"]').disabled=surface.recall>0||arcDistance(surface.n,surface.lander,surface.radius)>12;$('quickPilot').disabled=true;}else $('quickPilot').disabled=false;
+ if(surface){const c=coordinates(surface.n);$('surfaceReadout').textContent=`${sites[surface.planet].name.toUpperCase()} · ${surface.rover?'SKIMMER':sampleTerrain(surface.planet,surface.n).height<0?'SWIMMING':'ON FOOT'} · ${c.latitude.toFixed(3)}°, ${c.longitude.toFixed(3)}° · SUIT ${Math.round(surface.suit??100)}% ${surface.hazard||''} · SHIP ${surface.recall>0?'INBOUND':Math.round(arcDistance(surface.n,surface.lander,surface.radius))+' M'}`;$('surfaceHUD').querySelector('[data-surface="ascend"]').disabled=surface.recall>0||hatchDistance()>6;$('quickPilot').disabled=true;}else $('quickPilot').disabled=false;
 }
 function landingCandidate(){return voyage.active?voyage.expedition.target:KEPLER;}
-function landingBlocked(){const i=landingCandidate(),e=voyage.expedition;if(!['planet','moon'].includes(sites[i].kind))return 'Select a planet or moon in NAVIGATION.';if(profile(i)==='gas')return 'Vesper is a gas giant with no solid landing surface. Survey it from orbit.';if(e.onStation||voyage.controlled>=0)return 'Return to the ship and release the microbot optical link first.';if(voyage.active&&(e.docked>=0||distance(e,i)>3||speed(e)>.35))return 'Navigate to the selected world and brake within 3 km of its surface.';if(game.autoShaded||flight.heat>.35)return 'Wait for thermal lock to clear before launching the lander.';return '';}
-function surfacePanelHTML(){if(surface){const c=coordinates(surface.n);return `<h3>${sites[surface.planet].name.toUpperCase()} / SURFACE</h3><p>Latitude ${c.latitude.toFixed(4)}° · Longitude ${c.longitude.toFixed(4)}°</p><p>${Math.round(surface.walked)} m explored · ${surface.samples.length} specimens collected</p><div class="grid2"><button data-act="sample">COLLECT GEOLOGICAL SAMPLE</button><button data-act="rover">${surface.rover?'DISMOUNT':'DEPLOY'} SURFACE SKIMMER</button><button data-act="recall">RECALL LANDER</button><button data-act="ascend">RETURN TO ORBIT</button><button data-act="save">SAVE SURFACE POSITION</button></div><div class="hint">WASD to explore · mouse/touch to look · R toggles skimmer<br>A complete procedural globe, with no map-edge barriers. Return within 12 m of the lander, or recall it to your position.</div>`;}const reason=landingBlocked();return `<h3>PLANETARY EXPEDITION</h3><h4>${sites[landingCandidate()].name}</h4><p>Walk, swim or use the surface skimmer. Terrain, coastlines and biomes are generated in three dimensions across the entire globe. World sizes are compressed for exploration.</p><p>${reason||'Landing corridor clear. The ship will hold its current orbit.'}</p><button data-act="surface" ${reason?'disabled':''}>LAND & EXPLORE</button><div class="hint">Kepler-442b is available during the opening story. Other solid worlds are reached through NAVIGATION. Vesper has no solid ground.</div>`;}
-function landOnPlanet(){if(surface)return;const reason=landingBlocked();if(reason){notice(reason);return;}voicePlayer.stop();surface=surfaceState(landingCandidate(),sites[landingCandidate()].radius*1000);voyage.pilot=false;voyage.throttle=0;voyage.expedition.autopilot=false;voyage.expedition.velocity=[0,0,0];game.cam=0;pl.yaw=0;pl.pitch=-.12;game.tab=false;$('tab').classList.remove('up');document.exitPointerLock?.();saveGame();notice('LANDED · WASD to walk · R surface skimmer · T expedition tablet.');}
-function updateSurfacePlayer(dt){if(game.tab){walkSurface(surface,0,0,dt);return;}const f=Number(!!(keys.KeyW||keys.ArrowUp))-Number(!!(keys.KeyS||keys.ArrowDown)),s=Number(!!(keys.KeyD||keys.ArrowRight))-Number(!!(keys.KeyA||keys.ArrowLeft));walkSurface(surface,-Math.sin(pl.yaw)*f+Math.cos(pl.yaw)*s,-Math.cos(pl.yaw)*f-Math.sin(pl.yaw)*s,dt);}
-function renderSurface(){terrainRenderer.render(surface,pl.yaw,pl.pitch,VW,VH);}
+function landingBlocked(){if(habitats.locked)return "Compact all habitat modules before landing.";const i=landingCandidate(),e=voyage.expedition;if(!['planet','moon'].includes(sites[i].kind))return 'Select a planet or moon in NAVIGATION.';if(profile(i)==='gas')return 'Vesper is a gas giant with no solid landing surface. Survey it from orbit.';if(e.onStation||voyage.controlled>=0)return 'Return to the ship and release the microbot optical link first.';if(voyage.active&&e.docked>=0)return 'Undock before descending.';if(game.autoShaded||flight.heat>.35)return 'Wait for thermal lock to clear before launching the lander.';return '';}
+function surfacePanelHTML(){if(grounded&&!surface)return `<h3>SV-7 / LANDED</h3><p>${sites[grounded.planet].name} · Landing gear secured. Walk aft through Science to the stern pressure airlock.</p><div class="grid2"><button data-act="hatch">${outerHatch.target?'CLOSE':'OPEN'} EXTERIOR HATCH</button><button data-act="disembark">DISEMBARK AT STERN RAMP</button><button data-act="takeoff">RELEASE CLAMPS / MANUAL LIFTOFF</button><button data-act="save">SAVE</button></div><p>Exterior hatch requires the inner hatch closed. Close both hatches and compact all habitats before launch.</p>`;if(surface){const c=coordinates(surface.n);return `<h3>${sites[surface.planet].name.toUpperCase()} / SURFACE</h3><p>Latitude ${c.latitude.toFixed(4)}° · Longitude ${c.longitude.toFixed(4)}°</p><p>${Math.round(surface.walked)} m explored · ${surface.samples.length} specimens collected</p><div class="grid2"><button data-act="sample">COLLECT GEOLOGICAL SAMPLE</button><button data-act="rover">${surface.rover?'DISMOUNT':'DEPLOY'} SURFACE SKIMMER</button><button data-act="recall">REQUEST PICKUP</button><button data-act="ascend">REBOARD SV-7</button><button data-act="save">SAVE SURFACE POSITION</button></div><div class="hint">WASD to explore · mouse/touch to look · R toggles skimmer<br>A complete procedural globe, with no map-edge barriers. Return to the stern ramp to reboard. Launch from the ship after closing the airlock.</div>`;}const reason=landingBlocked();return `<h3>PLANETARY EXPEDITION</h3><h4>${sites[landingCandidate()].name}</h4><p>Walk, swim or use the surface skimmer. Terrain, coastlines and biomes are generated in three dimensions across the entire globe. World sizes are compressed for exploration.</p><p>${reason||'Landing corridor clear. Fly directly into the atmosphere. Landing never starts a cinematic or relocates the ship.'}</p><button data-act="surface" ${reason?'disabled':''}>MANUAL DESCENT / RELEASE AUTOPILOT</button><div class="hint">Kepler-442b is available during the opening story. Other solid worlds are reached through NAVIGATION. Vesper has no solid ground.</div>`;}
+function disembark(){if(!grounded||outerHatch.open<.85)return;if(pl.z<24.5||Math.abs(pl.x)>.6){notice('Walk through Science to the stern airlock before disembarking.');return;}surface=grounded;surface.n=surfaceOffset(surface,0,31.5);voyage.pilot=false;game.cam=0;pl.yaw=0;pl.pitch=-.06;game.tab=false;$('tab').classList.remove('up');saveGame();notice('Surface EVA. E at the stern ramp reboards SV-7.');}
+function hatchDistance(){if(!surface)return Infinity;return arcDistance(surface.n,surfaceOffset(surface,0,28),surface.radius);}
+function updateSurfacePlayer(dt){const arrived=stepPickup(surface,dt);syncSurfaceFlight(voyage.expedition,surface,sites,dt);if(arrived){terrainRenderer.free();saveGame();notice('SV-7 landed beside your position. Reboard at the stern ramp.');}if(stepEncounter(surface,dt)){surface.suit=100;surface.recall=0;surface.n=surfaceOffset(surface,0,31.5);leaveSurface();notice('Suit critical. Emergency extraction to the ship.');return;}if(game.tab){walkSurface(surface,0,0,dt);return;}const f=Number(!!(keys.KeyW||keys.ArrowUp))-Number(!!(keys.KeyS||keys.ArrowDown)),s=Number(!!(keys.KeyD||keys.ArrowRight))-Number(!!(keys.KeyA||keys.ArrowLeft));walkSurface(surface,-Math.sin(pl.yaw)*f+Math.cos(pl.yaw)*s,-Math.cos(pl.yaw)*f-Math.sin(pl.yaw)*s,dt);}
+function renderSurface(){terrainRenderer.render(surface,pl.yaw,pl.pitch,VW,VH,game.time);}
 function collectSample(){if(!surface)return;const t=sampleTerrain(surface.planet,surface.n),c=coordinates(surface.n),id=`${surface.planet}/${Math.floor(c.latitude*10)}/${Math.floor(c.longitude*10)}/${t.biome}`;voyage.samples??=[];if(voyage.samples.some(s=>s.id===id)){notice('This survey cell has already been sampled. Explore further.');return;}if(voyage.samples.length>=128){notice('Specimen storage is full.');return;}voyage.samples.push({id,planet:surface.planet,biome:t.biome});if(surface.samples.length<50)surface.samples.push(id);saveGame();notice(`${t.biome.toUpperCase()} specimen catalogued in STORAGE.`);}
-function surfaceInteract(){if(surface.recall===0&&arcDistance(surface.n,surface.lander,surface.radius)<=12)leaveSurface();else collectSample();}
-function recallLander(){if(!surface)return;if(surface.recall>0){notice('Lander already inbound.');return;}surface.recall=6;notice('Lander inbound. Landing beside your position in six simulation seconds.');}
-function leaveSurface(){if(!surface)return;if(surface.recall>0||arcDistance(surface.n,surface.lander,surface.radius)>12){notice('Return within 12 m of the lander, or RECALL LANDER first.');return;}surface=null;voyage.surface=null;terrainRenderer.free();pl.x=0;pl.z=-4.1;pl.y=1.65;pl.yaw=0;pl.pitch=0;pl.vx=pl.vz=0;game.tab=false;$('tab').classList.remove('up');saveGame();notice('Back aboard SV-7. Your story and orbital position are preserved.');}
+function surfaceInteract(){if(surveyRelay(surface)){const e=voyage.expedition;if(!e.scanned.includes(surface.planet))e.scanned.push(surface.planet);say('eva_discovery');notice('Precursor relay decoded. Survey data added to the ship archive.');saveGame();return;}if(surface.recall===0&&hatchDistance()<=6)leaveSurface();else collectSample();}
+function recallLander(){if(!surface)return;if(habitats.locked){notice('Compact all habitat modules in HABITAT before requesting pickup.');return;}outerHatch.target=innerHatch.target=0;if(requestPickup(surface))notice('SV-7 pickup inbound. Landing thrusters active; keep clear of the approach.');else notice('Pickup already inbound.');}
+function leaveSurface(){if(!surface)return;if(hatchDistance()>6){notice('Return within 6 m of the stern ramp to reboard SV-7.');return;}grounded=surface;surface=null;voyage.surface=null;pl.x=0;pl.z=25;pl.y=1.65;pl.yaw=0;pl.pitch=0;pl.vx=pl.vz=0;outerHatch.target=0;game.tab=false;$('tab').classList.remove('up');saveGame();notice('Aboard SV-7. Exterior hatch closing. Open the inner airlock after pressure isolation.');}
 function storageHTML(){const e=voyage.expedition,samples=voyage.samples||[];return `<h3>STORAGE / CARGO MANIFEST</h3><div class="hint">AFT OF QUARTERS · CONNECTED STORAGE, ENGINEERING & SCIENCE DECK</div><div class="row"><span>RECOVERED ARCHIVES</span><b>${e.recovered.filter(i=>!e.artifactSold.includes(i)).length}</b></div>${e.recovered.filter(i=>!e.artifactSold.includes(i)).map(i=>`<p>${sites[i].name} · secured for station exchange</p>`).join('')}<div class="row"><span>GEOLOGICAL SPECIMENS</span><b>${samples.length} / 128</b></div>${samples.map(s=>`<p>${sites[s.planet].name} · ${s.biome.toUpperCase()} · sealed specimen</p>`).join('')||'<p>No surface samples yet. Land on a solid world and collect specimens.</p>'}<div class="hint">Surface specimens are retained for research. Recovered story archives are sold at station exchanges.</div>`;}
-function renderGlobeBodies(VP,eye){if(voyage.expedition.onStation)return;const bodies=voyage.active?celestial:[{i:KEPLER,s:sites[KEPLER]}];for(const {i,s} of bodies){const pos=voyage.active?bodyPosition(i):planetCenter(),r=voyage.active?s.radius*120:R_PLANET,len=Math.hypot(...pos),factor=Math.min(1,300/(len+r));const scale=r*factor;let rotation=M.id();if(voyage.active){const axes=[[1,0,0],[0,1,0],[0,0,1]].map(toLocal);axes.forEach((a,k)=>a.forEach((v,j)=>rotation[k*4+j]=v));}const model=M.mul(M.T(...pos.map(x=>x*factor)),M.mul(rotation,M.S(scale,scale,scale)));terrainRenderer.globe(i,s.radius*1000,model,VP,eye);}}
+function renderGlobeBodies(VP,eye){if(voyage.expedition.onStation)return;celestialRenderer.textures.focus(voyage.active?primaryPlanet():KEPLER);const bodies=voyage.active?celestial:[{i:KEPLER,s:sites[KEPLER]}];for(const {i,s} of bodies){const pos=(voyage.active||flight.sharedWorld)?bodyPosition(i):planetCenter(),r=(voyage.active||flight.sharedWorld)?s.radius*1000:R_PLANET,factor=1;const scale=r*factor;let rotation=M.id();if(voyage.active||flight.sharedWorld){const axes=[[1,0,0],[0,1,0],[0,0,1]].map(toLocal);axes.forEach((a,k)=>a.forEach((v,j)=>rotation[k*4+j]=v));}const model=M.mul(M.T(...pos.map(x=>x*factor)),M.mul(rotation,M.S(scale,scale,scale)));celestialRenderer.draw(i,model,VP,eye,game.time,(voyage.active||flight.sharedWorld)?toLocal(SUN):SUN);}}
+
+// Engineering breaker: physical access is the non-microbot repair path.
+{const b=new B();b.box([2.07,1.35,14],[.025,.35,.5]);add(b.build(),MAT.POLY,[.06,.09,.1],.5,.5);const handles=new B();for(const z of [13.7,14,14.3])handles.box([1.99,1.3,z],[.08,.17,.025]);add(handles.build(),MAT.TRIM,[.8,.5,.15],.6,.4);inter.unshift({label:()=> 'RESET ENGINEERING BREAKERS',box:{min:[1.8,.8,13.4],max:[2.15,1.8,14.6]},act:()=>{voyage.systems.faults.fill(false);notice('Breakers reset. Pressure seals and coolant pumps recovering.');SFX.clunk();saveGame();}});}
+
+let alienAmbience=null;
+function updateAmbience(dt){if(!A.ctx||!A.master)return;if(!alienAmbience)alienAmbience=createAlienAudio(A.ctx,A.master);let strength=0;if(game.mode==='play'){if(surface){const f=features(surface);strength=Math.max(.12,1-arcDistance(surface.n,f.relay,surface.radius)/100);}else if(voyage.active&&[5,8,9].includes(voyage.expedition.target))strength=clamp(1-distance(voyage.expedition)/15,0,1);}alienAmbience.update(dt,strength,A.muted||document.hidden);}
+
+function landOnPlanet(){if(surface||grounded)return;if(!voyage.pilot){notice('Take the pilot seat. Fly the ship down manually; landing does not move or guide you.');return;}if(habitats.locked){notice('Compact all habitats before descent.');return;}voyage.expedition.autopilot=false;flight.ap='none';game.tab=false;$('tab').classList.remove('up');notice('MANUAL DESCENT · Pitch toward the surface, control thrust and brake. Level to local horizon; touchdown below 12 m/s. No landing autopilot.');}
+function takeoff(){if(!grounded||surface||!voyage.pilot||habitats.locked||outerHatch.open>.01||outerHatch.target||innerHatch.open>.01||innerHatch.target){notice('Take the pilot seat, close both hatches and compact habitats before launching.');return;}const e=voyage.expedition;e.velocity=grounded.lander.map(v=>v*.008);grounded=null;voyage.grounded=null;flight.v=8;game.tab=false;$('tab').classList.remove('up');saveGame();notice('Landing clamps released. Manual flight: Shift/Ctrl vertical thrust; no target altitude or scripted climb.');}
+// Pilgrim's guardians orbit its archive. Surveying decodes their IFF handshake.
+for(let k=0;k<3;k++){const b=new B();b.cyl([0,-.6,0],.9,1.2,8,'y');for(let j=0;j<4;j++){const a=j*PI/2;b.box([Math.cos(a)*1.5,0,Math.sin(a)*1.5],[.5,.08,.5]);}const m=add(b.build(),MAT.EXT,[.15,.19,.19],.8,.3,{em:[.04,.18,.14]});m.space=true;m.sentinel=k;spaceObjects.push({m,i:8});}
+
+const targetMarker=document.createElement('div');targetMarker.id='targetMarker';targetMarker.hidden=true;document.body.append(targetMarker);
+
+
+
+// Compact bays keep no interior GPU buffers or collision objects alive.
+const habitats=createHabitats({B,M,MAT,add,meshes,gl,AREAS,DOORAREAS,OBST,inter,doors,rooms,LIGHTS,plac,label,notice,useDoor,
+ conditions:()=>({speed:voyage.active?speed(voyage.expedition):flight.v/1000,throttle:voyage.throttle,autopilot:voyage.expedition.autopilot||flight.ap!=='none',transit:!!surface?.pickup,player:!surface&&!voyage.expedition.onStation?pl:null}),
+ openPanel:()=>{page='HABITAT';if(!game.tab)toggleTab();else renderTab();},save:saveGame,changed:()=>{if(game.tab&&page==='HABITAT')renderTab();}});
+function flightReady(){if(habitats.locked){notice('FLIGHT INTERLOCK · Compact all habitat modules before moving.');return false;}if(grounded){notice('Landed. Use SURFACE → RELEASE CLAMPS / MANUAL LIFTOFF first.');return false;}if(outerHatch.open>.01||outerHatch.target){notice('Close the exterior hatch before flight.');return false;}return true;}
+canvas.addEventListener('wheel',e=>{if(game.cam===4){e.preventDefault();orbit.distance=clamp(orbit.distance+e.deltaY*.035,32,110);}},{passive:false});
+// Recessed shade cassettes and warm brass/teal accents.
+{const b=new B();b.box([0,2.38,-6.94],[2.5,.065,.06]);for(const [x,z]of [[1.13,-1],[-2.43,3]])b.box([x,2.2,z],[.06,.05,1.05]);add(b.build(),MAT.TRIM,[.52,.36,.16],.7,.35);}
+{const b=new B();for(const x of [-.58,.86])b.box([x,.04,-1],[.025,.012,1.65]);add(b.build(),MAT.GLOW,[.05,.35,.3],.3,.4,{em:[.02,.15,.13]});}
+// Pressure airlock: independently animated inner and outer hatches, mutually interlocked.
+const innerHatch=makeDoor(23.05,23.05,'STERN AIRLOCK'),outerHatch=makeDoor(26,26,'EXTERIOR HATCH');innerHatch.airlock='inner';outerHatch.airlock='outer';innerHatch.systems=outerHatch.systems=[];
+DOORAREAS.push({a:[-.31,22.65],b:[.31,23.55],d:doors.indexOf(innerHatch)},{a:[-.31,25.6],b:[.31,26.4],d:doors.indexOf(outerHatch)});AREAS.push({a:[-.34,23.35],b:[.34,25.72]});
+{const b=new B();b.box([0,-.05,24.6],[.7,.05,1.65]);b.box([0,2.65,24.6],[.7,.05,1.65]);for(const x of [-.7,.7])b.box([x,1.3,24.6],[.07,1.3,1.65]);add(b.build(),MAT.HULL,[.28,.42,.43],.3,.5).exteriorInterior=true;const cap=new B();for(const x of [-1.5,1.5])cap.box([x,1.3,26],[.8,1.3,.06]);cap.box([0,2.4,26],[.7,.3,.06]);add(cap.build(),MAT.EXT,[.24,.39,.4],.5,.4,{ext:true});outerHatch.exterior=add(outerHatch.mesh.geo,MAT.EXT,[.7,.43,.15],.5,.4,{ext:true});const ramp=new B();ramp.box([0,-.12,27.2],[.7,.08,1.2]);add(ramp.build(),MAT.EXT,[.26,.32,.33],.6,.5,{ext:true});}
+function airlockAllowed(d){if(d===outerHatch){if(!grounded&&voyage.expedition.docked<0){notice('Vacuum interlock. Land or dock before opening the exterior hatch.');return false;}if(innerHatch.open>.01||innerHatch.target){innerHatch.target=0;notice('Inner hatch closing. Wait for pressure isolation.');return false;}}else if(outerHatch.open>.01||outerHatch.target){outerHatch.target=0;notice('Exterior hatch closing. Wait for pressure isolation.');return false;}return true;}
+inter.unshift({label:()=>outerHatch.open>.85?'DISEMBARK SV-7':'OPEN EXTERIOR HATCH',box:{min:[-.6,.5,25.85],max:[.6,2.2,26.1]},act:()=>{if(outerHatch.open>.85){if(grounded)disembark();else if(voyage.expedition.docked>=0)boardStation();}else useDoor(outerHatch);}});
+for(const side of [-1,1])for(let k=0;k<6;k++){
+ const placed=placeModel({B,add},'space-station/wall-detail',{position:[side*5.83,0,82+k*3],height:3.2,yaw:side*Math.PI/2});placed.forEach(m=>{m.zone='station';stationMeshes.push(m);});
+}
+for(const [key,pos,height,yaw]of [['space-station/table-display-planet',[3.3,0,84],1.3,0],['space-station/computer-wide',[-4.3,0,86],1.4,Math.PI/2],['furniture/loungeSofaLong',[4.4,0,92],1,-Math.PI/2],['furniture/pottedPlant',[-4.8,0,96],1.8,0],['furniture/pottedPlant',[4.8,0,96],1.8,0]])placeModel({B,add},key,{position:pos,height,yaw}).forEach(m=>{m.zone='station';stationMeshes.push(m);});
+for(let i=0;i<sites.length;i++)if(sites[i].kind==='station')for(const [key,pos,height]of [['space/hangar_largeA',[0,-8,-17],8],['space/satelliteDish_detailed',[0,19,0],7],['space/craft_cargoA',[12,-6,-17],3]])placeModel({B,add},key,{position:pos,height}).forEach(m=>{m.space=true;spaceObjects.push({m,i});});
+
+terrainRenderer.setShipSource(()=>meshes.filter(m=>(m.ext||m.exteriorInterior)&&!m.hidden));
+
+innerHatch.exterior=add(innerHatch.mesh.geo,MAT.EXT,[.24,.42,.4],.35,.6,{ext:true});
+
+function initializeOrbitalWorld(){if(voyage.active)return;const e=voyage.expedition,n=norm([0,.6,1]);e.docked=-1;e.target=KEPLER;e.position=sites[KEPLER].position.map((v,i)=>v+n[i]*(sites[KEPLER].radius+flight.A));e.velocity=[0,0,0];flight.v=0;e.orientation=fromEuler(0,0,0);e.autopilot=false;flight.sharedWorld=true;}
+terrainRenderer.setPlanetTextureSource(i=>celestialRenderer.textures.get(i));

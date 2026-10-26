@@ -23,3 +23,7 @@ jobs:
       - run: npm run test:browser
       - run: npm run test:campaign-browser
       - run: npm run test:refit-browser
+      - run: npm run test:planetary-browser
+      - run: npm run test:asset-browser
+      - run: npm run test:habitat-browser
+      - run: npm run test:integration-browser

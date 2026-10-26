@@ -2,7 +2,7 @@
 
 ## Version contract
 
-`EngineAssociation: "5.4"` requests that engine installation; it is not a compatibility certificate. This environment contains no Unreal Editor, UnrealBuildTool or Unreal Automation Tool. No engine-specific benchmark or binary validation was performed.
+`EngineAssociation: "5.8"` requests that engine installation; it is not a compatibility certificate. This environment contains no Unreal Editor, UnrealBuildTool or Unreal Automation Tool. No engine-specific benchmark or binary validation was performed.
 
 A source preview is appropriate until a licensed engine installation can run all checks below. Do not mark an untested source ZIP as a Windows/Linux game executable.
 
@@ -11,13 +11,20 @@ A source preview is appropriate until a licensed engine installation can run all
 Set `$UE` to the actual installed engine directory; these example paths are not provisioned by the repository.
 
 ```powershell
-$UE = 'C:\Program Files\Epic Games\UE_5.4'
+$UE = 'C:\Program Files\Epic Games\UE_5.8'
 $Project = Join-Path $PWD 'Heliopause.uproject'
 & "$UE\Engine\Build\BatchFiles\GenerateProjectFiles.bat" -project="$Project" -game -engine
 & "$UE\Engine\Build\BatchFiles\Build.bat" HeliopauseEditor Win64 Development -Project="$Project" -WaitMutex
 # Only continue after a successful editor build.
 & "$UE\Engine\Binaries\Win64\UnrealEditor.exe" "$Project"
 ```
+
+Asset import (after compilation, before runtime/cook validation):
+
+1. Run `python Tools/prepare_unreal_maps.py` with Pillow installed to create PNG import derivatives.
+2. Enable **Python Editor Script Plugin** and **Editor Scripting Utilities** in the editor.
+3. Run `UnrealEditor-Cmd.exe Heliopause.uproject -ExecutePythonScript=Tools/import_unreal_assets.py` from the repository root. Confirm imported GLBs, NASA `moon_small`, and `M_earth/moon/mars/jupiter/clouds` material assets exist under `/Game/Imported`.
+4. Inspect actual asset names/materials in Editor. Import naming and normalization are **not verified** here. Test rooms, airlocks, planetary collision/terrain, camera, atmosphere, save/restore and packaged texture availability before claiming parity.
 
 Automation (after compilation):
 

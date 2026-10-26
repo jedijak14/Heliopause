@@ -1,0 +1,6 @@
+import {noiseGLSL} from './celestial-renderer.js';
+export function createEntryEffects({gl,prog,U}){const p=prog(`#version 300 es
+layout(location=0)in vec2 p;out vec2 uv;void main(){uv=p;gl_Position=vec4(p,0,1);}`,`#version 300 es
+precision highp float;in vec2 uv;out vec4 o;uniform float heat,time;
+${noiseGLSL}
+void main(){float edge=smoothstep(.22,1.35,length(uv*vec2(.8,1.)));float density=0.;for(int i=0;i<6;i++){vec3 q=vec3(uv*3.+vec2(0,time*2.),float(i)*.19);density+=noise3(q)*.1667;}float plasma=heat*edge*(.35+density*.65);float glare=pow(max(0.,1.-abs(uv.y+.7)),8.)*.12*heat;vec3 color=mix(vec3(1.,.08,.005),vec3(.8,.5,1.),density*.35);o=vec4(color*(plasma+glare),0);}`,'entry plasma');const vao=gl.createVertexArray();gl.bindVertexArray(vao);const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);return {render(heat,time){if(heat<.01)return;gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.useProgram(p.p);gl.uniform1f(U(p,'heat'),Math.min(.7,heat));gl.uniform1f(U(p,'time'),time);gl.bindVertexArray(vao);gl.drawArrays(gl.TRIANGLES,0,3);gl.disable(gl.BLEND);gl.enable(gl.DEPTH_TEST);}};}

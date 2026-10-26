@@ -1,4 +1,17 @@
-## v0.6 refit / surface extension
+## v0.7.0 asset and flight update
+
+The active browser embeds licensed Kenney geometry, Solar System Scope 2K maps and a fetched NASA lunar mesh, with optional verified HTTPS HD maps. `planetary-flight.js` resolves manual flight against deterministic globe terrain; `habitat.js` loads/unloads six room interiors. `HPHabitat.cpp` and `HPPlanetaryWorld.cpp` extend the existing native Core; they are uncompiled. See the root README and Docs/VALIDATION.md for current behavior and explicit parity gaps.
+
+### Current third-party production assets
+
+- `Content/ThirdParty/Kenney/manifest.json`: 37 original CC0 GLBs; `meshes.json` and browser `models.json` are converted geometry/palette derivatives. Official kit licenses/provenance are retained.
+- `Content/ThirdParty/PlanetMaps/manifest.json`: Solar System Scope, CC BY 4.0; original/derived hashes and dimensions. Embedded WebPs are 2048×1024; optional sources are 8192×4096, except Jupiter 4096×2048. No upscaling.
+- `Content/ThirdParty/NASA/moon_small.glb`: fetched 13,799,876-byte Moon GLB, SHA-256 `12d3b0bb7fe214903f51447d1bc61710f442e92a11c703fcaca6d4e7ff8e67d4`. Original mirror commit, NASA SVS 14959 provenance, public-domain policy, modifications and derivative hash are in its `manifest.json`. 46,464 vertices / 23,232 triangles; NASA's **color-map-only** variant, not the topography model. Browser derivative `assets/models/nasa-moon.hpm` is embedded and retains topology, uniformly normalized.
+- NASA credits: NASA's Goddard Space Flight Center. No endorsement implied. Source fetched through a pinned GitHub mirror; its hash also matches a separate repository's original-asset LFS pointer. The original NASA download was not independently byte-compared from this sandbox.
+
+Reproduction: `Tools/fetch_kenney.py`, `convert_kenney.py`, `prepare_planet_assets.py`, `prepare_lunar_model.py`. Unreal import preparation: `prepare_unreal_maps.py`, `import_unreal_assets.py` (requires the editor; not executed here).
+
+## Historical v0.6 refit / surface extension
 
 The active v4 browser now uses `flight-controls.js` for authoritative pilot commands, `ship-refit.js` for the aft deck/exterior, `terrain.js` for deterministic unit-sphere terrain/movement and `surface-renderer.js` for streamed terrain and orbital globe meshes. Geometry and shaders are original procedural source, embedded offline; no downloaded placeholder images or visible drone models are used. All existing audio masters remain unchanged. The shared catalog has 17 sites. This is browser functionality, not verified native parity.
 

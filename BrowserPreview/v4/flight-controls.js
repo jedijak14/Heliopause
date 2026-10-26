@@ -1,3 +1,4 @@
+import {attitude,fromEuler,rotate} from './flight-dynamics.js';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 // The tablet, keyboard and pilot HUD write the SAME authoritative sector state.
 export function pilotCommand(v,flight,type,amount=0){
@@ -6,15 +7,16 @@ export function pilotCommand(v,flight,type,amount=0){
  if(v.active){
   if(type==='manual'){e.autopilot=false;return {ok:true};}
   if(type==='brake'){e.autopilot=false;e.velocity=[0,0,0];v.throttle=0;return {ok:true};}
-  if(type==='thrust'){if(e.docked>=0)return {ok:false,message:'Docking clamps are engaged. Press UNDOCK before applying thrust.'};e.autopilot=false;v.throttle=clamp(v.throttle+amount,0,1);return {ok:true};}
-  if(type==='pitch'||type==='yaw'){e.autopilot=false;e[type]=type==='pitch'?clamp(e.pitch+amount,-1.3,1.3):e.yaw+amount;return {ok:true};}
+  if(type==='thrust'){if(e.docked>=0)return {ok:false,message:'Docking clamps are engaged. Press UNDOCK before applying thrust.'};e.autopilot=false;v.throttle=clamp(v.throttle+amount,-1,1);return {ok:true};}
+  if(['pitch','yaw','roll'].includes(type)){e.autopilot=false;attitude(e,type==='yaw'?amount:0,type==='pitch'?amount:0,type==='roll'?amount:0);return {ok:true};}
   return {ok:false,message:'Entry/climb programs belong to the Kepler survey. Use NAVIGATION for sector flight.'};
  }
- if(type==='thrust')flight.v=clamp(flight.v+amount*1000,1500,9000);
- else if(type==='pitch'){if(flight.ap!=='none')return {ok:false,message:'Select MANUAL before adjusting orbital pitch.'};flight.tp=clamp(flight.tp+amount*180/Math.PI,-15,15);}
- else if(type==='yaw')flight.yaw=(flight.yaw||0)+amount;
+ const q=fromEuler(flight.yaw||0,(flight.pitch||0)*Math.PI/180,flight.roll||0);
+ flight.body??={orientation:q,velocity:rotate(q,[0,0,-flight.v/1000])};
+ if(type==='thrust'){const d=rotate(flight.body.orientation,[0,0,-amount]);flight.body.velocity=flight.body.velocity.map((x,i)=>x+d[i]);const speed=Math.hypot(...flight.body.velocity);if(speed>9)flight.body.velocity=flight.body.velocity.map(x=>x*9/speed);flight.v=Math.hypot(...flight.body.velocity)*1000;flight.ap='none';}
+ else if(['yaw','pitch','roll'].includes(type)){attitude(flight.body,type==='yaw'?amount:0,type==='pitch'?amount:0,type==='roll'?amount:0);flight.pitch=flight.body.pitch*180/Math.PI;flight.tp=flight.pitch;flight.yaw=flight.body.yaw;flight.roll=flight.body.roll;flight.ap='none';}
  else if(type==='manual'){flight.ap='none';flight.warp=1;}
- else if(type==='brake'){flight.ap='hold';flight.tp=0;}
- else return {ok:false,message:'This control is available after the orbital shakedown.'};
+ else if(type==='brake'){flight.ap='none';flight.v=0;flight.tp=flight.pitch;flight.body.velocity=[0,0,0];}
+ else return {ok:false,message:'Unknown orbital control.'};
  return {ok:true};
 }

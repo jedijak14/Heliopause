@@ -9,6 +9,9 @@
 #include "UObject/Interface.h"
 #include "InputActionValue.h"
 #include "Tickable.h"
+#include "FlightDynamics.h"
+#include "HabitatRules.h"
+#include "PlanetaryFlight.h"
 #include "HeliopauseCore.generated.h"
 class UStaticMesh; class UMaterialInterface; class UCameraComponent; class USpotLightComponent; class UPointLightComponent; class UStaticMeshComponent; class UAudioComponent; class UInputAction; class UInputMappingContext; class USoundBase; class USoundWaveProcedural; class ACameraActor; class ULevelSequence; class ULevelSequencePlayer; class UMaterialInstanceDynamic; class UProceduralMeshComponent; class UHPExpeditionSubsystem;
 DECLARE_LOG_CATEGORY_EXTERN(LogHeliopause,Log,All);
@@ -92,8 +95,11 @@ public:
  UPROPERTY(EditAnywhere,Category="Door") TObjectPtr<USoundBase> GrantSound;
  UPROPERTY(EditAnywhere,Category="Door") TObjectPtr<USoundBase> OpenSound;
  UFUNCTION(BlueprintPure,Category="Door") bool IsOpen()const{return bTargetOpen;}
+ bool HasOpenGap()const{return bTargetOpen||OpenAlpha>.01;}
  UFUNCTION(BlueprintCallable,Category="Door") void Close();
- bool bSafetyLock=false;int RoomA=0,RoomB=1;
+ UPROPERTY(BlueprintReadOnly,Category="Door") bool bAccessGranted=false;
+ bool bSafetyLock=false,bDeploymentLock=false;int RoomA=0,RoomB=1;
+ bool AccessBlocked()const{return bSafetyLock||bDeploymentLock;}
 private:
  bool bTargetOpen=false,bSaidGrant=false;float OpenAlpha=0,ScanT=-1,Granted=0,IdleT=0;
  UPROPERTY() TArray<TObjectPtr<UMaterialInstanceDynamic>> PadMIDs;
@@ -119,6 +125,18 @@ private:
 };
 UENUM(BlueprintType)
 enum class EHPAutopilot:uint8{Manual,EntrySurvey,Hold,ClimbToOrbit};
+USTRUCT()
+struct FHPHabitatModule {
+ GENERATED_BODY()
+ HPHabitat::State State;
+ UPROPERTY() FName Name;
+ UPROPERTY() int32 Side=1;
+ UPROPERTY() float X=0;
+ UPROPERTY() TObjectPtr<USceneComponent> Interior=nullptr;
+ UPROPERTY() TObjectPtr<UStaticMeshComponent> Shell=nullptr;
+ UPROPERTY() TObjectPtr<AHandprintDoor> Door=nullptr;
+ UPROPERTY() TObjectPtr<UPointLightComponent> Light=nullptr;
+};
 UCLASS()
 class HELIOPAUSE_API AShipManager : public AActor {
  GENERATED_BODY()
@@ -133,6 +151,13 @@ public:
  UPROPERTY(EditAnywhere,Category="Setup") TObjectPtr<USoundBase> AlarmSound;
  UPROPERTY(BlueprintReadOnly,Category="Flight") float Velocity=7640;
  UPROPERTY(BlueprintReadOnly,Category="Flight") float Pitch=0;
+ UPROPERTY(BlueprintReadOnly,Category="Flight") float Roll=0;
+ UPROPERTY(BlueprintReadOnly,Category="Flight") float Yaw=0;
+ UPROPERTY(BlueprintReadOnly,Category="Flight") FVector AtmosphericPositionKm=FVector(0,400,0);
+ UFUNCTION(BlueprintCallable,Category="Flight") void SetManualInput(float Forward,float Turn,float PitchAxis,float RollAxis,float Vertical,float Lateral);
+ void ReadFlightControls();
+ HPFlight::Quat OrbitalOrientation{0,0,0,1};HPFlight::Vec OrbitalVelocity{0,0,-7.64};
+ double FlightAxes[6]={};
  UPROPERTY(BlueprintReadOnly,Category="Flight") float TargetPitch=0;
  UPROPERTY(BlueprintReadOnly,Category="Flight") float Altitude=400;
  UPROPERTY(BlueprintReadOnly,Category="Flight") float Heat=0;
@@ -152,6 +177,8 @@ public:
  UFUNCTION(BlueprintCallable,Category="Rooms") void SetAllWindows(bool bOpen);
  UFUNCTION(BlueprintCallable,Category="Cameras") void SetCamera(int32 Index);
  UFUNCTION(BlueprintCallable,Category="Cameras") void CycleCamera();
+ void OrbitCamera(float DeltaYaw,float DeltaPitch,float Zoom=0);
+ bool IsOrbitCamera()const{return OrbitCameraIndex>0&&CameraIndex==OrbitCameraIndex;}
  UFUNCTION(BlueprintPure,Category="Cameras") int32 GetCameraIndex()const{return CameraIndex;}
  UFUNCTION(BlueprintPure,Category="Cameras") int32 GetCameraCount()const{return ExternalCameras.Num()+1;}
  UFUNCTION(BlueprintCallable,Category="Story") void BeginGame(bool bStory);
@@ -162,11 +189,21 @@ public:
  int32 GetStoryStep()const{return StoryStep;}bool IsStory()const{return bStoryMode;}
  UHPExpeditionSubsystem* Expedition()const;
  void PlayScene(FName Id);void TogglePilot();void BoardStation();void ReturnToShip();bool AtExchange()const;
- void Repair(int Room);void SetHazard(int Room,bool Thermal);void ControlDrone(int Index);void DriveDrone(FVector2D Input);void DamageDrone(int Index,float Damage);void ScanUse(int Tool);
+ void Repair(int Room);void RequestRepair(int Room);float RepairRemaining[4]={};void SetHazard(int Room,bool Thermal);void ControlDrone(int Index);void DriveDrone(FVector2D Input);void DamageDrone(int Index,float Damage);void ScanUse(int Tool);
  bool bPilot=false,bMenu=true;int ControlledDrone=-1;float StaticTime=0,Thrust=0;
  float Pressure[4]={1,1,1,1},Temperature[4]={21,21,21,21};bool Breach[4]={},Venting[4]={};
  float DroneHealth[3]={100,100,100};int DroneRoom[3]={2,3,1};int Intruders=0;
  void BuildShip();void UpdateWorld(float Dt);
+ void BuildHabitats();void TickHabitats(float Dt);void LoadHabitat(int32 Index);void UnloadHabitat(int32 Index);
+ bool RequestHabitat(int32 Index,bool Deploy);bool HabitatsInterlocked()const;
+ UPROPERTY() TArray<FHPHabitatModule> Habitats;
+ void AddLicensedModel(USceneComponent* Parent,const FString& Key,FVector Position,float Height,float Yaw=0);
+ void TickPlanetaryWorld();void OnTerrainContact(const HPPlanet::Contact& Contact);void LaunchFromSurface();void BuildAirlock();
+ bool bLanded=false,bOutsideShip=false;int32 LandedPlanet=-1;
+ UPROPERTY() TObjectPtr<AHandprintDoor> InnerAirlock=nullptr;
+ UPROPERTY() TObjectPtr<AHandprintDoor> OuterAirlock=nullptr;
+ UPROPERTY() TObjectPtr<UProceduralMeshComponent> TerrainPatch=nullptr;
+ HPFlight::Vec TerrainAnchor{0,1,0};int32 TerrainPlanet=-1;
 private:
  UPROPERTY() TArray<TObjectPtr<ARoomLight>> Lights;
  UPROPERTY() TArray<TObjectPtr<ACurtainWindow>> Windows;
@@ -174,6 +211,8 @@ private:
  UPROPERTY() TObjectPtr<ULevelSequencePlayer> IntroPlayer;
  UPROPERTY() TObjectPtr<ACameraActor> CinemaCamera;
  UPROPERTY() TObjectPtr<ACameraActor> DroneCamera;
+ UPROPERTY() TObjectPtr<ACameraActor> OrbitView;
+ int32 OrbitCameraIndex=-1;float OrbitYaw=145,OrbitPitch=22,OrbitDistance=6500;
  UPROPERTY() TArray<TObjectPtr<USceneComponent>> RoomRoots;
  UPROPERTY() TObjectPtr<USceneComponent> HullRoot;
  UPROPERTY() TObjectPtr<USceneComponent> StationRoot;
@@ -190,6 +229,13 @@ private:
  TArray<FName> SceneQueue;
  UFUNCTION() void OnIntroFinished();void TickFlight(float Dt);void TickStory();void AdvanceStory();void Say(FName Id);
  AHandprintDoor* FindDoor(FName Name)const;ACurtainWindow* FindWindow(FName Name)const;
+};
+UCLASS()
+class HELIOPAUSE_API AHPEngineeringBreaker:public AActor,public IHPInteractable {
+ GENERATED_BODY()
+public:AHPEngineeringBreaker();
+ virtual void Interact_Implementation(AActor* InstigatorActor)override;
+ virtual FText GetPrompt_Implementation()const override;
 };
 UCLASS(Abstract)
 class HELIOPAUSE_API UHPHudWidget:public UUserWidget{

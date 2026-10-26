@@ -1,0 +1,145 @@
+{
+  "assets": [
+    {
+      "id": "earth",
+      "author": "Solar System Scope",
+      "license": "CC-BY-4.0",
+      "source": "https://www.solarsystemscope.com/textures/",
+      "mirror": "https://github.com/smithcg1/DigitalSolarSystem/blob/df0d575fec59b7b6a3d3cc8c402982bd17675f98/8k_earth_daymap.jpg",
+      "originalDimensions": [
+        8192,
+        4096
+      ],
+      "originalSha256": "88ab060b6e7d241cfc590c69f528fab2b3247b738d40124cb590999a6fe44abc",
+      "variants": {
+        "offline": {
+          "path": "BrowserPreview/assets/planets/earth.webp",
+          "width": 2048,
+          "height": 1024,
+          "bytes": 181958,
+          "sha256": "7356d80ca87ae077160149561afa8e34a93c55f4a3eb9f0a156987c79aab7735"
+        },
+        "hd": {
+          "path": "BrowserPreview/public/hd/planets/earth.webp",
+          "width": 8192,
+          "height": 4096,
+          "bytes": 2673080,
+          "sha256": "49401b69410b66b0a17eaa578d19231fba3867f64d29cc95a3d5b81a210f7f01"
+        }
+      }
+    },
+    {
+      "id": "moon",
+      "author": "Solar System Scope",
+      "license": "CC-BY-4.0",
+      "source": "https://www.solarsystemscope.com/textures/",
+      "mirror": "https://github.com/smithcg1/DigitalSolarSystem/blob/df0d575fec59b7b6a3d3cc8c402982bd17675f98/8k_moon.jpg",
+      "originalDimensions": [
+        8192,
+        4096
+      ],
+      "originalSha256": "d1875bcec83588ca25e4802e576f6bb9f88b39e1e403cb41ff55867419c54796",
+      "variants": {
+        "offline": {
+          "path": "BrowserPreview/assets/planets/moon.webp",
+          "width": 2048,
+          "height": 1024,
+          "bytes": 663812,
+          "sha256": "a8c46474a0e0e5bb5131fdf81cdac0b5a367b25b605f482b60556713f6573f92"
+        },
+        "hd": {
+          "path": "BrowserPreview/public/hd/planets/moon.webp",
+          "width": 8192,
+          "height": 4096,
+          "bytes": 14454166,
+          "sha256": "686e2de60deb6afc92633c526627ca9194cd4abe3127b72f0289025e01a1586c"
+        }
+      }
+    },
+    {
+      "id": "mars",
+      "author": "Solar System Scope",
+      "license": "CC-BY-4.0",
+      "source": "https://www.solarsystemscope.com/textures/",
+      "mirror": "https://github.com/smithcg1/DigitalSolarSystem/blob/df0d575fec59b7b6a3d3cc8c402982bd17675f98/8k_mars.jpg",
+      "originalDimensions": [
+        8192,
+        4096
+      ],
+      "originalSha256": "4cc52149924abc6ae507d63032f994e1d42a55cb82c09e002d1a567ff66c23ee",
+      "variants": {
+        "offline": {
+          "path": "BrowserPreview/assets/planets/mars.webp",
+          "width": 2048,
+          "height": 1024,
+          "bytes": 294198,
+          "sha256": "e92609014f055cd75bbc37ef51f06117ebd1f775793d24a8e664467964c7bd62"
+        },
+        "hd": {
+          "path": "BrowserPreview/public/hd/planets/mars.webp",
+          "width": 8192,
+          "height": 4096,
+          "bytes": 6239892,
+          "sha256": "1cd442f7db5b3fc5e286d4ebe5aa047541cdd0109ef6f44287a121878df8c512"
+        }
+      }
+    },
+    {
+      "id": "jupiter",
+      "author": "Solar System Scope",
+      "license": "CC-BY-4.0",
+      "source": "https://www.solarsystemscope.com/textures/",
+      "mirror": "https://github.com/smithcg1/DigitalSolarSystem/blob/df0d575fec59b7b6a3d3cc8c402982bd17675f98/8k_jupiter.jpg",
+      "originalDimensions": [
+        4096,
+        2048
+      ],
+      "originalSha256": "0bd844bf20822c4e3e80882b077859833c0dac44c7e4e1e0cd63d1b1b6d43085",
+      "variants": {
+        "offline": {
+          "path": "BrowserPreview/assets/planets/jupiter.webp",
+          "width": 2048,
+          "height": 1024,
+          "bytes": 162164,
+          "sha256": "98e5cca5a069f8b7ddf0ca5d9b7e2934cb1a9a4ea04630e42bb336fbfda67988"
+        },
+        "hd": {
+          "path": "BrowserPreview/public/hd/planets/jupiter.webp",
+          "width": 4096,
+          "height": 2048,
+          "bytes": 803904,
+          "sha256": "f7eb22c134dc167d1b4515e2dd68ac8c2d6f461868addfd5f744fcbb7decb02e"
+        }
+      }
+    },
+    {
+      "id": "clouds",
+      "author": "Solar System Scope",
+      "license": "CC-BY-4.0",
+      "source": "https://www.solarsystemscope.com/textures/",
+      "mirror": "https://github.com/smithcg1/DigitalSolarSystem/blob/df0d575fec59b7b6a3d3cc8c402982bd17675f98/8k_earth_clouds.jpg",
+      "originalDimensions": [
+        8192,
+        4096
+      ],
+      "originalSha256": "c792eca228989d36ebb45d3ea6ff1198be5e21a25d70d2fbcb2124ffd14ba7f5",
+      "variants": {
+        "offline": {
+          "path": "BrowserPreview/assets/planets/clouds.webp",
+          "width": 2048,
+          "height": 1024,
+          "bytes": 608836,
+          "sha256": "273b8715b227051a8bc2543c00a27142fbf5722a09e96be514d5e688a02ab224"
+        },
+        "hd": {
+          "path": "BrowserPreview/public/hd/planets/clouds.webp",
+          "width": 8192,
+          "height": 4096,
+          "bytes": 10878602,
+          "sha256": "979aabc58365e5288faa397020bfd505e3b5517b9160afb629cbfd117feca246"
+        }
+      }
+    }
+  ],
+  "modifications": "JPEG to WebP; offline images downsampled to 2048 pixels. HD images retain native dimensions. No upscaling."
+}

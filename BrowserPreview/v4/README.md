@@ -1,4 +1,8 @@
-## v0.6 refit / surface extension
+## v0.7.0 asset and flight update
+
+The active browser embeds licensed Kenney geometry, Solar System Scope 2K maps and a fetched NASA lunar mesh, with optional verified HTTPS HD maps. `planetary-flight.js` resolves manual flight against deterministic globe terrain; `habitat.js` loads/unloads six room interiors. `HPHabitat.cpp` and `HPPlanetaryWorld.cpp` extend the existing native Core; they are uncompiled. See the root README and Docs/VALIDATION.md for current behavior and explicit parity gaps.
+
+## Historical v0.6 refit / surface extension
 
 The active v4 browser now uses `flight-controls.js` for authoritative pilot commands, `ship-refit.js` for the aft deck/exterior, `terrain.js` for deterministic unit-sphere terrain/movement and `surface-renderer.js` for streamed terrain and orbital globe meshes. Geometry and shaders are original procedural source, embedded offline; no downloaded placeholder images or visible drone models are used. All existing audio masters remain unchanged. The shared catalog has 17 sites. This is browser functionality, not verified native parity.
 

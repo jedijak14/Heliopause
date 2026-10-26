@@ -320,3 +320,28 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
+KENNEY 3D MODELS — CC0 1.0 Universal
+Author: Kenney (https://kenney.nl). Furniture Kit, Space Station Kit and Space Kit.
+Sources: https://kenney.nl/assets/furniture-kit ; https://kenney.nl/assets/space-station-kit ; https://kenney.nl/assets/space-kit
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Redistribution: https://github.com/shorepine/kenney/tree/3694c6879e487c108f55677be7dd2ca75b07cc3b
+37 original GLB models bundled offline after transform/palette baking. Original GLBs and SHA-256 manifest are in Content/ThirdParty/Kenney.
+
+
+PLANET MAPS — SOLAR SYSTEM SCOPE — CC BY 4.0
+https://www.solarsystemscope.com/textures/
+https://creativecommons.org/licenses/by/4.0/
+Earth, Moon, Mars, Jupiter and Earth clouds. Based on NASA imagery with authored adjustments/fill.
+Modifications: WebP conversion; offline downsampling to 2K; fictional-world color adjustments. Original native resolutions retained for HD sources (8K, Jupiter 4K). No endorsement implied.
+Pinned mirror and SHA-256 provenance: Content/ThirdParty/PlanetMaps/manifest.json.
+
+NASA SVS Moon 3D model (color-map-only variant)
+Credit: NASA's Goddard Space Flight Center. Producer: Dan Gallagher.
+Source: https://svs.gsfc.nasa.gov/14959/
+Usage policy: https://svs.gsfc.nasa.gov/help/ (public domain unless otherwise noted).
+Original topology retained, uniformly scaled for browser; Solar System Scope maps
+and fictional tints replace its atlas in browser. Not a scanned terrain mesh or
+measured exoplanet reconstruction. NASA does not endorse this game.
+Pinned mirror, source/derivative hashes: Content/ThirdParty/NASA/manifest.json.
