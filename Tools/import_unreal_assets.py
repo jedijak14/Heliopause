@@ -36,3 +36,14 @@ for row in json.loads((ROOT/'Content/ThirdParty/PlanetMaps/manifest.json').read_
  unreal.MaterialEditingLibrary.recompile_material(mat);unreal.EditorAssetLibrary.save_asset(path)
 unreal.EditorAssetLibrary.save_directory('/Game/Imported',only_if_is_dirty=True,recursive=True)
 unreal.log('Heliopause licensed meshes and streaming planet textures imported. Run build, cook and runtime validation next.')
+
+# Optional premium library. Prepare decoded GLBs with prepare-unreal-models.mjs first.
+# Keep editor-generated package references: naming varies with the Interchange version.
+premium=ROOT/'Content/ThirdParty/Streaming/Unreal'
+if premium.exists():
+ imported={}
+ for p in sorted(premium.glob('*.glb')):
+  assets=task(p,'/Game/Imported/Streaming/'+p.stem.replace('-','_'))
+  imported[p.stem]=[a.get_path_name()for a in assets if a]
+ (premium/'imported-assets.json').write_text(json.dumps(imported,indent=2))
+ unreal.log('Premium library imported. Verify skeletal meshes, PBR material conversion and scene hierarchy before assigning actors/cooking. This import does not establish runtime parity.')

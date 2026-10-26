@@ -20,11 +20,11 @@ export function createHabitats(ctx){
   LIGHTS.push({p:[x,2.55,z],c:[1,.86,.68],i:14,r:8,room:p.room});
   AREAS.push({a:[Math.min(inner,outer)+.28,z-2.32],b:[Math.max(inner,outer)-.28,z+2.32]});
   if(p.id==='kitchen'){
-   for(let k=0;k<4;k++){item(['kitchenFridgeLarge','kitchenSink','kitchenStove','kitchenCabinetDrawer'][k],-2.2+k*1.3,-1.9,k?1:1.95);solid(-2.2+k*1.3,-1.9,.5,.45);if(k)item('kitchenCabinetUpper',-2.2+k*1.3,-2.1,.65).forEach(m=>m.model=M.T(0,1.9,0));}
+   solid(-2.8,0,.45,1.2);for(let k=1;k<4;k++){item(['kitchenFridgeLarge','kitchenSink','kitchenStove','kitchenCabinetDrawer'][k],-2.2+k*1.3,-1.9,1);solid(-2.2+k*1.3,-1.9,.5,.45);if(k)item('kitchenCabinetUpper',-2.2+k*1.3,-2.1,.65).forEach(m=>m.model=M.T(0,1.9,0));}
    const coffee=item('kitchenCoffeeMachine',1.7,-1.9,.35);coffee.forEach(m=>m.model=M.T(0,1,0));
    box([x,.93,z+1.5],[1.6,.055,.5],[.76,.7,.54]);for(const dx of [-1.3,1.3])box([x+dx,.45,z+1.5],[.06,.45,.38],p.color);solid(0,1.5,1.6,.5);
   }else if(p.id==='living'){
-   item('loungeSofaLong',.2,1.65,.95,Math.PI);solid(.2,1.65,1.65,.5);item('loungeChairRelax',2.3,-.2,1,-Math.PI/2);solid(2.3,-.2,.6,.65);
+   solid(.2,1.65,1.65,.5);solid(2.3,-.2,.6,.65);
    item('tableCoffee',.3,.1,.42);solid(.3,.1,.7,.4);item('televisionModern',.2,-2.35,1.2).forEach(m=>m.model=M.T(0,.55,0));item('pottedPlant',-2.5,-1.8,1.4);item('lampRoundFloor',2.7,1.9,1.8);
    box([x+.3,.012,z+.3],[1.9,.01,1.25],[.3,.16,.12],5);
   }else if(p.id==='bathroom'){
@@ -45,7 +45,7 @@ export function createHabitats(ctx){
    p.water=box([x,.025,z],[2.37,.012,1.57],[.025,.3,.4],13);
    for(let k=0;k<4;k++)box([x+2.15-k*.3,-.12-k*.24,z],[.18,.1,.65],[.38,.69,.67],0);
   }else{
-   item('tableRound',.3,0,.8);solid(.3,0,.8,.8);for(const dx of [-1.2,1.8]){item('chairCushion',dx,0,.9,dx<0?Math.PI/2:-Math.PI/2);solid(dx,0,.4,.4);}for(const dx of [-2.5,2.5])for(const dz of [-1.9,1.9])item('pottedPlant',dx,dz,1.5);
+   item('tableRound',.3,0,.8);solid(.3,0,.8,.8);for(const dx of [-1.2,1.8]){solid(dx,0,.4,.4);}for(const dx of [-2.5,2.5])for(const dz of [-1.9,1.9])item('pottedPlant',dx,dz,1.5);
   }
   p.owned=meshes.slice(start[0]);p.areas=AREAS.slice(start[1]);p.obstacles=OBST.slice(start[2]);p.interactions=inter.slice(start[3]);p.lights=LIGHTS.slice(start[4]);p.loaded=true;
  }

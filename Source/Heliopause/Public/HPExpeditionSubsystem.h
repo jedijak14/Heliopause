@@ -4,13 +4,14 @@
 #include "GameFramework/SaveGame.h"
 #include "Tickable.h"
 #include "ExplorationCore.h"
+#include "WarpFlight.h"
 #include "HPExpeditionSubsystem.generated.h"
 UCLASS()
 class HELIOPAUSE_API UHPExpeditionSave : public USaveGame
 {
     GENERATED_BODY()
 public:
-    UPROPERTY() int32 Version=2;
+    UPROPERTY() int32 Version=3;
     UPROPERTY() TMap<FName,bool> HabitatDeployment;
  UPROPERTY() int32 LandedPlanet=-1;
     UPROPERTY() TMap<FName,bool> RoomLights;
@@ -35,6 +36,12 @@ public:
     UPROPERTY() int32 Credits=0;
     UPROPERTY() int32 EngineLevel=0;
     UPROPERTY() int32 SensorLevel=0;
+    UPROPERTY() int64 ScannedWide=0;
+    UPROPERTY() int64 RecoveredWide=0;
+    UPROPERTY() int64 SoldWide=0;
+    UPROPERTY() int64 ArtifactSoldWide=0;
+    UPROPERTY() int64 VisitedWide=1;
+    // Retained for v1/v2 save migration.
     UPROPERTY() int32 Scanned=0;
     UPROPERTY() int32 Recovered=0;
     UPROPERTY() int32 Sold=0;
@@ -53,6 +60,14 @@ public:
     virtual bool IsTickable() const override { return !IsTemplate(); }
     virtual UWorld* GetTickableGameObjectWorld() const override { return GetWorld(); }
     bool Save();
+    UFUNCTION(BlueprintCallable,Category="Flight|Warp") bool EngageWarp();
+    UFUNCTION(BlueprintCallable,Category="Flight|Warp") bool CancelWarp();
+    bool SelectTarget(int Index);
+    UFUNCTION(BlueprintPure,Category="Flight|Warp") bool IsWarpActive() const { return Warp.active(); }
+    UFUNCTION(BlueprintPure,Category="Flight|Warp") float GetWarpProgress() const { return float(Warp.progress); }
+    UFUNCTION(BlueprintPure,Category="Flight|Warp") float GetWarpStrength() const { return float(Warp.strength); }
+    bool IsSaveQueued() const { return bSaveQueued; }
+    HPWarp::State Warp;
     bool Load();
     void RestoreShip(class AShipManager* Ship);
     bool Command(HelioExplore::Command Cmd);
@@ -63,4 +78,7 @@ public:
 private:
     UPROPERTY() TObjectPtr<UHPExpeditionSave> LoadedSnapshot;
     float SaveClock=0;
+    bool bSaveQueued=false;
+    void ClearFlightInput();
+    void FinishWarp();
 };

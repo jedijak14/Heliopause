@@ -1,8 +1,9 @@
 import {integrate,fromEuler,validOrientation} from '../v4/flight-dynamics.js';
 import {planRoute} from './route-planner.js';
 import {freshCampaign,validateCampaign} from './campaign.js';
+import {appendCatalog} from '../v4/science-catalog.js';
 import catalog from '../../Shared/sector.json' with { type: 'json' };
-export const sites=catalog.sites;
+export const sites=catalog.sites.map(s=>({...s}));appendCatalog(sites);
 export const SAVE_KEY='heliopause-expedition-v1';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const length=v=>Math.hypot(...v);

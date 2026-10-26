@@ -5,6 +5,7 @@ using namespace HelioExplore;
 void arrive(State& e,int target){assert(e.select(target));if(e.docked>=0)assert(e.command(Command::Undock));assert(e.command(Command::Navigate));int count=0;while(e.autopilot&&count++<5000)e.step(.1);assert(!e.autopilot);assert(count<5000);assert(e.distance(target)<(Sites[target].kind==Kind::Station?.6:2.5));assert(e.speed()<.35);}
 void scan(State& e){assert(e.command(Command::Scan));for(int i=0;i<65;++i)e.step(.1);assert(e.scanned&bit(e.target));}
 int main(){
+ static_assert(Sites.size()==33);State wide;wide.scanned=bit(32);assert(wide.valid());assert(wide.scanned!=bit(0));
  State e;assert(e.valid());assert(!e.command(Command::Navigate));assert(!e.command(Command::Sell));
  arrive(e,4);scan(e);assert(e.command(Command::Recover));assert(!e.command(Command::Recover));assert(e.pending()==530);
  arrive(e,0);assert(e.command(Command::Dock));assert(!e.command(Command::Sell));assert(e.command(Command::Board));assert(!e.command(Command::Undock));assert(e.command(Command::Sell));assert(e.credits==530);assert(!e.command(Command::Sell));assert(e.command(Command::Engine));assert(e.engine==1&&e.credits==180);assert(!e.command(Command::Sensor));assert(e.command(Command::Return));

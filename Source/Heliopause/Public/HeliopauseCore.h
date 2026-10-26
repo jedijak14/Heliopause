@@ -227,7 +227,7 @@ private:
  TArray<bool> ShadeMemory;int CameraIndex=0;bool bStoryMode=false,bInCutscene=false,bSurveyed=false,bTabletOpened=false;
  int StoryStep=0;float HoldTime=0,CutTime=0,CutDuration=0,AIClock=0;FTimerHandle IntroLineTimer;FName CurrentScene;
  TArray<FName> SceneQueue;
- UFUNCTION() void OnIntroFinished();void TickFlight(float Dt);void TickStory();void AdvanceStory();void Say(FName Id);
+ UFUNCTION() void OnIntroFinished();void TickFlight(float Dt);void UpdateThermalProtection();void TickStory();void AdvanceStory();void Say(FName Id);
  AHandprintDoor* FindDoor(FName Name)const;ACurtainWindow* FindWindow(FName Name)const;
 };
 UCLASS()

@@ -27,3 +27,5 @@ jobs:
       - run: npm run test:asset-browser
       - run: npm run test:habitat-browser
       - run: npm run test:integration-browser
+      - run: npm run test:premium-browser
+      - run: npm run test:premium-online

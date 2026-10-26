@@ -1,16 +1,28 @@
 # HELIOPAUSE — A Long Way Home
 
-**v0.7.0 browser game + Unreal Engine 5.8 source preview.** Built on the supplied `Heliopause-v4.html` and the supplied `HeliopauseCore` architecture. Original audio masters, twenty recorded performances and existing saves are retained.
+**v0.8.0 browser game + Unreal Engine 5.8 source preview.** Built on the supplied `Heliopause-v4.html` and the supplied `HeliopauseCore` architecture. Original audio masters, twenty recorded performances and existing saves are retained.
 
-**Offline HTML:** [BrowserPreview/heliopause.html](BrowserPreview/heliopause.html). Download the complete file and open it in a WebGL2 browser. The embedded assets work without an account, server or connection. HTTPS hosting optionally streams verified higher-resolution planet maps; AUDIO can disable streaming or clear its cache.
+**Offline HTML:** [BrowserPreview/heliopause.html](BrowserPreview/heliopause.html). Download the complete file and open it in a WebGL2 browser. The embedded assets work without an account, server or connection. HTTPS hosting optionally streams hash-verified higher-resolution planet maps, rigged humans, spacecraft, furnishings and catalog data; AUDIO can disable streaming or clear its cache.
 
-## This update
+## v0.8 additions
+
+Earth departure with rigged, breathing Rocketbox crew; Space-to-skip without a bottom skip button; NASA ISS/Shuttle/habitat models; web-sourced PBR furniture; sixteen additional cataloged exoplanets and seven explicitly hypothetical ocean visualizations; a cockpit science screen/full catalog record; smooth collision-checked warp with controlled cancellation; and fifteen externally shaded windows/full-hull nano-laminate coverage. The self-contained HTML retains offline models and previous recordings/saves.
+
+**Scope and hardware:** [Streaming models and evidence labels](Docs/STREAMING_MODELS.md). Native-resolution ISS textures are memory-intensive; software graphics use reduced decoded images/raster resolution. No 1 GB content-library ceiling is imposed.
+
+**Unreal is still uncompiled source, not full visual parity.** Native catalog/science/save updates and model import preparation are included. Native Earth/crew staging, premium scene assembly, warp visuals and full-hull shades remain unfinished. No native executable is supplied.
+
+## Native continuation on this branch
+
+[Native warp source and validation](Docs/NATIVE_WARP.md): shared route/flight kernel, cockpit controls, controlled braking and safety/save integration have been added after the v0.8 release. Portable numerical tests pass; Unreal integration and visuals remain unbuilt/unverified. The published browser and v0.8 release are unchanged.
+
+## Preserved gameplay
 
 - **Manual orbital descent:** the ship's sector position, velocity and quaternion continue through atmosphere and terrain contact. No 3 km landing timer, terminal corridor, scene-controlled descent or automatic climb. Touchdown requires speed at most 12 m/s and alignment to the radial local horizon. The launch command releases clamps with an outward thruster impulse; you control the subsequent climb.
 - **Six expandable rooms:** paired kitchen/living room, bathroom-shower/gym, and pool/dining bays. Stop, zero thrust and disengage autopilot to deploy. Transition doors lock; occupied rooms cannot compact; compacted interiors release their GPU geometry. Any non-compacted habitat blocks flight.
 - **Ship and exploration:** third-person orbit camera plus fixed hull sensors, movable thermal shades, stern inner/outer airlock interlocks, surface exploration, specimens, skimmer, ship recall and saves. Physical Engineering repairs replace remote instant fixes. Microbots remain invisible.
 - **Licensed art:** 37 Kenney CC0 models; Solar System Scope maps with native-resolution HD sources and embedded 2K fallback; a fetched **23,232-triangle NASA Moon model** used for Nacre/Borealis. Its original GLB is retained for Unreal import. NASA explicitly labels this model *color map only*, without topography. Other worlds use authored globe geometry. Fictional exoplanets are not scientific reconstructions.
-- **Story and speech:** original opening followed by Kestrel → Cinder/Pelagos/Borealis → Pilgrim → Anchorage. Queued dialogue/subtitles, local recording playback, offline speech fallback, station crowds and trading remain. Breathing is optional synthetic foley.
+- **Story and speech:** Earth opening, preserved orbital arrival recordings, followed by Kestrel → Cinder/Pelagos/Borealis → Pilgrim → Anchorage. Queued dialogue/subtitles, local recording playback, offline speech fallback, station crowds and trading remain. Breathing is optional synthetic foley.
 
 ## Controls
 

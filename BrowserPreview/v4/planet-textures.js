@@ -1,3 +1,4 @@
+import {profile} from './terrain.js';
 import manifest from './planet-assets.json' with {type:'json'};
 import {createAssetStream} from './asset-stream.js';
 const embedded=import.meta.glob('../assets/planets/*.webp',{eager:true,query:'?url',import:'default'});
@@ -5,7 +6,7 @@ export function createPlanetTextures(gl){
  const sources=Object.fromEntries(Object.entries(embedded).map(([p,url])=>[p.split('/').pop().split('.')[0],url])),low=new Map(),requested=new Set(),stream=createAssetStream({manifest});let hd=null,serial=0,wanted=null;
  function texture(image){const t=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,t);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.SRGB8_ALPHA8,gl.RGBA,gl.UNSIGNED_BYTE,image);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.generateMipmap(gl.TEXTURE_2D);const ext=gl.getExtension('EXT_texture_filter_anisotropic');if(ext)gl.texParameterf(gl.TEXTURE_2D,ext.TEXTURE_MAX_ANISOTROPY_EXT,Math.min(4,gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));return t;}
  for(const [id,url]of Object.entries(sources)){const image=new Image();image.onload=()=>low.set(id,texture(image));image.src=url;}
- const key=i=>i===13?'jupiter':i===7||i===12?'moon':i===10||i===16||i===15?'mars':'earth';
+ const key=i=>i>=17&&profile(i)==='desert'?'mars':i===13?'jupiter':i===7||i===12?'moon':i===10||i===16||i===15?'mars':'earth';
  async function focus(i){const id=key(i);wanted=id;if(!stream.enabled||hd?.id===id||requested.has(id))return;requested.add(id);const token=serial;const bytes=await stream.load(id);requested.delete(id);if(!bytes||token!==serial||!stream.enabled||wanted!==id)return;const edge=Math.min(4096,gl.getParameter(gl.MAX_TEXTURE_SIZE)),bitmap=await createImageBitmap(new Blob([bytes],{type:'image/webp'}),{imageOrientation:'flipY',resizeWidth:Math.min(edge,manifest[id].width),resizeHeight:Math.min(edge,manifest[id].width)/2});if(token!==serial||wanted!==id){bitmap.close();return;}const tex=texture(bitmap);bitmap.close();if(hd)gl.deleteTexture(hd.tex);hd={id,tex};}
  return {stream,focus,get(i){const id=key(i);return hd?.id===id?hd.tex:low.get(id);},clouds:()=>low.get('clouds'),get loaded(){return low.size;},setEnabled(value){serial++;stream.setEnabled(value);if(!value&&hd){gl.deleteTexture(hd.tex);hd=null;}},async clear(){serial++;if(hd){gl.deleteTexture(hd.tex);hd=null;}await stream.clear();}};
 }

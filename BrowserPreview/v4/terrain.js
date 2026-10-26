@@ -1,3 +1,4 @@
+import {scienceWorlds} from './science-catalog.js';
 import {rotate,validOrientation} from './flight-dynamics.js';
 // Deterministic globe terrain. Unit-vector sampling has no longitude seam or finite map edge.
 export const KEPLER=14;
@@ -8,7 +9,7 @@ const mix=(a,b,t)=>a+(b-a)*t,fract=x=>x-Math.floor(x);
 const hash=(x,y,z,seed)=>fract(Math.sin(x*127.1+y*311.7+z*74.7+seed*17.17)*43758.5453);
 function noise(p,seed){const i=p.map(Math.floor),f=p.map((x,k)=>{const t=x-i[k];return t*t*(3-2*t);});const v=(x,y,z)=>hash(i[0]+x,i[1]+y,i[2]+z,seed);return mix(mix(mix(v(0,0,0),v(1,0,0),f[0]),mix(v(0,1,0),v(1,1,0),f[0]),f[1]),mix(mix(v(0,0,1),v(1,0,1),f[0]),mix(v(0,1,1),v(1,1,1),f[0]),f[1]),f[2]);}
 function fbm(n,scale,seed){let sum=0,a=.55;for(let k=0;k<5;k++){sum+=noise(n.map(x=>x*scale),seed+k)*a;scale*=2.07;a*=.48;}return sum;}
-export function profile(i){if([7,12].includes(i))return 'ice';if(i===10)return 'volcanic';if(i===11)return 'ocean';if(i===13)return 'gas';if(i===15)return 'crystal';if(i===16)return 'desert';return 'temperate';}
+export function profile(i){if(scienceWorlds.has(i))return scienceWorlds.get(i).profile;if([7,12].includes(i))return 'ice';if(i===10)return 'volcanic';if(i===11)return 'ocean';if(i===13)return 'gas';if(i===15)return 'crystal';if(i===16)return 'desert';return 'temperate';}
 export function sampleTerrain(i,n){const type=profile(i),seed=i+91;const continental=fbm(n,4,seed),ridges=1-Math.abs(2*fbm(n,22,seed)-1),detail=fbm(n,110,seed);let h=(continental-.47)*460+Math.pow(ridges,5)*48+(detail-.5)*7;
  if(type==='ocean')h-=50;if(type==='ice')h+=28;if(type==='volcanic')h+=80;if(type==='desert')h=35+continental*95+Math.sin(n[0]*180+n[2]*60)*8;if(type==='crystal')h+=70;
  let biome=h<0?'water':h<5?'shore':h>105?'rock':'grass';if(type==='ice')biome='ice';if(type==='volcanic')biome='basalt';if(type==='desert')biome='sand';if(type==='crystal')biome='crystal';if(type==='gas')biome='cloud';return {height:h,biome,type};}
