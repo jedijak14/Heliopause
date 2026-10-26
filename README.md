@@ -4,6 +4,16 @@
 
 **Offline HTML:** [BrowserPreview/heliopause.html](BrowserPreview/heliopause.html). Download the complete file and open it in a WebGL2 browser. The embedded assets work without an account, server or connection. HTTPS hosting optionally streams hash-verified higher-resolution planet maps, rigged humans, spacecraft, furnishings and catalog data; AUDIO can disable streaming or clear its cache.
 
+## Mobile / iPad priority update
+
+Saved pre-story resolution and sensitivity settings, labelled SVG touch controls, multitouch flight/look, pinch orbit zoom and touch-sized actions. [Guide and validation](Docs/MOBILE_CONTROLS.md) · [Screenshots](Previews/Mobile/README.md). Mobile-only commit `c5fc576` was pushed before the room/terminal follow-up. Physical iPad/Safari performance is not yet verified.
+
+## Terminal and connected-room upgrade
+
+[Rendered previews: cutscene, character motion, assets and rooms](Previews/README.md) · [Implementation and validation boundaries](Docs/TERMINAL_AND_ANNEXES.md)
+
+Airport gate dressing and a revised opening camera; matching Rocketbox walk clips with checked joint bindings; medical/recovery and fabrication annexes accessible through the gym and bathroom; dependency-safe deploy/stow/save logic; and fixes for console/breaker hitboxes that intercepted existing room doors. The workshop bench uses the real maintenance system. Native room source is extended, but Unreal 5.8 remains unbuilt and the browser terminal/animation visuals are not native parity.
+
 ## v0.8 additions
 
 Earth departure with rigged, breathing Rocketbox crew; Space-to-skip without a bottom skip button; NASA ISS/Shuttle/habitat models; web-sourced PBR furniture; sixteen additional cataloged exoplanets and seven explicitly hypothetical ocean visualizations; a cockpit science screen/full catalog record; smooth collision-checked warp with controlled cancellation; and fifteen externally shaded windows/full-hull nano-laminate coverage. The self-contained HTML retains offline models and previous recordings/saves.
@@ -14,12 +24,12 @@ Earth departure with rigged, breathing Rocketbox crew; Space-to-skip without a b
 
 ## Native continuation on this branch
 
-[Native warp source and validation](Docs/NATIVE_WARP.md): shared route/flight kernel, cockpit controls, controlled braking and safety/save integration have been added after the v0.8 release. Portable numerical tests pass; Unreal integration and visuals remain unbuilt/unverified. The published browser and v0.8 release are unchanged.
+[Native warp source and validation](Docs/NATIVE_WARP.md): shared route/flight kernel, cockpit controls, controlled braking and safety/save integration have been added after the v0.8 release. Portable numerical tests pass; Unreal integration and visuals remain unbuilt/unverified. The native-warp change did not modify the published v0.8 browser; the separate terminal/annex upgrade above now changes the browser source.
 
 ## Preserved gameplay
 
 - **Manual orbital descent:** the ship's sector position, velocity and quaternion continue through atmosphere and terrain contact. No 3 km landing timer, terminal corridor, scene-controlled descent or automatic climb. Touchdown requires speed at most 12 m/s and alignment to the radial local horizon. The launch command releases clamps with an outward thruster impulse; you control the subsequent climb.
-- **Six expandable rooms:** paired kitchen/living room, bathroom-shower/gym, and pool/dining bays. Stop, zero thrust and disengage autopilot to deploy. Transition doors lock; occupied rooms cannot compact; compacted interiors release their GPU geometry. Any non-compacted habitat blocks flight.
+- **Eight expandable rooms:** the original paired kitchen/living room, bathroom-shower/gym and pool/dining bays, plus a workshop through the bathroom and medical/recovery through the gym. Stop, zero thrust and disengage autopilot to deploy. Transition doors lock; occupied rooms cannot compact; compacted interiors release their GPU geometry. Any non-compacted habitat blocks flight.
 - **Ship and exploration:** third-person orbit camera plus fixed hull sensors, movable thermal shades, stern inner/outer airlock interlocks, surface exploration, specimens, skimmer, ship recall and saves. Physical Engineering repairs replace remote instant fixes. Microbots remain invisible.
 - **Licensed art:** 37 Kenney CC0 models; Solar System Scope maps with native-resolution HD sources and embedded 2K fallback; a fetched **23,232-triangle NASA Moon model** used for Nacre/Borealis. Its original GLB is retained for Unreal import. NASA explicitly labels this model *color map only*, without topography. Other worlds use authored globe geometry. Fictional exoplanets are not scientific reconstructions.
 - **Story and speech:** Earth opening, preserved orbital arrival recordings, followed by Kestrel → Cinder/Pelagos/Borealis → Pilgrim → Anchorage. Queued dialogue/subtitles, local recording playback, offline speech fallback, station crowds and trading remain. Breathing is optional synthetic foley.

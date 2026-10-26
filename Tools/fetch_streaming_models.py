@@ -18,6 +18,9 @@ for name,ID in [('Pilot_Male_01','commander'),('Pilot_Female_01','officer')]:
 for ID,name in [('commander','m_idle_breathe_01.max.fbx'),('officer','f_idle_breathe_01.max.fbx')]:
  path='Assets/Animations/all_animations_max_motextr_static/'+name
  add('microsoft/Microsoft-Rocketbox',next(x for x in rocket if x['path']==path),ID+'-idle.fbx','MIT','Copyright (c) 2020 Microsoft / Microsoft Rocketbox')
+for ID,name in [('commander','m_walk_neutral.max.fbx'),('officer','f_walk_neutral.max.fbx')]:
+ path='Assets/Animations/all_animations_max_motextr_xy/'+name
+ add('microsoft/Microsoft-Rocketbox',next(x for x in rocket if x['path']==path),ID+'-walk.fbx','MIT','Copyright (c) 2020 Microsoft / Microsoft Rocketbox')
 for ID,path in [('iss-offline','3D Models/International Space Station (ISS) (B)/International Space Station (ISS) (B).glb'),('iss','3D Models/International Space Station (ISS) (D) (IGOAL)/International Space Station (ISS).glb'),('shuttle','3D Models/Space Shuttle (D)/Space Shuttle (D).glb'),('habitat','3D Models/Habitat Demonstration Unit/Habitat Demonstration Unit (part 1).glb'),('habitat-interior','3D Models/Habitat Demonstration Unit/Habitat Demonstration Unit (part 2).glb')]:
  add('nasa/NASA-3D-Resources',next(x for x in nasa if x['path']==path),f'{ID}.glb','NASA media usage guidelines; repository states free and without copyright','NASA / NASA 3D Resources; no endorsement')
 for ID,name,license,credit in [('sofa','GlamVelvetSofa','CC BY 4.0','Wayfair LLC / Eric Chadwick'),('chair','SheenChair','CC0','Wayfair LLC / Eric Chadwick'),('fridge','CommercialRefrigerator','CC BY 4.0','Darmstadt Graphics Group / Eric Chadwick / Sean Thomas')]:

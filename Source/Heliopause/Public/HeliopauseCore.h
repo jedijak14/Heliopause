@@ -132,6 +132,8 @@ struct FHPHabitatModule {
  UPROPERTY() FName Name;
  UPROPERTY() int32 Side=1;
  UPROPERTY() float X=0;
+ UPROPERTY() float CenterY=1120;
+ UPROPERTY() int32 Parent=INDEX_NONE;
  UPROPERTY() TObjectPtr<USceneComponent> Interior=nullptr;
  UPROPERTY() TObjectPtr<UStaticMeshComponent> Shell=nullptr;
  UPROPERTY() TObjectPtr<AHandprintDoor> Door=nullptr;

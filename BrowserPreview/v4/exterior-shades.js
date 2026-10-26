@@ -11,6 +11,6 @@ export function createExteriorShades({B,M,add,windows,pods=[]}){
  for(const side of [-1,1])for(let k=0;k<32;k++){const a=k*Math.PI/16,c=(k+1)*Math.PI/16,center=[side*2,1.2,27.58];b.q(center,[center[0]+Math.cos(a)*1.03,center[1]+Math.sin(a)*1.03,center[2]],[center[0]+Math.cos(c)*1.03,center[1]+Math.sin(c)*1.03,center[2]],center,[0,0,1],[0,0,1,0,1,1,0,0],1);}
  b.box([0,-.12,27.2],[.73,.1,1.23]);
  const shell=add(b.build(),15,[.07,.12,.15],.92,.2,{ext:true,uv:1});shell.hidden=true;const mirrors=windows.map(w=>{w.mesh.mat=15;w.mesh.col=[.07,.12,.15];w.mesh.met=.92;w.mesh.rgh=.2;w.mesh.externalShade=true;const m=add(w.mesh.geo,15,w.mesh.col,.92,.2,{ext:true});return {w,m};});let fraction=0;
- for(const p of pods){const box=new B();box.box([p.side*7.5,1.45,p.z],[3.36,1.52,2.68]);p.shade=add(box.build(),15,[.07,.12,.15],.92,.2,{ext:true});p.shade.hidden=true;}
+ for(const p of pods){const box=new B();box.box([p.side*(p.center||7.5),1.45,p.z],[3.36,1.52,2.68]);p.shade=add(box.build(),15,[.07,.12,.15],.92,.2,{ext:true});p.shade.hidden=true;}
  return {get fraction(){return fraction;},update(dt,thermal,pods=[]){const target=thermal||windows.every(w=>!w.open)?1:0;fraction+=Math.sign(target-fraction)*Math.min(Math.abs(target-fraction),dt/5);shell.hidden=fraction<.001;shell.aux=[0,fraction,1,0];for(const {w,m}of mirrors){w.mesh.aux=[0,w.k,0,0];m.model=w.mesh.model;m.aux=[...w.mesh.aux];m.hidden=w.mesh.hidden;}for(const p of pods)if(p.shade){p.shade.hidden=!p.loaded||fraction<.001;p.shade.aux=[0,fraction,1,0];}},shell};
 }

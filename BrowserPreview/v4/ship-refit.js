@@ -12,8 +12,8 @@ export function refitShip({B,M,MAT,add,meshes,rooms,LIGHTS,fixture,plac,label,ma
  // Engineering reactor on port side, never in the central passage.
  {const b=new B();b.cyl([-2.2,.25,12.1],.7,2.2,24,'y');for(const h of [.3,.8,1.3,1.8,2.3])b.cyl([-2.2,h,12.1],1,.12,24,'y');add(b.build(),MAT.TRIM,[.36,.44,.48],.8,.35);const glow=new B();glow.cyl([-2.2,.4,12.1],.45,1.9,24,'y');add(glow.build(),MAT.GLOW,[.2,.65,.7],0,.4,{em:[.35,1.1,1.5]});OBST.push({a:[-3.3,11],b:[-1.1,13.2]});}
  {const b=new B();for(const z of [12,16])b.box([2.8,1,z],[.65,1,.65]);add(b.build(),MAT.HULL,[.22,.3,.34],.5,.6);for(const z of [12,16])OBST.push({a:[2.1,z-.7],b:[3.5,z+.7]});}
- inter.push({label:()=> 'ENGINEERING / SYSTEM CONTROL',box:{min:[2.1,.6,12.9],max:[3.5,2,15.1]},act:openSystems});
- inter.push({label:()=> 'SCIENCE / SPECIMEN CATALOG',box:{min:[-3.4,.7,18],max:[-1.6,1.8,22]},act:openStorage});
+ for(const z of [12,16])inter.push({label:()=> 'ENGINEERING / SYSTEM CONTROL',box:{min:[2.1,.6,z-.65],max:[3.5,2,z+.65]},act:openSystems});
+ for(const z of [18.4,21.6])inter.push({label:()=> 'SCIENCE / SPECIMEN CATALOG',box:{min:[-3.4,.7,z-.7],max:[-1.6,1.8,z+.7]},act:openStorage});
  // Science benches and specimen columns; accessible floor around the central aisle.
  for(const side of [-1,1])for(const z of [18.4,21.6]){const b=new B();b.box([side*2.5,.9,z],[.8,.08,.7]);b.box([side*2.5,.4,z],[.6,.4,.5]);add(b.build(),MAT.HULL,[.56,.64,.53],.3,.5);const specimen=new B();specimen.cyl([side*2.5,1,z],.18,.6,12,'y');add(specimen.build(),MAT.GLOW,[.2,.5,.45],.1,.5,{em:[.05,.25,.2]});OBST.push({a:[side*2.5-.85,z-.75],b:[side*2.5+.85,z+.75]});}
  // Remove the old box hull and rebuild a continuous chamfered silhouette.

@@ -21,11 +21,13 @@ jobs:
       - name: Verify committed standalone output is reproducible
         run: git diff --exit-code -- heliopause.html heliopause.html.sha256
       - run: npm run test:browser
+      - run: npm run test:mobile-browser
       - run: npm run test:campaign-browser
       - run: npm run test:refit-browser
       - run: npm run test:planetary-browser
       - run: npm run test:asset-browser
       - run: npm run test:habitat-browser
+      - run: npm run test:annex-browser
       - run: npm run test:integration-browser
       - run: npm run test:premium-browser
       - run: npm run test:premium-online

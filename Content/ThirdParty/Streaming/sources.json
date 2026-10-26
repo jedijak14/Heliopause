@@ -350,5 +350,27 @@
     "license": "See file",
     "credit": "nasa/NASA-3D-Resources",
     "sha256": "2e86b56d48a27803fa32f6fe66d252746c92a875865af162b3a0941435199a12"
+  },
+  {
+    "repo": "microsoft/Microsoft-Rocketbox",
+    "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_neutral.max.fbx",
+    "gitBlob": "f8816638330d02fb31920d46851188b920d66ab1",
+    "bytes": 958512,
+    "local": "commander-walk.fbx",
+    "license": "MIT",
+    "credit": "Copyright (c) 2020 Microsoft / Microsoft Rocketbox",
+    "sha256": "93089851a370e3a117a6bd04c002815f7133fce41c6271e9eb448ca1228b154f"
+  },
+  {
+    "repo": "microsoft/Microsoft-Rocketbox",
+    "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_neutral.max.fbx",
+    "gitBlob": "94d6f50765e0865eee6dd439b1ab0ca3511c784e",
+    "bytes": 1002832,
+    "local": "officer-walk.fbx",
+    "license": "MIT",
+    "credit": "Copyright (c) 2020 Microsoft / Microsoft Rocketbox",
+    "sha256": "e210c9e34949a4eacad0a85021d4d1a59aab177ca1737e6038309896147ebae2"
   }
 ]

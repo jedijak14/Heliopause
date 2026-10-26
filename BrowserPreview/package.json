@@ -15,7 +15,11 @@
     "test:planetary-browser": "node tests/planetary-browser.mjs",
     "test:asset-browser": "node tests/planet-assets-browser.mjs",
     "test:premium-browser": "node tests/premium-browser.mjs",
-    "test:premium-online": "node tests/premium-online-browser.mjs"
+    "test:premium-online": "node tests/premium-online-browser.mjs",
+    "test:annex-browser": "node tests/annex-browser.mjs",
+    "capture:previews": "node scripts/capture-previews.mjs",
+    "capture:rooms": "vite build --mode capture --outDir ../Artifacts/browser/capture-build && node scripts/capture-game-previews.mjs",
+    "test:mobile-browser": "node tests/mobile-browser.mjs"
   },
   "dependencies": {
     "@fontsource/barlow-condensed": "^5.2.8",
