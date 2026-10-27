@@ -19,7 +19,9 @@
     "test:annex-browser": "node tests/annex-browser.mjs",
     "capture:previews": "node scripts/capture-previews.mjs",
     "capture:rooms": "vite build --mode capture --outDir ../Artifacts/browser/capture-build && node scripts/capture-game-previews.mjs",
-    "test:mobile-browser": "node tests/mobile-browser.mjs"
+    "test:mobile-browser": "node tests/mobile-browser.mjs",
+    "test:pressure-browser": "node tests/pressure-browser.mjs",
+    "audit:models": "node scripts/audit-models.mjs"
   },
   "dependencies": {
     "@fontsource/barlow-condensed": "^5.2.8",

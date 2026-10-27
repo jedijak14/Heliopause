@@ -1,0 +1,2584 @@
+{
+  "scope": "All nine licensed streamed GLBs and their nine embedded offline counterparts; finite geometry, indices, materials, textures and manifest integrity. Not a visual-quality score.",
+  "models": [
+    {
+      "id": "iss",
+      "quality": "HD",
+      "bytes": 56601884,
+      "sha256": "678a41969832fc9065f1b831e4cedc4a9ffc5f4cdc254a2853adcc4978bb4bff",
+      "triangles": 2707621,
+      "vertices": 5662418,
+      "meshes": 555,
+      "materials": 49,
+      "defaultMaterialPrimitives": 1,
+      "normalMappedMaterials": 36,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            4096,
+            4096
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "iss",
+      "quality": "offline",
+      "bytes": 477032,
+      "sha256": "c6b3d65f2953269d3abe74561b0cf55e587d650faf73a7d782299085f4881d0b",
+      "triangles": 174440,
+      "vertices": 103071,
+      "meshes": 10,
+      "materials": 19,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 0,
+      "skins": 0,
+      "textures": []
+    },
+    {
+      "id": "shuttle",
+      "quality": "HD",
+      "bytes": 1299404,
+      "sha256": "d8fa920ae2ab9bf10f22cb961b9959f3a4f0fe2d977694ffda96e440bac78c61",
+      "triangles": 19378,
+      "vertices": 13851,
+      "meshes": 1,
+      "materials": 42,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 1,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            640,
+            664
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            664
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            92
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            92
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            92
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            92
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            640,
+            640
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "shuttle",
+      "quality": "offline",
+      "bytes": 609052,
+      "sha256": "fbc669d800d82d4986c5a6c06f3f686490ab3087bcef21c4148808fad1696f35",
+      "triangles": 19378,
+      "vertices": 13851,
+      "meshes": 1,
+      "materials": 42,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 1,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            493,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            493,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            74
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            74
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            74
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            74
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "habitat",
+      "quality": "HD",
+      "bytes": 175688,
+      "sha256": "6c8bf2a3457e9b654dcf984e6317c7f772ac56421958ce8bc91ae5766bdc3ff9",
+      "triangles": 2264,
+      "vertices": 1922,
+      "meshes": 1,
+      "materials": 1,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 0,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "habitat",
+      "quality": "offline",
+      "bytes": 44544,
+      "sha256": "966bf4fccdd8a82fb97798fafe384b255c60d10735bc62ace1fd8809e7ae65a9",
+      "triangles": 2264,
+      "vertices": 1922,
+      "meshes": 1,
+      "materials": 1,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 0,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "habitat-interior",
+      "quality": "HD",
+      "bytes": 323180,
+      "sha256": "62f951cb631f7379b08e64884375829ccb639438631c54a04c568e45054e927f",
+      "triangles": 4320,
+      "vertices": 5099,
+      "meshes": 1,
+      "materials": 1,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 0,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "habitat-interior",
+      "quality": "offline",
+      "bytes": 77676,
+      "sha256": "e97099e82ed5640f8fc4e426a2b90b1f8568a200ecf7a440f455d45fa469a34a",
+      "triangles": 4320,
+      "vertices": 5099,
+      "meshes": 1,
+      "materials": 1,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 0,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "sofa",
+      "quality": "HD",
+      "bytes": 897020,
+      "sha256": "382ae97a89bf2472a6ddee0bfa8aa35360b0c9fb8bb3909391f25f70761eb756",
+      "triangles": 4196,
+      "vertices": 3118,
+      "meshes": 3,
+      "materials": 7,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 5,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "sofa",
+      "quality": "offline",
+      "bytes": 217408,
+      "sha256": "a8fc58274c5eab8cdd8d0a311ccd87eb50e1b3d7dbdd203e4496a542e761d81a",
+      "triangles": 4196,
+      "vertices": 3118,
+      "meshes": 3,
+      "materials": 7,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 5,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "chair",
+      "quality": "HD",
+      "bytes": 1366784,
+      "sha256": "fbfc530bcf976a48ee57071bdf6496e557d5382f19ce7e02c323b95a217883ed",
+      "triangles": 39936,
+      "vertices": 22459,
+      "meshes": 4,
+      "materials": 6,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 2,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "chair",
+      "quality": "offline",
+      "bytes": 605012,
+      "sha256": "72c009026d8bdde2f5ae8e9cdaf4fe0b69da92b9adfee0cadba2d27b9aa5945f",
+      "triangles": 39936,
+      "vertices": 22459,
+      "meshes": 4,
+      "materials": 6,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 2,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            256
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "fridge",
+      "quality": "HD",
+      "bytes": 4240340,
+      "sha256": "037ee0e02e305e4a4369d523065631fa72d35fdb6c78c4272cacba10caa7dcf0",
+      "triangles": 208679,
+      "vertices": 116820,
+      "meshes": 6,
+      "materials": 6,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 3,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            128,
+            128
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            1024,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "fridge",
+      "quality": "offline",
+      "bytes": 1901828,
+      "sha256": "b6e02aaa104e70145c6bc04dac927d06ea83c18ea853b0799b453e7c14f7776e",
+      "triangles": 208679,
+      "vertices": 116820,
+      "meshes": 6,
+      "materials": 6,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 3,
+      "skins": 0,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            128,
+            128
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "commander",
+      "quality": "HD",
+      "bytes": 4071764,
+      "sha256": "f2f74ed5ac29bf5578becc306d411affe06a8dca29a8815c3cc50f9f8bec4351",
+      "triangles": 7664,
+      "vertices": 22992,
+      "meshes": 1,
+      "materials": 2,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 2,
+      "skins": 1,
+      "textures": [
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "commander",
+      "quality": "offline",
+      "bytes": 1746936,
+      "sha256": "7be3c0cc4b6373eaac7796bb8360396e8a35ab37c405a0bc0b185dac4a7e9172",
+      "triangles": 7664,
+      "vertices": 22992,
+      "meshes": 1,
+      "materials": 2,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 2,
+      "skins": 1,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "officer",
+      "quality": "HD",
+      "bytes": 4880412,
+      "sha256": "7e6745a8d0d80aaabb277fc41ae510ebaf2880a0b7df958c872c697824e9bb24",
+      "triangles": 8288,
+      "vertices": 24864,
+      "meshes": 1,
+      "materials": 3,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 3,
+      "skins": 1,
+      "textures": [
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            2048
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            1024
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            2048,
+            1024
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    },
+    {
+      "id": "officer",
+      "quality": "offline",
+      "bytes": 1851596,
+      "sha256": "5f24e925f09f9090c95ee39011027c14618906e2c0fb5868aa96956b965f5854",
+      "triangles": 8288,
+      "vertices": 24864,
+      "meshes": 1,
+      "materials": 3,
+      "defaultMaterialPrimitives": 0,
+      "normalMappedMaterials": 3,
+      "skins": 1,
+      "textures": [
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            512
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            256
+          ],
+          "mime": "image/webp"
+        },
+        {
+          "size": [
+            512,
+            256
+          ],
+          "mime": "image/webp"
+        }
+      ]
+    }
+  ]
+}

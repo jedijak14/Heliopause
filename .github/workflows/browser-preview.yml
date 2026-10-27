@@ -22,6 +22,7 @@ jobs:
         run: git diff --exit-code -- heliopause.html heliopause.html.sha256
       - run: npm run test:browser
       - run: npm run test:mobile-browser
+      - run: npm run test:pressure-browser
       - run: npm run test:campaign-browser
       - run: npm run test:refit-browser
       - run: npm run test:planetary-browser

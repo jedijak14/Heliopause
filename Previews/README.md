@@ -2,6 +2,12 @@
 
 Actual browser-renderer output, **not AI concept art**. These previews show the terminal/animation/connected-room upgrade. They do not establish Unreal parity or high-end hardware performance.
 
+## Latest: sealed connections and room access
+
+[Pressure collars, return paths and consistent interior materials](Pressure-Seals/README.md) · [Fix details and access map](../Docs/PRESSURE_SEALS.md)
+
+The room gallery below has been recaptured for this repair. Earlier terminal and mobile evidence remains separately scoped.
+
 ## Mobile / iPad priority update
 
 [Pre-story resolution settings and SVG touch-control screenshots](Mobile/README.md) · [Mobile controls guide](../Docs/MOBILE_CONTROLS.md)

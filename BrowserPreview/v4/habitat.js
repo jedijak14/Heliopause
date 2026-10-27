@@ -1,22 +1,27 @@
 import {habitatState,requestHabitat,stepHabitat,flightInterlocked,serializeHabitats} from './habitat-state.js';
+import {INTERIOR,habitatBounds,habitatEnvelope,habitatPassage} from './interior-geometry.js';
 import {placeModel} from './model-library.js';
 export function createHabitats(ctx){
  const {B,M,MAT,add,meshes,gl,AREAS,DOORAREAS,OBST,inter,doors,rooms,LIGHTS,plac,label,notice}=ctx,pods=habitatState();
- const box=(c,s,color,mat=8,opts={})=>{const b=new B();b.box(c,s);return add(b.build(),mat,color,.15,.6,opts);};
+ const box=(c,s,color,mat=MAT.HULL,opts={})=>{const b=new B();b.box(c,s);return add(b.build(),mat,color,.15,.6,opts);};
  const cylinder=(c,r,h,color,axis='y')=>{const b=new B();b.cyl(c,r,h,24,axis);return add(b.build(),1,color,.7,.3);};
  const remove=(list,owned)=>{for(const item of owned){const i=list.indexOf(item);if(i>=0)list.splice(i,1);}};
  function unload(p){if(!p.loaded)return;for(const m of p.owned){gl.deleteVertexArray(m.geo.vao);gl.deleteBuffer(m.geo.vb);gl.deleteBuffer(m.geo.ib);if(m.ownedTexture)gl.deleteTexture(m.tex);}remove(meshes,p.owned);remove(AREAS,p.areas);remove(OBST,p.obstacles);remove(inter,p.interactions);remove(LIGHTS,p.lights);p.owned=[];p.loaded=false;rooms[p.room].fix={em:[0,0,0]};}
  function load(p){if(p.loaded)return;const start=[meshes.length,AREAS.length,OBST.length,inter.length,LIGHTS.length],x=p.side*(p.center||7.5),z=p.z,sg=p.side;
   const item=(key,dx,dz,height,yaw=0)=>placeModel(ctx,'furniture/'+key,{position:[x+dx,0,z+dz],height,yaw});
   const solid=(dx,dz,hx,hz)=>OBST.push({a:[x+dx-hx,z+dz-hz],b:[x+dx+hx,z+dz+hz]});
-  box([x,-.09,z],[3.3,.09,2.6],[.22,.11,.045],14);box([x,2.9,z],[3.3,.08,2.6],[.13,.18,.2]);
-  for(const dz of [-2.6,2.6]){box([x,1.45,z+dz],[3.3,1.45,.07],[.19,.25,.27]);box([x,.5,z+dz-sg*.01],[3.28,.45,.08],p.color);}
-  // The inner wall is split around a full-height access opening, never painted over it.
-  const inner=sg*((p.center||7.5)-3.3),outer=sg*((p.center||7.5)+3.3);
-  if(!p.parent){for(const dz of [-1.65,1.65])box([inner,1.45,z+dz],[.06,1.45,.95],p.color);box([inner,2.58,z],[.06,.32,.7],p.color);}if(pods.some(q=>q.parent===p.id)){for(const dz of [-1.65,1.65])box([outer,1.45,z+dz],[.07,1.45,.95],p.color);box([outer,2.58,z],[.07,.32,.7],p.color);}else box([outer,1.45,z],[.07,1.45,2.6],p.color);
-  for(const dz of [-2.48,2.48])box([x,2.76,z+dz],[3.15,.025,.03],[.8,.63,.32],6,{em:[1.4,1.05,.55]});
-  rooms[p.room].fix=box([x,2.8,z],[1.9,.025,.08],[.9,.8,.6],6,{em:[1.8,1.6,1.3]});
-  LIGHTS.push({p:[x,2.55,z],c:[1,.86,.68],i:5,r:6,room:p.room});
+  const {inner,outer}=habitatBounds(p),envelope=habitatEnvelope(p,pods.some(q=>q.parent===p.id));
+  for(const part of envelope.boxes){const m=box(part.c,part.s,part.part==='floor'||part.part==='collar-floor'?INTERIOR.deck:INTERIOR.wall,part.part==='floor'||part.part==='collar-floor'?MAT.DECK:MAT.HULL);m.pressurePart=part.part;}
+  // A consistent panel, skirting, and recessed light kit across all eight rooms.
+  for(const dz of [-2.49,2.49]){
+   box([x,.16,z+dz],[3.18,.1,.035],INTERIOR.trim,MAT.TRIM);
+   box([x,.66,z+dz],[3.18,.035,.025],p.color,MAT.POLY);
+   box([x,2.7,z+dz],[3.18,.07,.065],INTERIOR.seal,MAT.TRIM);
+   box([x,2.68,z+dz-Math.sign(dz)*.055],[3.08,.018,.015],INTERIOR.light,MAT.GLOW,{em:[.9,1.15,1.25]});
+   for(const dx of [-2.2,0,2.2])box([x+dx,1.47,z+dz],[.025,1.12,.025],INTERIOR.trim,MAT.TRIM);
+  }
+  rooms[p.room].fix=box([x,2.8,z],[1.9,.025,.08],INTERIOR.light,MAT.GLOW,{em:[1.5,1.7,1.8]});
+  LIGHTS.push({p:[x,2.55,z],c:[.88,.94,1],i:5,r:6,room:p.room});
   AREAS.push({a:[Math.min(inner,outer)+.28,z-2.32],b:[Math.max(inner,outer)-.28,z+2.32]});
   if(p.parent)plac(label(p.name,1024,100,42,'#b8ded5'),[outer-sg*.08,2.35,z-sg*1.6],[0,0,sg*3.2],[0,-.32,0]);
   if(p.id==='kitchen'){
@@ -41,7 +46,7 @@ export function createHabitats(ctx){
    // Recessed basin, tiled coping and broad submerged exit steps.
    box([x,-1.12,z],[2.45,.1,1.65],[.03,.26,.35]);for(const dx of [-2.5,2.5])box([x+dx,-.48,z],[.12,.6,1.75],[.23,.65,.66],0);for(const dz of [-1.7,1.7])box([x,-.48,z+dz],[2.5,.6,.12],[.23,.65,.66],0);
    // Hide central floor under the basin; keep the perimeter deck.
-   meshes[start[0]].hidden=true;for(const dz of [-2.15,2.15])box([x,-.08,z+dz],[3.3,.08,.45],[.59,.49,.3],14);for(const dx of [-2.9,2.9])box([x+dx,-.08,z],[.4,.08,1.7],[.59,.49,.3],14);
+   meshes[start[0]].hidden=true;for(const dz of [-2.15,2.15])box([x,-.08,z+dz],[3.3,.08,.45],INTERIOR.deck,MAT.DECK);for(const dx of [-2.9,2.9])box([x+dx,-.08,z],[.4,.08,1.7],INTERIOR.deck,MAT.DECK);
    p.water=box([x,.025,z],[2.37,.012,1.57],[.025,.3,.4],13);
    for(let k=0;k<4;k++)box([x+2.15-k*.3,-.12-k*.24,z],[.18,.1,.65],[.38,.69,.67],0);
   }else if(p.id==='medical'){
@@ -58,15 +63,21 @@ export function createHabitats(ctx){
   }
   p.owned=meshes.slice(start[0]);for(const m of p.owned)if(m.tex)m.ownedTexture=!meshes.slice(0,start[0]).some(other=>other.tex===m.tex);p.areas=AREAS.slice(start[1]);p.obstacles=OBST.slice(start[2]);p.interactions=inter.slice(start[3]);p.lights=LIGHTS.slice(start[4]);p.loaded=true;
  }
- for(const p of pods){const doorX=p.side*(p.parent?10.8:3.72);p.room=rooms.length;rooms.push({name:p.name,on:true,t:9,fix:{em:[0,0,0]}});p.loaded=false;p.owned=[];
+ for(const p of pods){const doorX=habitatBounds(p).door;p.room=rooms.length;rooms.push({name:p.name,on:true,t:9,fix:{em:[0,0,0]}});p.loaded=false;p.owned=[];
   const shell=new B();shell.box([p.side*(p.center||7.5),1.4,p.z],[3.35,1.55,2.67]);p.shell=add(shell.build(),11,p.color,.5,.42,{ext:true});
-  const b=new B();b.box([doorX,1.05,p.z],[.04,1.05,.7]);const mesh=add(b.build(),0,p.color,.45,.42);p.door={name:p.name,mesh,open:0,target:0,scan:-1,granted:0,idle:0,z:p.z,x:doorX,side:true,pads:[],systems:[],locked:true};doors.push(p.door);
-  DOORAREAS.push({a:[doorX-(p.parent?.4:p.side<0?.88:.42),p.z-.4],b:[doorX+(p.parent?.4:p.side<0?.42:.88),p.z+.4],d:doors.length-1});
-  box([doorX+p.side*.18,-.04,p.z],[.45,.04,.7],[.33,.38,.36]);
-  const sign=plac(label(p.name,512,80,28,'#f0ca88'),[doorX-p.side*.11,2.45,p.z-.65],[0,0,1.3],[0,-.2,0]);
-  inter.push({label:()=>p.phase==='deployed'?'OPEN '+p.name:'HABITAT CONTROL / '+p.name,box:{min:[doorX-.2,.7,p.z-.85],max:[doorX+.2,2.5,p.z+.85]},act:()=>{if(p.phase==='deployed')ctx.useDoor(p.door);else ctx.openPanel();}});
+  const entryStart=meshes.length,b=new B(),leaf=habitatEnvelope(p).leaf;b.box(leaf.c,leaf.s);const mesh=add(b.build(),MAT.HULL,INTERIOR.door,.45,.42);p.door={name:p.name,mesh,open:0,target:0,scan:-1,granted:0,idle:0,z:p.z,x:doorX,side:true,pads:[],systems:[],locked:true};doors.push(p.door);
+  DOORAREAS.push({...habitatPassage(p),d:doors.indexOf(p.door)});
+  // Fixed gasket and frame form a pressure seat, not a floating slab.
+  for(const dz of [-.77,.77]){box([doorX,1.05,p.z+dz],[.1,1.1,.045],INTERIOR.seal,MAT.POLY);box([doorX,1.1,p.z+dz+Math.sign(dz)*.06],[.12,1.1,.035],INTERIOR.trim,MAT.TRIM);}
+  box([doorX,2.18,p.z],[.12,.08,.85],INTERIOR.trim,MAT.TRIM);
+  box([doorX,-.04,p.z],[.15,.04,.85],INTERIOR.trim,MAT.TRIM);
+  for(const face of [-1,1]){
+   plac(label(p.name,1024,100,42,'#c4e0e2'),[doorX+face*.14,2.51,p.z+face*.65],[0,0,-face*1.3],[0,-.2,0]);
+   const pad=new B();pad.plane([doorX+face*.14,1.55,p.z+face*.99],[0,0,-face*.22],[0,-.28,0]);p.door.pads.push(add(pad.build(),MAT.PAD,[1,1,1],0,.2));
+  }
+  inter.push({label:()=>p.phase==='deployed'?'OPEN '+p.name:'HABITAT CONTROL / '+p.name,box:{min:[doorX-.2,.7,p.z-.85],max:[doorX+.2,2.5,p.z+.85]},act:()=>{if(p.phase==='deployed')ctx.useDoor(p.door);else ctx.openPanel();}});p.entryMeshes=meshes.slice(entryStart);
  }
- function sync(p){p.door.locked=p.phase!=='deployed'||!!(p.parent&&pods.find(q=>q.id===p.parent)?.phase!=='deployed');if(p.door.locked){p.door.scan=-1;p.door.target=0;p.door.verified=false;}if(p.phase==='deployed'){load(p);p.shell.hidden=false;}else{unload(p);p.shell.hidden=p.fraction<=0;}
+ function sync(p){for(const m of p.entryMeshes)m.hidden=!!p.parent&&pods.find(q=>q.id===p.parent)?.phase!=='deployed';p.door.locked=p.phase!=='deployed'||!!(p.parent&&pods.find(q=>q.id===p.parent)?.phase!=='deployed');if(p.door.locked){p.door.scan=-1;p.door.target=0;p.door.verified=false;}if(p.phase==='deployed'){load(p);p.shell.hidden=false;}else{unload(p);p.shell.hidden=p.fraction<=0;}
   p.shell.model=M.mul(M.T(p.side*((p.center||7.5)-3.35)*(1-p.fraction),0,0),M.S(Math.max(.001,p.fraction),1,1));
  }
  pods.forEach(sync);

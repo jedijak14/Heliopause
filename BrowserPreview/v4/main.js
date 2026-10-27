@@ -1,3 +1,4 @@
+import {INTERIOR,windowLightFraction} from './interior-geometry.js';
 import {loadDisplay,saveDisplay,rasterSize,touchDevice} from './display-settings.js';
 import {mountMobileControls} from './mobile-controls.js';
 const displaySettings=loadDisplay();
@@ -176,9 +177,8 @@ void main(){
  if(uMat==0){vec2 pf=panel(uv,1.);float g=fbm2(uv*3.1);alb*=(.85+.28*g)*(1.-pf.x*.45);alb=mix(alb,alb*1.6,pf.y*.6);
   rg=clamp(rg+g*.16-pf.y*.2,.05,1.);cav=1.-pf.x*.55;}
  else if(uMat==1){float b=fbm2(vec2(uv.x*160.,uv.y*4.));rg=clamp(rg+(b-.5)*.16,.04,1.);alb*=.9+.2*b;}
- else if(uMat==2){vec2 g=fract(uv*7.);float gr=clamp(smoothstep(.42,.46,abs(g.x-.5))+smoothstep(.42,.46,abs(g.y-.5)),0.,1.);
-  float di=step(.7,fract((uv.x+uv.y)*5.))*step(.7,fract((uv.x-uv.y)*5.));float w=fbm2(uv*2.4);
-  alb*=(.75+di*.35-gr*.35)*(.8+.4*w);rg=clamp(.6+gr*.25-w*.15-di*.2,.12,1.);met=clamp(met+di*.3,0.,1.);cav=1.-gr*.4;}
+ else if(uMat==2){vec2 g=abs(fract(vW.xz*1.25)-.5);float gr=smoothstep(.484,.495,max(g.x,g.y));float w=fbm2(vW.xz*8.);
+  alb*=.92+.08*w-gr*.22;rg=.78+w*.06;met=min(met,.18);cav=1.-gr*.18;}
  else if(uMat==3){vec3 t=texture(uMap,vUv).rgb;em=t*(.86+.14*sin(vUv.y*900.))*1.7;alb=vec3(.01);met=0.;rg=.08;}
  else if(uMat==4){vec4 t=texture(uMap,vUv);float a=t.a*(1.-smoothstep(.55,.88,fbm2(vUv*9.))*.4);
   alb=mix(uAlb*(.88+.24*fbm2(uv*3.)),t.rgb,a);rg=mix(rg,.7,a);met=mix(met,0.,a);em=uEm*t.a;}
@@ -365,8 +365,8 @@ const H=2.6;
  b.box([2.55,1.3,3],[.05,1.35,2]);b.box([-1.55,1.3,5.05],[.95,1.35,.05]);b.box([1.55,1.3,5.05],[.95,1.35,.05]);b.box([0,2.375,5.05],[.6,.275,.05]);
  b.box([-2.55,1.3,1.5],[.05,1.35,.5]);b.box([-2.55,1.3,4.5],[.05,1.35,.5]);b.box([-2.55,.5,3],[.05,.5,1]);b.box([-2.55,2.3,3],[.05,.35,1]);
  for(const z of [-6.2,-3.8]){b.box([-2.93,1.3,z],[.07,1.3,.08],1,.9);b.box([2.93,1.3,z],[.07,1.3,.08],1,.9);b.box([0,2.55,z],[2.93,.05,.08],1,.9);}
- add(b.build(),MAT.HULL,[.12,.13,.145],.6,.45,{uv:1.1});}
-{const b=new B();b.box([0,-.05,-5],[3,.05,2]);b.box([0,-.05,-1],[1.2,.05,2]);b.box([0,-.05,3],[2.5,.05,2]);add(b.build(),MAT.DECK,[.09,.095,.105],.55,.7);}
+ add(b.build(),MAT.HULL,INTERIOR.wall,.35,.5,{uv:1.1});}
+{const b=new B();b.box([0,-.05,-5],[3,.05,2]);b.box([0,-.05,-1],[1.2,.05,2]);b.box([0,-.05,3],[2.5,.05,2]);add(b.build(),MAT.DECK,INTERIOR.deck,.35,.65);}
 // trim: door frames, window frames, rails
 {const b=new B();
  for(const z of [-2.95,1.05]){b.box([-.66,1.05,z],[.06,1.07,.08],2);b.box([.66,1.05,z],[.06,1.07,.08],2);b.box([0,2.15,z],[.72,.04,.08],2);}
@@ -428,12 +428,15 @@ function setRoom(i,on){const r=rooms[i];if(r.on===on)return;r.on=on;r.t=0;SFX.cl
 
 /* ---- doors with handprint pads ---- */
 const doors=[];
-function makeDoor(zc,zWall,name){const b=new B();b.box([0,1.05,zc],[.6,1.05,.025],1.3);
- const m=add(b.build(),MAT.HULL,[.14,.15,.17],.7,.38,{uv:1.3});
+function makeDoor(zc,zWall,name){const b=new B();b.box([0,1.05,zc],[.625,1.075,.035],1.3);
+ const m=add(b.build(),MAT.HULL,INTERIOR.door,.45,.42,{uv:1.3});
  const d={name,mesh:m,open:0,target:0,scan:-1,granted:0,idle:0,z:zWall,pads:[]};
  [[zWall-.056,-1],[zWall+.056,1]].forEach(([pz])=>{const pb=new B();pb.plane([.79,1.45,pz],[.22,0,0],[0,-.28,0]);
   const pm=add(pb.build(),MAT.PAD,[1,1,1],0,.2);d.pads.push(pm);
   inter.push({label:()=>d.scan>=0?"SCANNING…":(d.target?"CLOSE "+name:"SCAN HANDPRINT — "+name),box:{min:[.72,1.1,pz-.08],max:[1.08,1.5,pz+.08]},act:()=>useDoor(d)});});
+ // Door faces are usable from either side; pads remain for precise handprint interaction.
+ inter.push({label:()=>d.scan>=0?'SCANNING…':(d.target?'CLOSE ':'SCAN HANDPRINT — ')+name,box:{min:[-.6,.2,zWall-.1],max:[.6,2.1,zWall+.1]},act:()=>useDoor(d)});
+ const frame=new B();for(const x of [-.68,.68])frame.box([x,1.05,zWall],[.055,1.1,.08]);frame.box([0,2.16,zWall],[.735,.06,.08]);add(frame.build(),MAT.TRIM,INTERIOR.trim,.65,.4);
  doors.push(d);return d;}
 const inter=[];
 makeDoor(-2.87,-2.95,"COCKPIT");makeDoor(.975,1.05,"QUARTERS");
@@ -650,7 +653,7 @@ function render(eye,tgt,ext,fov){
  warpEffects.render(warp.strength,game.time,VW,VH);
  gl.useProgram(pPBR.p);gl.uniformMatrix4fv(U(pPBR,"uVP"),false,VP);gl.uniform3fv(U(pPBR,"uCam"),eye);gl.uniform1f(U(pPBR,"uTime"),game.time);
  gl.uniform3fv(U(pPBR,"uSunDir"),SUN);gl.uniform3f(U(pPBR,"uSunCol"),4.2,3.95,3.6);
- const open=windows.reduce((s,w,i)=>s+(1-w.k)*(i===0?.6:.2),0);
+ const open=windowLightFraction(windows);
  if(voyage.expedition.onStation){gl.uniform1f(U(pPBR,"uSunK"),.4);gl.uniform3f(U(pPBR,"uAmb"),.48,.57,.62);gl.uniform1i(U(pPBR,"uNL"),0);gl.uniform4f(U(pPBR,"uFl"),0,0,1,0);gl.uniform1f(U(pPBR,"uExp"),1.1);}
  else if(ext){gl.uniform1f(U(pPBR,"uSunK"),1);gl.uniform3f(U(pPBR,"uAmb"),.05,.08,.13);gl.uniform1i(U(pPBR,"uNL"),0);gl.uniform4f(U(pPBR,"uFl"),0,0,1,0);gl.uniform1f(U(pPBR,"uExp"),1.0);}
  else{gl.uniform1f(U(pPBR,"uSunK"),.12*open);gl.uniform3f(U(pPBR,"uAmb"),.014+.05*open,.018+.08*open,.026+.13*open);
@@ -860,7 +863,7 @@ const starRenderer=createSystemRenderer({gl,B,M,prog,U,toLocal});
 const warp=freshWarp(),warpEffects=createWarpEffects({gl,prog,U}),catalogStream=createAssetStream({manifest:catalogManifest});
 catalogStream.load('exoplanets').then(bytes=>{if(!bytes)return;try{appendCatalog(sites,JSON.parse(new TextDecoder().decode(bytes)));celestial.splice(0,celestial.length,...sites.map((s,i)=>({s,i})).filter(({s})=>['planet','moon'].includes(s.kind)));}catch(e){console.warn('Catalog rejected',e.message);}});
 const terrainRenderer=createSurfaceRenderer({gl,B,M,prog,U});
-refitShip({B,M,MAT,add,meshes,rooms,LIGHTS,fixture,plac,label,makeDoor,AREAS,DOORAREAS,OBST,inter,openStorage:()=>{page='STORAGE';if(!game.tab)toggleTab();else renderTab();},openSystems:()=>{page='SYSTEMS';if(!game.tab)toggleTab();else renderTab();}});
+refitShip({B,M,MAT,add,meshes,rooms,LIGHTS,fixture,plac,label,makeDoor,doors,AREAS,DOORAREAS,OBST,inter,openStorage:()=>{page='STORAGE';if(!game.tab)toggleTab();else renderTab();},openSystems:()=>{page='SYSTEMS';if(!game.tab)toggleTab();else renderTab();}});
 function issuePilot(type,amount=0){if(warp.phase!=='idle'){cancelWarp(warp);notice('Warp field braking. Manual controls resume at field exit.');return;}if(flight.sharedWorld&&!voyage.active){const r=pilotCommand({...voyage,active:true},flight,type,amount);if(r.ok&&type==='thrust')voyage.throttle=clamp(voyage.throttle+amount,-1,1);if(r.ok&&type==='brake')voyage.throttle=0;if(r.ok)flight.ap='none';return r.ok;}if(!['brake','manual'].includes(type)&&!flightReady())return false;if(surface){notice('The ship is holding orbit. Return aboard to pilot.');return false;}const r=pilotCommand(voyage,flight,type,amount);if(!r.ok)notice(r.message);return r.ok;}
 function pilotPanelHTML(){const e=voyage.expedition;return `<h3>FLIGHT CONTROL / DIRECT LINK</h3><div class="hint">${voyage.pilot?'PILOT AUTHORITY ACTIVE':'PILOT SEAT REQUIRED'} · ${e.docked>=0?'DOCKING CLAMPS ENGAGED':e.autopilot?'AUTOPILOT':'MANUAL'}</div><button data-act="pilot">${voyage.pilot?'LEAVE PILOT SEAT':'TAKE PILOT SEAT'}</button><div class="row"><div>THRUST <b data-pilot="throttle"></b><small data-pilot="velocity"></small></div><div>PITCH <b data-pilot="pitch"></b><small data-pilot="yaw"></small></div></div><div class="grid2">${e.docked>=0?'<button data-act="nav:undock">UNDOCK</button>':''}<button data-act="pilotcmd:manual">MANUAL</button><button data-act="nav:navigate">AUTOPILOT TO TARGET</button><button data-act="pilotcmd:brake">BRAKE / ZERO THRUST</button><button data-act="thr:2">THRUST +10%</button><button data-act="thr:-2">THRUST −10%</button><button data-act="pitch:5">PITCH UP 5°</button><button data-act="pitch:-5">PITCH DOWN 5°</button><button data-act="roll:0.0872665">ROLL LEFT</button><button data-act="roll:-0.0872665">ROLL RIGHT</button><button data-act="yaw:0.0872665">YAW LEFT 5°</button><button data-act="yaw:-0.0872665">YAW RIGHT 5°</button></div><div class="hint">W/S: forward/reverse · A/D: yaw · R/F: pitch · Q/E: roll · Shift/Ctrl: vertical · Z/X: strafe · B: brake<br>Close tablet to fly with the keyboard. Buttons remain usable with the tablet open.</div>`;}
 const pilotHUD=document.createElement('section');pilotHUD.id='pilotHUD';pilotHUD.innerHTML='<div id="pilotReadout"></div><div class="pilotButtons"><button data-flight="manual">MANUAL</button><button data-flight="undock">UNDOCK</button><button data-flight="navigate">AUTOPILOT</button><button data-flight="brake">BRAKE</button></div>';document.body.append(pilotHUD);
@@ -931,9 +934,9 @@ terrainRenderer.setPlanetTextureSource(i=>celestialRenderer.textures.get(i));
 // Twelve additional observation windows, with external shutter meshes and pressure glass.
 for(const z of [6.15,9.85,12.15,15.85,18.15,21.85])for(const side of [-1,1]){
  const x=side*3.7,out=side*4.42,name=(side<0?'PORT':'STARBOARD')+' OBSERVATION '+z.toFixed(0);
- const pane=new B();pane.box([x,1.65,z],[.012,.55,.7]);glassMeshes.push(pane.build());
- const trim=new B();for(const y of [1.07,2.23])trim.box([x,y,z],[.05,.035,.75]);for(const dz of [-.73,.73])trim.box([x,1.65,z+dz],[.05,.58,.025]);add(trim.build(),MAT.TRIM,[.3,.4,.42],.7,.35);
- const ext=new B();ext.box([out,1.65,z],[.015,.55,.7]);add(ext.build(),MAT.GLASS,[.05,.16,.21],.6,.15,{ext:true,alpha:.7});
+ const pane=new B();pane.box([x,1.625,z],[.025,.635,.75]);glassMeshes.push(pane.build());
+ const trim=new B();for(const y of [1,2.25])trim.box([x,y,z],[.05,.035,.75]);for(const dz of [-.73,.73])trim.box([x,1.65,z+dz],[.05,.58,.025]);add(trim.build(),MAT.TRIM,[.3,.4,.42],.7,.35);
+ const ext=new B();ext.box([out,1.625,z],[.025,.635,.75]);add(ext.build(),MAT.GLASS,[.05,.16,.21],.6,.15,{ext:true,alpha:.7});
  makeWindow(name,b=>b.box([0,-.55,0],[.02,.55,.7]),k=>M.T(out,2.2,z),{min:[x-.16,1,z-.7],max:[x+.16,2.2,z+.7]});
 }
 const exteriorShades=createExteriorShades({B,M,add,windows,pods:habitats.pods});

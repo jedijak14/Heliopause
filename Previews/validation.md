@@ -1,4 +1,27 @@
-# Validation record — 2026-10-26
+# Pressure-seal repair validation — 2026-10-26
+
+Current standalone SHA-256: `fdcdbec262011e1bcff77c34c2a78139718f5d0dbb0c0b9b4493fa196c29db1c`.
+
+| Check | Result / scope |
+|---|---|
+| Node tests | **72 passed**; includes sampled collar/wall closure, clear passages, door-seat overlap, connected annex planes and normalized daylight |
+| New pressure-route browser test | **PASS on final standalone**; walks from cockpit through all aft doors and back, enters all six core pods and both annexes, returns, compacts and checks fault → actual repair → opening |
+| Mobile browser | **PASS on final standalone**; Chromium touch emulation, not physical iPad/Safari |
+| Annex browser | **PASS on final standalone**; interaction, real walking, parent/occupied guards, save restoration, GPU unload and workshop repair |
+| Full legacy refit browser | **PASS during this repair**, before the last material/visibility adjustments; terrain, save/return, all aft rooms, flight UI and three landable worlds. The final-build room route is independently rerun above |
+| Model audit | **18/18 HD/offline variants passed**; hashes, finite decoded attributes, normals, indices, UVs and embedded texture dimensions; one upstream ISS primitive uses glTF's valid default material |
+| Portable C++/JS suite | **PASS**; sanitizer tests, 8,000 flight parity steps, 117 warp cases / 3,624 snapshots, habitat and touchdown rules; **not an Unreal compile** |
+| Render capture | **PASS**; 14 walking-route collar/entrance/annex views and nine room/exterior views; no page or WebGL errors |
+
+See [pressure-seal gallery](Pressure-Seals/README.md), [model audit](Pressure-Seals/model-audit.json) and [implementation notes](../Docs/PRESSURE_SEALS.md). The 41-media checksum manifest contains the original terminal/assets/mobile evidence plus the newly captured/updated room evidence. Original mobile screenshots are retained as historical priority-build evidence, not silently relabeled as this build.
+
+Only the listed suites were rerun here. Full GitHub CI, physical-device performance, all possible views/campaign states, and UE 5.8 rendering are not claimed. The Vercel production deployment from PR #4 is historical; these branch changes have not been merged or published to it.
+
+---
+
+## Historical validation (before this repair)
+
+### Validation record — 2026-10-26
 
 ## Publication order
 
